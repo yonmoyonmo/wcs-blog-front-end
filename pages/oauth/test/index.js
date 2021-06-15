@@ -1,13 +1,18 @@
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import Link from 'next/link'
+import { useEffect } from 'react'
 
-import style from '../../../styles/Home.module.css'
+import Link from 'next/link'
 
 const test = () => {
     const router = useRouter()
     const { token } = router.query;
     const [cookie, setCookie] = useCookies(["userToken"])
+
+    useEffect(()=>{
+        router.push('/')
+    },[])
+
 
     if(token){
         setCookie("userToken", token, {
@@ -18,7 +23,7 @@ const test = () => {
 
     return (
         <>
-        <div className={style.container}>
+        <div>
             <p>oauth text</p>
             <p>{ token }</p>
             <Link href="/">to home</Link>

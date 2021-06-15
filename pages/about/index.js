@@ -1,4 +1,3 @@
-import style from '../../styles/Home.module.css'
 import { useCookies } from 'react-cookie'
 
 const about = () =>{

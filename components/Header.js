@@ -4,8 +4,8 @@ const Header = () => {
   return (
     <div className={headerStyles.title}>
       <h1>wonmo cyber school</h1>
-      <span>HEADER HEADER</span> HEADER
-      <p className={headerStyles.descrition}>HEADER</p>
+      <span>HEADER</span> of wonmo cyber school
+      <p className={headerStyles.descrition}></p>
     </div>
   );
 };

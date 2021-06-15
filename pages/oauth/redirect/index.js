@@ -16,7 +16,7 @@ const oauthRedirect = () => {
   if (token != null) {
     setCookie("userToken", token, {
       path: "/",
-      maxAge: 36000,
+      maxAge: 360000,
     });
   }
   if(error){

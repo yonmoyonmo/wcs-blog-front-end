@@ -1,6 +1,6 @@
-import '../styles/globals.css'
-import {CookiesProvider} from 'react-cookie'
-import Layout from '../components/Layout'
+import "../styles/globals.css";
+import { CookiesProvider } from "react-cookie";
+import Layout from "../components/Layout";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </CookiesProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

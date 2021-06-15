@@ -13,7 +13,7 @@ const oauthRedirect = () => {
       router.push("/");
   }, []);
 
-  if (token) {
+  if (token != null) {
     setCookie("userToken", token, {
       path: "/",
       maxAge: 36000,

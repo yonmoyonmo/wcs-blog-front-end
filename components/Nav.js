@@ -17,7 +17,7 @@ const Nav = () => {
         {cookie.userToken ? (
           <Link href="/logout">logout</Link>
         ) : (
-          <Link href="login">login</Link>
+          <Link href="/login">login</Link>
         )}
       </ul>
     </nav>

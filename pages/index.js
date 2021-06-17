@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Header from "../components/Header";
+import CategoryList from "../components/CategoryList";
 import { useCookies } from "react-cookie";
 
 import style from "../styles/Layout.module.css";
@@ -17,12 +18,10 @@ export default function Home({ categories }) {
       <Header></Header>
       <div>
         <ul>
-          {categories.success !== null ? (
+          {categories.success === true ? (
             categories.data.map((category) => {
               return (
-                <li>
-                  <Link href="/">{category.title}</Link>
-                </li>
+                <CategoryList category={category} key={category.id}></CategoryList>
               );
             })
           ) : (
@@ -30,30 +29,32 @@ export default function Home({ categories }) {
           )}
         </ul>
       </div>
-      <div className={style.grid}>
-        <div className={style.card}>
-          <Link href="/about">about</Link>
-        </div>
-        <div className={style.card}>
-          <p>{token}</p>
-        </div>
+
+      <div className={style.card}>
+        <h3>token</h3>
+        <p>{token}</p>
       </div>
     </>
   );
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:8000/admin/public/category/list", {
-    method: "GET",
-  });
-  const categories = await res.json();
-  if (categories.success === false) {
-    console.log(categories.message);
-    return null;
+  try {
+    const res = await fetch(
+      "http://localhost:8000/admin/public/category/list",
+      {
+        method: "GET",
+      }
+    );
+    const categories = await res.json();
+    return {
+      props: {
+        categories,
+      },
+    };
+  } catch (e) {
+    console.log(e);
+    const categories = { success: false };
+    return { props: { categories } };
   }
-  return {
-    props: {
-      categories,
-    },
-  };
 }

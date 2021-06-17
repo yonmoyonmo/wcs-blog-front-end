@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const CategoryList = ({ category }) => {
   const cateId = category.id;
-  
+
     return (
     <div>
-      <Link href='/'>{category.title}</Link>
+      <Link href={`/postlist/${cateId}`}>{category.title}</Link>
     </div>
   );
 };

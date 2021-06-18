@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import Link from "next/link";
+import { endpointMania } from "../../util/enpointMania";
 
 const postList = ({ posts }) => {
   const router = useRouter();
@@ -13,7 +14,7 @@ const postList = ({ posts }) => {
         {posts.success ? (
           posts.data.map((post) => {
             return (
-              <div>
+              <div key={post.id}>
                 <Link href={`/post/${post.id}`}>{post.title}</Link>
               </div>
             );
@@ -28,7 +29,7 @@ const postList = ({ posts }) => {
 
 export async function getServerSideProps(context) {
   const { cateId } = context.query;
-  const postListEndpoint = `http://localhost:8000/api/public/post/category/${cateId}`;
+  const postListEndpoint = endpointMania(`/api/public/post/category/${cateId}`);
 
   try {
     const res = await fetch(postListEndpoint, {

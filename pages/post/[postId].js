@@ -1,16 +1,29 @@
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
+import jwtParser from "../../util/jwtParser";
+import { endpointMania } from "../../util/enpointMania";
 import Image from "next/image";
 import style from "../../styles/Layout.module.css";
 
 const post = ({ post }) => {
   const router = useRouter();
+  const [cookie, setCookie] = useCookies(["userToken"]);
+  const token = cookie.userToken;
+  const emailOfThisPost = post.data.blogUser.email;
+  const currentEmail = jwtParser(token);
 
   return (
     <>
+      <h3>{emailOfThisPost}</h3>
+      <h4>{currentEmail}</h4>
       {post.data.images.map((image) => {
         return (
           <div key={image.id} className={style.imageContainer}>
-            <Image src={image.imageURI} layout="fill" className={style.image}></Image>
+            <Image
+              src={image.imageURI}
+              layout="fill"
+              className={style.image}
+            ></Image>
           </div>
         );
       })}
@@ -25,6 +38,7 @@ const post = ({ post }) => {
       {post.data.comments.map((comment) => {
         return (
           <div key={comment.id}>
+            <hr />
             <p>{comment.text}</p>
           </div>
         );
@@ -35,7 +49,7 @@ const post = ({ post }) => {
 
 export async function getServerSideProps(context) {
   const { postId } = context.query;
-  const postEndPoint = `http://localhost:8000/api/public/post/${postId}`;
+  const postEndPoint = endpointMania(`/api/public/post/${postId}`);
 
   try {
     const res = await fetch(postEndPoint, {

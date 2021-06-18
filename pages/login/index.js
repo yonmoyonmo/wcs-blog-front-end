@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Router from "next/router";
 import { useCookies } from "react-cookie";
+import { authEndpoint } from "../../util/enpointMania";
 
 const login = () => {
   const [loginError, setLoginError] = useState("");
@@ -10,10 +11,10 @@ const login = () => {
   const [password, setPassword] = useState("");
   const [cookie, setCookie] = useCookies(["userToken"]);
 
-  const oauth2EndPoint =
-    "http://localhost:7000/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth/redirect";
-
-  const loginEndPoint = "http://localhost:7000/auth/login";
+  const oauth2EndPoint = authEndpoint(
+    "/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth/redirect"
+  );
+  const loginEndPoint = authEndpoint("/auth/login");
 
   function handleSubmit(e) {
     e.preventDefault();

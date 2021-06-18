@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "../components/Header";
 import CategoryList from "../components/CategoryList";
 import { useCookies } from "react-cookie";
+import { endpointMania } from "../util/enpointMania";
 
 import style from "../styles/Layout.module.css";
 
@@ -21,7 +22,10 @@ export default function Home({ categories }) {
           {categories.success === true ? (
             categories.data.map((category) => {
               return (
-                <CategoryList category={category} key={category.id}></CategoryList>
+                <CategoryList
+                  category={category}
+                  key={category.id}
+                ></CategoryList>
               );
             })
           ) : (
@@ -40,12 +44,9 @@ export default function Home({ categories }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(
-      "http://localhost:8000/admin/public/category/list",
-      {
-        method: "GET",
-      }
-    );
+    const res = await fetch(endpointMania("/admin/public/category/list"), {
+      method: "GET",
+    });
     const categories = await res.json();
     return {
       props: {

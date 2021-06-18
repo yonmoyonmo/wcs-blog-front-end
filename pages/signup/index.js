@@ -2,6 +2,7 @@ import style from "../../styles/Layout.module.css";
 import Link from "next/link";
 import React, { useState } from "react";
 import Router from "next/router";
+import { authEndpoint } from "../../util/enpointMania";
 
 const signup = () => {
   const [loginError, setLoginError] = useState("");
@@ -9,7 +10,7 @@ const signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signupEndPoint = "http://localhost:7000/auth/signup";
+  const signupEndPoint = authEndpoint("/auth/signup");
 
   function handleSubmit(e) {
     e.preventDefault();

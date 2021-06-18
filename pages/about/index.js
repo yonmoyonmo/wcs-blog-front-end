@@ -11,10 +11,8 @@ const about = () => {
         <title>about</title>
       </Head>
       <div className={style.container}>
-        about
-        <p>aaaaabout</p>
+        <h1>about</h1>
         <a href="/">to home</a>
-        <p className={style.card}>{token}</p>
       </div>
     </>
   );

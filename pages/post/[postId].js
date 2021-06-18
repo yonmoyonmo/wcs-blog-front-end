@@ -6,16 +6,21 @@ import Image from "next/image";
 import style from "../../styles/Layout.module.css";
 
 const post = ({ post }) => {
-  const router = useRouter();
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
+
   const emailOfThisPost = post.data.blogUser.email;
   const currentEmail = jwtParser(token);
 
   return (
     <>
-      <h3>{emailOfThisPost}</h3>
-      <h4>{currentEmail}</h4>
+      
+      {emailOfThisPost === currentEmail ? (
+        <p>수정과 삭제가 모습을 드러냈다.</p>
+      ) : (
+        <></>
+      )}
+
       {post.data.images.map((image) => {
         return (
           <div key={image.id} className={style.imageContainer}>

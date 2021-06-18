@@ -30,7 +30,6 @@ const login = () => {
       }),
     })
       .then((r) => {
-        console.log(r);
         return r.json();
       })
       .then((data) => {

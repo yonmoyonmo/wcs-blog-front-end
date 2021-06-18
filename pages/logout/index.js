@@ -7,11 +7,14 @@ const logout = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (cookie.userToken != null) {
-      removeCookie("userToken");
-      router.push("/");
-    }
+    window.location.reload();
+    console.log("use effect");
+    router.push("/");
   }, []);
+  if (cookie.userToken) {
+    console.log("remove cookie");
+    removeCookie("userToken");
+  }
   return (
     <>
       <div>logout</div>

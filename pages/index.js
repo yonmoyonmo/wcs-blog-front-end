@@ -1,22 +1,20 @@
 import Head from "next/head";
-import Link from "next/link";
 import Header from "../components/Header";
 import CategoryList from "../components/CategoryList";
 import { useCookies } from "react-cookie";
 import { endpointMania } from "../util/enpointMania";
-
 import style from "../styles/Layout.module.css";
 
 export default function Home({ categories }) {
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
-
+  
   return (
     <>
       <Head>
         <title>wonmo cyber shcool</title>
       </Head>
-      <Header></Header>
+      <Header props={"main page"}></Header>
       <div>
         <ul>
           {categories.success === true ? (

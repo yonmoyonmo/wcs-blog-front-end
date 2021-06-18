@@ -14,7 +14,6 @@ const post = ({ post }) => {
 
   return (
     <>
-      
       {emailOfThisPost === currentEmail ? (
         <p>수정과 삭제가 모습을 드러냈다.</p>
       ) : (

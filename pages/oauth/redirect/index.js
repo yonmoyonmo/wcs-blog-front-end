@@ -10,7 +10,8 @@ const oauthRedirect = () => {
   const [cookie, setCookie] = useCookies(["userToken"]);
 
   useEffect(() => {
-      router.push("/");
+    window.location.reload();
+    router.push("/");
   }, []);
 
   if (token != null) {
@@ -19,7 +20,7 @@ const oauthRedirect = () => {
       maxAge: 360000,
     });
   }
-  if(error){
+  if (error) {
     console.log(error);
   }
   return (

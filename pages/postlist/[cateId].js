@@ -15,7 +15,11 @@ const postList = ({ posts }) => {
           posts.data.map((post) => {
             return (
               <div key={post.id}>
-                <Link href={`/post/${post.id}`}>{post.title}</Link>
+                <ul>
+                  <li>
+                    <Link href={`/post/${post.id}`}>{post.title}</Link>
+                  </li>
+                </ul>
               </div>
             );
           })

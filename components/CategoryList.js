@@ -3,9 +3,13 @@ import Link from "next/link";
 const CategoryList = ({ category }) => {
   const cateId = category.id;
 
-    return (
+  return (
     <div>
-      <Link href={`/postlist/${cateId}`}>{category.title}</Link>
+      <ul>
+        <li>
+          <Link href={`/postlist/${cateId}`}>{category.title}</Link>
+        </li>
+      </ul>
     </div>
   );
 };

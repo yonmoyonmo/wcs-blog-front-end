@@ -8,6 +8,7 @@ import style from "../../styles/Layout.module.css";
 
 const profile = ({ profile }) => {
   const [cookie, setCookie] = useCookies(["userToken"]);
+
   const router = useRouter();
   useEffect(()=>{
     if(profile.success && profile.data.owner.nickname === null){
@@ -26,7 +27,7 @@ const profile = ({ profile }) => {
           <p>{profile.data.id}</p>
           <div key={profile.data.id} className={style.imageContainer}>
             <Image
-              src={profile.data.profileImageURL}
+              src={profile.data.profileImageURL ? profile.data.profileImageURL : "/public/default.png" }
               layout="fill"
               className={style.image}
             ></Image>

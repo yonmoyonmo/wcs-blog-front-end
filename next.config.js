@@ -1,5 +1,5 @@
 module.exports = {
     images:{
-        domains:['img1.daumcdn.net'],
+        domains:['img1.daumcdn.net', 'localhost',""],
     },
 }

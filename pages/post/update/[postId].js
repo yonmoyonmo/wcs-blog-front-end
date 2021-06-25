@@ -17,10 +17,10 @@ const updatePost = ({ post }) => {
     setCurrentEmail(jwtParser(token));
   }, [post]);
 
-  if(emailOfThisPost !== currentEmail){
-    window.alert("권한 없음")
+  if (emailOfThisPost !== currentEmail) {
+    window.alert("권한 없음");
     router.push("/");
-}
+  }
 
   return (
     <div>
@@ -31,14 +31,14 @@ const updatePost = ({ post }) => {
   );
 };
 
-const tokenFromCookie = (cookie) => {
-  if (!cookie) {
-    return "";
-  } else {
-    const parsedCookie = cookie.split("=");
-    return parsedCookie[1];
-  }
-};
+// const tokenFromCookie = (cookie) => {
+//   if (!cookie) {
+//     return "";
+//   } else {
+//     const parsedCookie = cookie.split("=");
+//     return parsedCookie[1];
+//   }
+// };
 
 export async function getServerSideProps(context) {
   const { postId } = context.query;

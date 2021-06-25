@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { endpointMania } from "../../../util/enpointMania";
-import jwtParser from "../../../util/jwtParser";
+import { endpointMania } from "../../util/enpointMania";
+import jwtParser from "../../util/jwtParser";
 import { useRouter } from "next/router";
 
 const createPost = () => {
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
-
   const router = useRouter();
-
-  if(!token){
-    window.alert("로그인 필요함");
-    router.push("/");
-  }
+  const { cateId, name } = router.query;
+  const back = `/postlist/${cateId}?name=${name}`;
+  useEffect(() => {
+    if (!token) {
+      window.alert("권한 없음");
+      router.push(back);
+    }
+  }, []);
 
   return (
     <div>
-      <p>createPost</p>
+      <p>createPost as a child of {cateId}</p>
     </div>
   );
 };

@@ -1,21 +1,16 @@
 import { useRouter } from "next/router";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 import Link from "next/link";
-import { endpointMania } from "../../util/enpointMania";
+import { endpointMania } from "../../../util/enpointMania";
 
-const postList = ({ posts, cateName }) => {
+const postList = ({ posts }) => {
   const router = useRouter();
-  const { name, cateId } = router.query;
+  const { cateId } = router.query;
 
   return (
     <>
-      <Header props={name}></Header>
+      <Header props={cateId}></Header>
       <div>
-        <button>
-          <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
-            글쓰기
-          </Link>
-        </button>
         {posts.success ? (
           posts.data.map((post) => {
             return (
@@ -37,8 +32,8 @@ const postList = ({ posts, cateName }) => {
 };
 
 export async function getServerSideProps(context) {
-  const { cateId } = context.query;
-  const postListEndpoint = endpointMania(`/api/public/post/category/${cateId}`);
+  const { tagId } = context.query;
+  const postListEndpoint = endpointMania(`/api/public/post/tag/${tagId}`);
 
   try {
     const res = await fetch(postListEndpoint, {
@@ -53,11 +48,7 @@ export async function getServerSideProps(context) {
   } catch (e) {
     console.log(e);
     const posts = { success: false };
-    return {
-      props: {
-        posts,
-      },
-    };
+    return { props: { posts } };
   }
 }
 

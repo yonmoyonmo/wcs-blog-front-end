@@ -51,14 +51,31 @@ const post = ({ post }) => {
           ) : (
             <div>no post</div>
           )}
-          {post.data.comments.map((comment) => {
-            return (
-              <div key={comment.id}>
-                <hr />
-                <p>{comment.text}</p>
-              </div>
-            );
-          })}
+          {post.data.postTagRelations ? (
+            post.data.postTagRelations.map((postTagRelation) => {
+              return (
+                <div key={postTagRelation.tag.id}>
+                  <Link href={`/postlist/tag/${postTagRelation.tag.id}`}>
+                    {postTagRelation.tag.tagName}
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <></>
+          )}
+          {post.data.comments ? (
+            post.data.comments.map((comment) => {
+              return (
+                <div key={comment.id}>
+                  <hr />
+                  <p>{comment.text}</p>
+                </div>
+              );
+            })
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <div>

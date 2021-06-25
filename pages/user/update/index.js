@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { endpointMania, imageEndpoint } from "../../../util/enpointMania";
 import style from "../../../styles/Layout.module.css";
 
-//닉네임 띄어쓰기 없게 하긔
+//닉네임 띄어쓰기 없게 하긔?
 
 const profileUpdate = ({ profile }) => {
   const [cookie, setCookie] = useCookies(["userToken"]);
@@ -167,7 +167,7 @@ const profileUpdate = ({ profile }) => {
             ></img>
           </div>
           <h4>새 후로파일 사진</h4>
-          <input type="file" name="myImage" onChange={uploadPreview} />
+          <input type="file" onChange={uploadPreview} />
         </div>
         <input type="submit" value="프로필 수정"></input>
         {submitError && <p style={{ color: "red" }}>{submitError}</p>}

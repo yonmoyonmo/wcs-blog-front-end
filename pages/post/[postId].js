@@ -6,6 +6,7 @@ import { endpointMania } from "../../util/enpointMania";
 import Link from "next/link";
 import style from "../../styles/Layout.module.css";
 import { useRouter } from "next/router";
+import Comment from "../../components/Comment";
 
 const post = ({ post }) => {
   const [cookie, setCookie] = useCookies(["userToken"]);
@@ -27,31 +28,29 @@ const post = ({ post }) => {
     setCurrentEmail(jwtParser(token));
   }, [post]);
 
-  const deleteFunction = async (e) =>{
+  const deleteFunction = async (e) => {
     e.preventDefault();
-    if(confirm("진짜진짜 삭제원하시나요???!")){
-      const response = await fetch(
-        deleteEndpoint, {
-          method:"DELETE",
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: postId,
-          }),
-        }
-      );
+    if (confirm("진짜진짜 삭제원하시나요???!")) {
+      const response = await fetch(deleteEndpoint, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: postId,
+        }),
+      });
       const deleteData = await response.json();
-      if(deleteData && deleteData.success){
+      if (deleteData && deleteData.success) {
         router.push("/");
-      }else{
+      } else {
         window.alert(`삭제 요청 실패! : ${deleteData.message}`);
       }
-    }else{
+    } else {
       return;
     }
-  }
+  };
 
   return (
     <>
@@ -63,9 +62,7 @@ const post = ({ post }) => {
               <button>
                 <Link href={`/post/update/${post.data.id}`}>게시글 수정</Link>
               </button>
-              <button onClick={deleteFunction}>
-                게시글 삭제
-              </button>
+              <button onClick={deleteFunction}>게시글 삭제</button>
             </div>
           ) : (
             <></>
@@ -104,13 +101,24 @@ const post = ({ post }) => {
           ) : (
             <></>
           )}
+          <div>
+            <hr />
+            <button>
+              <Link href={`/post/comment/create?postId=${post.data.id}`}>
+                댓글달기
+              </Link>
+            </button>
+          </div>
+
           {post.data.comments ? (
             post.data.comments.map((comment) => {
               return (
-                <div key={comment.id}>
-                  <hr />
-                  <p>{comment.text}</p>
-                </div>
+                <Comment
+                  comment={comment}
+                  key={comment.id}
+                  currentEmail={currentEmail}
+                  token={token}
+                ></Comment>
               );
             })
           ) : (

@@ -7,18 +7,29 @@ import Image from "next/image";
 import style from "../../styles/Layout.module.css";
 
 const profile = ({ profile }) => {
-  const [cookie, setCookie] = useCookies(["userToken"]);
+  const [cookie, setCookie, removeCookie] = useCookies(["userToken"]);
 
   const router = useRouter();
-  useEffect(()=>{
-    if(profile.success && profile.data.owner.nickname === null){
-      if(confirm("닉네임이 없다? 바아로 하나 만들자? 아님 말고?")){
+  useEffect(() => {
+    if (profile.success && profile.data.owner.nickname === null) {
+      if (confirm("닉네임이 없다? 바아로 하나 만들자? 아님 말고?")) {
         router.push("/user/nickname");
-      }else{
+      } else {
         return;
       }
     }
-  },[])
+  }, []);
+
+  const logoutFunction = (e) => {
+    e.preventDefault();
+    try {
+      removeCookie("userToken");
+      window.location.reload();
+    } catch (e) {
+      window.alert(`logout 실패 : ${e}`);
+    }
+    router.push("/");
+  };
 
   return (
     <div>
@@ -27,7 +38,11 @@ const profile = ({ profile }) => {
           <p>{profile.data.id}</p>
           <div key={profile.data.id} className={style.imageContainer}>
             <Image
-              src={profile.data.profileImageURL ? profile.data.profileImageURL : "/public/default.png" }
+              src={
+                profile.data.profileImageURL
+                  ? profile.data.profileImageURL
+                  : "/public/default.png"
+              }
               layout="fill"
               className={style.image}
             ></Image>
@@ -47,7 +62,7 @@ const profile = ({ profile }) => {
         <></>
       )}
       {cookie.userToken ? (
-        <Link href="/logout">logout</Link>
+        <button onClick={logoutFunction}>logout 하는 버튼</button>
       ) : (
         <Link href="/login">login 해야지 후로파일이 보임</Link>
       )}
@@ -81,7 +96,7 @@ export async function getServerSideProps(context) {
       },
     });
     const profile = await res.json();
-    
+
     return {
       props: {
         profile,

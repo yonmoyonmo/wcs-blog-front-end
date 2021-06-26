@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { endpointMania, imageEndpoint } from "../../util/enpointMania";
-import jwtParser from "../../util/jwtParser";
 import { useRouter } from "next/router";
 import style from "../../styles/Layout.module.css";
 

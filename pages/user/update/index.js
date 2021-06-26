@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
 import { endpointMania, imageEndpoint } from "../../../util/enpointMania";
+import Link from "next/link"
 import style from "../../../styles/Layout.module.css";
 
 //닉네임 띄어쓰기 없게 하긔?
@@ -18,18 +19,11 @@ const profileUpdate = ({ profile }) => {
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
-  const [nickExists, setNickExists] = useState(false);
-
-  const [nickError, setNickError] = useState("");
-  const [nickInfo, setNickInfo] = useState("");
-
   const [submitError, setSubmitError] = useState("");
 
   const router = useRouter();
 
-  const nickNameCheckEndpoint = endpointMania("/api/user/nickname/check?nickname="); //get
   const updateProfileEndpoint = endpointMania("/api/user/profile"); //put
-  const updateNickNameEndPoint = endpointMania("/api/user/nickname"); //post
   const updataProfileImageEndpoint = imageEndpoint("/wcs/image/upload"); //post, form-data
 
   useEffect(() => {
@@ -44,82 +38,44 @@ const profileUpdate = ({ profile }) => {
     }
   }, [profile]);
 
-  function nicknameDubCheck(e) {
-    e.preventDefault();
-
-    fetch(nickNameCheckEndpoint + nickname, {
-      method: "GET",
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((r) => {
-        return r.json();
-      })
-      .then((data) => {
-        if (data && data.success) {
-          setNickInfo(data.message);
-          setNickExists(true);
-        } else if (data && !data.success) {
-          setNickError(data.message);
-        }
-      });
-  }
-
   async function submitProfile(e) {
     e.preventDefault();
-    if (!nickExists) {
-      setSubmitError("닉네임 중복검사좀 해주셈");
-    } else {
-      const response = await fetch(updateNickNameEndPoint, {
-        method: "POST",
+
+    const body = new FormData();
+    body.append("file", image);
+    body.append("userName", nickname);
+    const response = await fetch(updataProfileImageEndpoint, {
+      method: "POST",
+      body: body,
+    });
+    const dataImage = await response.json();
+    if (dataImage && dataImage.imageLocation) {
+      const imageURL = imageEndpoint(
+        `/wcs/image/display${dataImage.imageLocation}`
+      );
+      console.log(imageURL);
+      setProfileImageURL(imageURL);
+
+      const response = await fetch(updateProfileEndpoint, {
+        method: "PUT",
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
         },
-        body: nickname,
+        body: JSON.stringify({
+          description,
+          profileImageURL: imageURL,
+        }),
       });
-      const dataNick = await response.json();
-      if (dataNick && dataNick.success) {
-        const body = new FormData();
-        body.append("file", image);
-        body.append("userName", nickname);
-        const response = await fetch(updataProfileImageEndpoint, {
-          method: "POST",
-          body: body,
-        });
-        const dataImage = await response.json();
-        if (dataImage && dataImage.imageLocation) {
-          const imageURL = imageEndpoint(
-            `/wcs/image/display${dataImage.imageLocation}`
-          );
-          console.log(imageURL);
-          setProfileImageURL(imageURL);
-          
-          const response = await fetch(updateProfileEndpoint, {
-            method: "PUT",
-            headers: {
-              Authorization: token,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              description,
-              profileImageURL: imageURL
-            }),
-          });
-          const data = await response.json();
-          if (data && data.success) {
-            console.log(data.message);
-            router.push("/user/profile");
-          } else {
-            setSubmitError(data.message);
-          }
-        } else {
-          setSubmitError(dataImage.message);
-        }
-      } else if (dataNick && !data.success) {
+      const data = await response.json();
+      if (data && data.success) {
+        console.log(data.message);
+        router.push("/user/profile");
+      } else {
         setSubmitError(data.message);
       }
+    } else {
+      setSubmitError(dataImage.message);
     }
   }
 
@@ -135,20 +91,7 @@ const profileUpdate = ({ profile }) => {
   return (
     <div>
       update profile
-      <form onSubmit={nicknameDubCheck}>
-        <input
-          type="text"
-          maxLength="12"
-          placeholder="set a nickname"
-          value={nickname}
-          onChange={(e) => {
-            setNickname(e.target.value);
-          }}
-        ></input>
-        <input type="submit" value="닉네임 중복 확인"></input>
-        {nickError && <p style={{ color: "red" }}>{nickError}</p>}
-        {nickInfo && <p style={{ color: "blue" }}>{nickInfo}</p>}
-      </form>
+      <p>{nickname}</p>
       <form onSubmit={submitProfile}>
         <textarea
           type="text"
@@ -172,6 +115,7 @@ const profileUpdate = ({ profile }) => {
         <input type="submit" value="프로필 수정"></input>
         {submitError && <p style={{ color: "red" }}>{submitError}</p>}
       </form>
+      <Link href="/user/nickname">닉네임 수정 도전하기</Link>
     </div>
   );
 };

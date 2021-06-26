@@ -12,12 +12,6 @@ const createPost = () => {
   const { cateId, name } = router.query;
   const back = `/postlist/${cateId}?name=${name}`;
 
-  // "categoryId":1,
-  // "title": "test post 01",
-  // "text" : "this test is post creation test",
-  // "tagList" : ["침착맨", "침착맨2"],
-  // "imageUrlList" : ["이미지유알엘", "이미지유알엘투"]
-
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [tagString, setTagString] = useState("");
@@ -31,7 +25,8 @@ const createPost = () => {
   const [createObjectURLs, setCreateObjectURLs] = useState([]);
 
   const postUploadEndpoint = endpointMania("/api/post"); // post with token
-  const imageUploadEndpoint = imageEndpoint("/wcs/image/upload"); //post, form-data
+  const imageUploadEndpoint = imageEndpoint("/wcs/image/post/upload"); //post, form-data
+
   useEffect(() => {
     if (!token) {
       window.alert("권한 없음");
@@ -39,13 +34,79 @@ const createPost = () => {
     }
   }, []);
 
+  const makeTagArray = (tagsWithComma) => {
+    const tagArray = tagsWithComma.split(",");
+    return tagArray;
+  };
+
+  function makeid(length) {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  const makeImageUrls = (imageLocations) => {
+    const imageURLs = [];
+    imageLocations.map((imageLocation) => {
+      const imageURL = imageEndpoint(`/wcs/image/display${imageLocation}`);
+      imageURLs.push(imageURL);
+    });
+    return imageURLs;
+  };
+
   async function submitHandler(e) {
     e.preventDefault();
-    if(title === "" || text === ""){
-      setError("제목과 내용 중 하나가 아무튼 없음");
-    }else{
-      //이미지 업로드 각각 하고 유알엘 받아서 포스트 업로드, 태그 배열로 바꾸는 함수 -> 해야함
-      //일단 한 숨 잔다.
+    if (title === "" || text === "" || images.length === 0) {
+      setError("제목과 내용과 이미지 중 하나가 아무튼 없음");
+    } else {
+      //이미지 업로드 각각 하고 유알엘 받아서 포스트 업로드, 태그 배열로 바꾸는 함수
+      const bodyFormData = new FormData();
+      //bodyFormData.append("files", images);
+      for (let i = 0; i < images.length; i++) {
+        bodyFormData.append(`files`, images[i]);
+      }
+      const postName = makeid(title.length);
+      bodyFormData.append("postName", postName);
+      const response = await fetch(imageUploadEndpoint, {
+        method: "POST",
+        "Content-Type": "multipart/form-data",
+        body: bodyFormData,
+      });
+      const imageData = await response.json();
+      if (imageData && imageData.success) {
+        console.log(imageData.imageLocations)
+        const imageURLs = makeImageUrls(imageData.imageLocations);
+        const tags = makeTagArray(tagString);
+
+        const response2 = await fetch(postUploadEndpoint, {
+          method: "POST",
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            categoryId: cateId,
+            title: title,
+            text: text,
+            tagList: tags,
+            imageUrlList: imageURLs,
+          }),
+        });
+        const postData = await response2.json();
+        if (postData && postData.success) {
+          console.log(postData.message);
+          router.push(back);
+        } else {
+          setError(postData.message);
+        }
+      } else {
+        setError(imageData.message);
+      }
     }
   }
 

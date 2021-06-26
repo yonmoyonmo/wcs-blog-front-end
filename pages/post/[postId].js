@@ -31,15 +31,16 @@ const post = ({ post }) => {
           ) : (
             <></>
           )}
-
+          <p>{emailOfThisPost}</p>
+          <p>{post.data.createdTime.split('T')[0]}</p>
           {post.data.images.map((image) => {
             return (
               <div key={image.id} className={style.imageContainer}>
-                <Image
+                <img
                   src={image.imageURI}
                   layout="fill"
                   className={style.image}
-                ></Image>
+                ></img>
               </div>
             );
           })}

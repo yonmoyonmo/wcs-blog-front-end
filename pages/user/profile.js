@@ -13,7 +13,7 @@ const profile = ({ profile }) => {
   useEffect(()=>{
     if(profile.success && profile.data.owner.nickname === null){
       if(confirm("닉네임이 없다? 바아로 하나 만들자? 아님 말고?")){
-        router.push("/user/update");
+        router.push("/user/nickname");
       }else{
         return;
       }

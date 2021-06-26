@@ -38,10 +38,12 @@ const login = () => {
         }
         if (data && data.accessToken) {
           setCookie("userToken", data.accessToken, {
-            maxAge: 360000,
+            maxAge: 3600000,
             path: "/",
           });
           Router.push("/");
+        }else{
+          setLoginError("로그인 실패!")
         }
       });
   }

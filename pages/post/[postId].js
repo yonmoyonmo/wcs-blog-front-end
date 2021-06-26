@@ -3,36 +3,75 @@ import { useState } from "react";
 import { useEffect } from "react";
 import jwtParser from "../../util/jwtParser";
 import { endpointMania } from "../../util/enpointMania";
-import Image from "next/image";
 import Link from "next/link";
 import style from "../../styles/Layout.module.css";
+import { useRouter } from "next/router";
 
 const post = ({ post }) => {
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
 
+  const router = useRouter();
+
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
+  const [postId, setPostId] = useState("");
+
+  const deleteEndpoint = endpointMania("/api/post"); //delete with post id and token
+
   useEffect(() => {
     if (post.success) {
       setEmailOfThisPost(post.data.blogUser.email);
+      setPostId(post.data.id);
     }
     setCurrentEmail(jwtParser(token));
   }, [post]);
+
+  const deleteFunction = async (e) =>{
+    e.preventDefault();
+    if(confirm("진짜진짜 삭제원하시나요???!")){
+      const response = await fetch(
+        deleteEndpoint, {
+          method:"DELETE",
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: postId,
+          }),
+        }
+      );
+      const deleteData = await response.json();
+      if(deleteData && deleteData.success){
+        router.push("/");
+      }else{
+        window.alert(`삭제 요청 실패! : ${deleteData.message}`);
+      }
+    }else{
+      return;
+    }
+  }
+
   return (
     <>
       {post.success ? (
         <>
           {emailOfThisPost === currentEmail ? (
             <div>
-              <p>수정과 삭제가 모습을 드러냈다.</p>
-              <Link href={`/post/update/${post.data.id}`}>게시글 수정</Link>
+              <p>주인만 볼 수 있는 부분</p>
+              <button>
+                <Link href={`/post/update/${post.data.id}`}>게시글 수정</Link>
+              </button>
+              <button onClick={deleteFunction}>
+                게시글 삭제
+              </button>
             </div>
           ) : (
             <></>
           )}
           <p>{emailOfThisPost}</p>
-          <p>{post.data.createdTime.split('T')[0]}</p>
+          <p>{post.data.createdTime.split("T")[0]}</p>
           {post.data.images.map((image) => {
             return (
               <div key={image.id} className={style.imageContainer}>

@@ -16,9 +16,6 @@ const createPost = () => {
   const [text, setText] = useState("");
   const [tagString, setTagString] = useState("");
 
-  const [tagList, setTagList] = useState([""]);
-  const [imageUrlList, setImageUrlList] = useState([""]);
-
   const [error, setError] = useState("");
 
   const [images, setImages] = useState([]);
@@ -64,9 +61,7 @@ const createPost = () => {
     if (title === "" || text === "" || images.length === 0) {
       setError("제목과 내용과 이미지 중 하나가 아무튼 없음");
     } else {
-      //이미지 업로드 각각 하고 유알엘 받아서 포스트 업로드, 태그 배열로 바꾸는 함수
       const bodyFormData = new FormData();
-      //bodyFormData.append("files", images);
       for (let i = 0; i < images.length; i++) {
         bodyFormData.append(`files`, images[i]);
       }
@@ -79,7 +74,6 @@ const createPost = () => {
       });
       const imageData = await response.json();
       if (imageData && imageData.success) {
-        console.log(imageData.imageLocations)
         const imageURLs = makeImageUrls(imageData.imageLocations);
         const tags = makeTagArray(tagString);
 
@@ -99,7 +93,6 @@ const createPost = () => {
         });
         const postData = await response2.json();
         if (postData && postData.success) {
-          console.log(postData.message);
           router.push(back);
         } else {
           setError(postData.message);
@@ -172,6 +165,7 @@ const createPost = () => {
               }}
             ></input>
           </div>
+
           <button onClick={resetImages}>image reset</button>
           {createObjectURLs.length !== 0 ? (
             createObjectURLs.map((each, key) => {

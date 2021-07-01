@@ -17,13 +17,20 @@ const post = ({ post }) => {
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
   const [postId, setPostId] = useState("");
+  const [splitedText, setSplitedTest] = useState([]);
 
   const deleteEndpoint = endpointMania("/api/post"); //delete with post id and token
+
+  const textSpliter = (text) => {
+    const splitedText = text.split("\n");
+    setSplitedTest(splitedText);
+  };
 
   useEffect(() => {
     if (post.success) {
       setEmailOfThisPost(post.data.blogUser.email);
       setPostId(post.data.id);
+      textSpliter(post.data.text);
     }
     setCurrentEmail(jwtParser(token));
   }, [post]);
@@ -83,7 +90,16 @@ const post = ({ post }) => {
           {post.success ? (
             <div>
               <h1>{post.data.title}</h1>
-              <p>{post.data.text}</p>
+              <p>
+                {splitedText.map((each) => {
+                  return (
+                    <>
+                      {each}
+                      <br />
+                    </>
+                  );
+                })}
+              </p>
             </div>
           ) : (
             <div>no post</div>

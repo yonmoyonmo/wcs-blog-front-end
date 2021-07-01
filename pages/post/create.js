@@ -23,6 +23,8 @@ const createPost = () => {
   const postUploadEndpoint = endpointMania("/api/post"); // post with token
   const imageUploadEndpoint = imageEndpoint("/wcs/image/post/upload"); //post, form-data
 
+  const regExp = /[\{\}\[\]\/?.;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
+
   useEffect(() => {
     if (!token) {
       window.alert("권한 없음");
@@ -161,6 +163,11 @@ const createPost = () => {
               placeholder="태그 쓰는 곳 : , 로 구분하여 입력"
               value={tagString}
               onChange={(e) => {
+                if (regExp.test(e.target.value)) {
+                  setError("태그에 쉼표 외 특수문자 사용 불가능");
+                  setTagString(e.target.value.replace(regExp, ""));
+                  return;
+                }
                 setTagString(e.target.value);
               }}
             ></input>

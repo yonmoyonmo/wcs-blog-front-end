@@ -1,10 +1,13 @@
 import { useCookies } from "react-cookie";
 import { endpointMania } from "../../util/enpointMania";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const adminHome = () => {
   const [cookie, setCookie, removeCookie] = useCookies(["adminToken"]);
+  const router = useRouter();
+
   const [loginError, setLoginError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

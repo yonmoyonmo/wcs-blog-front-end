@@ -12,6 +12,9 @@ const Nav = () => {
           <Link href="/about">about</Link>
         </li>
         <li>
+          <Link href="/notification">notification</Link>
+        </li>
+        <li>
           <Link href="/user/profile">user profile</Link>
         </li>
       </ul>

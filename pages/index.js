@@ -31,11 +31,6 @@ export default function Home({ categories }) {
           )}
         </ul>
       </div>
-
-      <div className={style.card}>
-        <h3>token</h3>
-        <p>{token}</p>
-      </div>
     </>
   );
 }

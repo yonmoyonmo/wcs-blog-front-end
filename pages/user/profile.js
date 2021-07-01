@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { endpointMania } from "../../util/enpointMania";
-import Image from "next/image";
+import defaultProfile from "../../assets/sample.png";
 import style from "../../styles/Layout.module.css";
 
 const profile = ({ profile }) => {
@@ -36,15 +36,15 @@ const profile = ({ profile }) => {
       {profile.success ? (
         <>
           <div key={profile.data.id} className={style.imageContainer}>
-            <Image
+            <img
               src={
                 profile.data.profileImageURL
                   ? profile.data.profileImageURL
-                  : "/public/default.png"
+                  : defaultProfile
               }
               layout="fill"
               className={style.image}
-            ></Image>
+            ></img>
           </div>
           <p>{profile.data.description}</p>
           <p>{profile.data.owner.email}</p>
@@ -95,7 +95,6 @@ export async function getServerSideProps(context) {
       },
     });
     const profile = await res.json();
-
     return {
       props: {
         profile,

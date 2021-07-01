@@ -11,9 +11,6 @@ export default function Home({ categories }) {
   
   return (
     <>
-      <Head>
-        <title>wonmo cyber shcool</title>
-      </Head>
       <Header props={"main page"}></Header>
       <div>
         <ul>

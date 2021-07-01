@@ -1,8 +1,21 @@
 import Link from "next/link";
 import { endpointMania } from "../util/enpointMania";
+import { useEffect } from "react";
+import React, {useState} from "react";
 
 const Comment = ({ comment, currentEmail, token, key }) => {
   const commentDeleteEndpoint = endpointMania("/api/comment");
+  const [nick, setNick] = useState("");
+
+  useEffect(()=>{
+    setNick(nickCheck(comment.blogUser.nickname))
+  },[])
+
+  const nickCheck = (nick)=>{
+    if(!nick) return comment.blogUser.email;
+    else return nick;
+  }
+
 
   const deleteComment = async (e) => {
     e.preventDefault();
@@ -32,7 +45,7 @@ const Comment = ({ comment, currentEmail, token, key }) => {
     <div key={key}>
       <hr />
       <p>
-        {comment.blogUser.nickname +
+        {nick +
           " : " +
           comment.text +
           " [" +

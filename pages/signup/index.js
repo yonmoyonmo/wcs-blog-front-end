@@ -10,6 +10,8 @@ const signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
+
   const signupEndPoint = authEndpoint("/auth/signup");
 
   function handleSubmit(e) {
@@ -36,6 +38,8 @@ const signup = () => {
         }
         if (data && data.success) {
           Router.push("/login");
+        }else{
+          setLoginError("이미 등록된 이메일입니다.");
         }
       });
   }
@@ -51,7 +55,14 @@ const signup = () => {
               type="name"
               value={name}
               placeholder="name"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                if(regExp.test(e.target.value)){
+                  setLoginError("이름에 특수문자 포함 불가능");
+                  setName(e.target.value.replace(regExp, ""));
+                  return;
+                }
+                setName(e.target.value)
+              }}
             />
             <input
               name="email"

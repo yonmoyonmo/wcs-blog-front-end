@@ -12,6 +12,7 @@ const about = () => {
       </Head>
       <div className={style.container}>
         <h1>about</h1>
+        <p>이것저것 설명함</p>
         <a href="/">to home</a>
       </div>
     </>

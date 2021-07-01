@@ -147,6 +147,7 @@ const createPost = () => {
               type="text"
               value={text}
               placeholder="글 쓰는 부분"
+              maxLength="3000"
               onChange={(e) => {
                 setText(e.target.value);
               }}

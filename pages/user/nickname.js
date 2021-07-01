@@ -13,6 +13,8 @@ const setProfileNickname = () => {
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
 
+  const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
+
   const router = useRouter();
 
   const nickNameCheckEndpoint = endpointMania(
@@ -78,6 +80,11 @@ const setProfileNickname = () => {
           placeholder="set a nickname"
           value={nickname}
           onChange={(e) => {
+            if(regExp.test(e.target.value)){
+              setNickError("이름에 특수문자 포함 불가능");
+              setNickname(e.target.value.replace(regExp, ""));
+              return;
+            }
             setNickname(e.target.value);
           }}
         ></input>

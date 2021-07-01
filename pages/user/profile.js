@@ -35,7 +35,6 @@ const profile = ({ profile }) => {
     <div>
       {profile.success ? (
         <>
-          <p>{profile.data.id}</p>
           <div key={profile.data.id} className={style.imageContainer}>
             <Image
               src={

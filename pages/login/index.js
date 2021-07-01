@@ -43,7 +43,7 @@ const login = () => {
           });
           Router.push("/");
         }else{
-          setLoginError("로그인 실패!")
+          window.alert("계정 정보가 올바르지 않습니다.");
         }
       });
   }

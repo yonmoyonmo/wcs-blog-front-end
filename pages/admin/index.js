@@ -2,6 +2,7 @@ import { useCookies } from "react-cookie";
 import { endpointMania } from "../../util/enpointMania";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const adminHome = () => {
@@ -87,7 +88,7 @@ const adminHome = () => {
     }
   };
 
-  const createNotification = async (e) =>{
+  const createNotification = async (e) => {
     e.preventDefault();
     const response = await fetch(notiEndpoint, {
       method: "POST",
@@ -106,7 +107,7 @@ const adminHome = () => {
     } else {
       setErrorString("공지 안생성됨");
     }
-  }
+  };
 
   return (
     <>
@@ -117,7 +118,7 @@ const adminHome = () => {
             <p>어드민 로그인 됨</p>
             <button onClick={logoutFunction}>로그아웃</button>
           </div>
-          <hr/>
+          <hr />
           <div>
             <label>카테고리 만들기</label>
             <form onSubmit={createCategory}>
@@ -135,9 +136,13 @@ const adminHome = () => {
               />
               <input type="submit" value="등록" />
             </form>
+
+            <button>
+              <Link href="/admin/update/cate">카테고리 수정하러 가기</Link>
+            </button>
           </div>
 
-          <hr/>
+          <hr />
           <div>
             <label>공지사항 만들기</label>
             <form onSubmit={createNotification}>
@@ -155,6 +160,10 @@ const adminHome = () => {
               />
               <input type="submit" value="등록" />
             </form>
+
+            <button>
+              <Link href="/admin/update/noti">공지사항 수정하러 가기</Link>
+            </button>
           </div>
         </div>
       ) : (

@@ -17,7 +17,7 @@ export default function Home({ categories }) {
       <Header props={"main page"}></Header>
       <div>
         <ul>
-          {categories.success === true ? (
+          {categories.success ? (
             categories.data.map((category) => {
               return (
                 <CategoryList

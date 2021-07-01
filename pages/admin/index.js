@@ -59,7 +59,7 @@ const adminHome = () => {
     if (adminTokenData && adminTokenData.success) {
       setCookie("adminToken", adminTokenData.data, {
         path: "/",
-        maxAge: 3600000,
+        maxAge: 360000,
       });
       window.location.reload();
     } else {

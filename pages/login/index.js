@@ -38,7 +38,7 @@ const login = () => {
         }
         if (data && data.accessToken) {
           setCookie("userToken", data.accessToken, {
-            maxAge: 3600000,
+            maxAge: 360000,
             path: "/",
           });
           Router.push("/");

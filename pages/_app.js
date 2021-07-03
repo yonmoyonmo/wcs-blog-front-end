@@ -1,6 +1,7 @@
-import "../styles/globals.css";
 import { CookiesProvider } from "react-cookie";
 import Layout from "../components/Layout";
+import "xp.css/dist/XP.css";
+
 
 function MyApp({ Component, pageProps }) {
   return (

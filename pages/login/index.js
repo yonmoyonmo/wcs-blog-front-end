@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Router from "next/router";
 import { useCookies } from "react-cookie";
 import { authEndpoint } from "../../util/enpointMania";
+import googleLogo from "../../assets/googleLogo.png";
 
 const login = () => {
   const [loginError, setLoginError] = useState("");
@@ -18,7 +19,7 @@ const login = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     fetch(loginEndPoint, {
       method: "POST",
       headers: {
@@ -42,45 +43,80 @@ const login = () => {
             path: "/",
           });
           Router.push("/");
-        }else{
+        } else {
           window.alert("계정 정보가 올바르지 않습니다.");
         }
       });
   }
 
   return (
-    <div className={style.container}>
-      <div className={style.card}>
-        <form onSubmit={handleSubmit}>
-          <p>그냥 Login</p>
-          <input
-            name="email"
-            type="email"
-            value={email}
-            placeholder="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            name="password"
-            type="password"
-            value={password}
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input type="submit" value="login" />
+    <div className="window-body">
+      <div className="window">
+        <div className="title-bar">
+          <div className="title-bar-text">Login</div>
+          <div className="title-bar-controls">
+            <button aria-label="Minimize" />
+            <button aria-label="Maximize" />
+            <button aria-label="Close" />
+          </div>
+        </div>
+        <div className="window-body">
+          <p style={{ textAlign: "center" }}>normal login with ID/PASSWORD</p>
           {loginError && <p style={{ color: "red" }}>{loginError}</p>}
-          <button>
-            <Link href="/signup">sign up</Link>
-          </button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input
+                name="email"
+                type="email"
+                value={email}
+                placeholder="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input
+                name="password"
+                type="password"
+                value={password}
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <br />
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input type="submit" value="login" />
+              <button>
+                <Link href="/signup">sign up</Link>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-
-      <div className={style.card}>
-        <div>
-          <h2>소셜 로그인</h2>
-          <p>
-            <Link href={oauth2EndPoint}>oauth 2.0 google test</Link>
-          </p>
+      <br />
+      <div className="window">
+        <div className="title-bar">
+          <div className="title-bar-text">OAuth 2.0</div>
+          <div className="title-bar-controls">
+            <button aria-label="Minimize" />
+            <button aria-label="Maximize" />
+            <button aria-label="Close" />
+          </div>
+        </div>
+        <div className="window-body">
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p style={{ textAlign: "center" }}>
+              social login with a google account
+            </p>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <Link href={oauth2EndPoint}>Login With Google</Link>
+          </div>
+          <div
+            className="field-row"
+            style={{ justifyContent: "center", padding: "5%" }}
+          >
+            <img src={googleLogo}></img>
+          </div>
         </div>
       </div>
     </div>

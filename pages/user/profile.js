@@ -63,7 +63,13 @@ const profile = ({ profile }) => {
       {cookie.userToken ? (
         <button onClick={logoutFunction}>logout 하는 버튼</button>
       ) : (
-        <Link href="/login">login 해야지 후로파일이 보임</Link>
+        <div className="window-body">
+          <p style={{ textAlign: "center" }}>로그인 필요</p>
+          <p style={{ textAlign: "center" }}>Login required</p>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <Link href="/login">LOGIN</Link>
+          </div>
+        </div>
       )}
     </div>
   );

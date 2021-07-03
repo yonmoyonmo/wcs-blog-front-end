@@ -9,28 +9,47 @@ const postList = ({ posts, cateName }) => {
 
   return (
     <>
-      <Header props={name}></Header>
-      <div>
-        <button>
-          <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
-            글쓰기
-          </Link>
-        </button>
-        {posts.success ? (
-          posts.data.map((post) => {
-            return (
-              <div key={post.id}>
-                <ul>
-                  <li>
+      <Header props={"카테고리 : " + name}></Header>
+
+      <div style={{ width: "100%" }} className="window">
+        <div className="title-bar">
+          <div className="title-bar-text">post list</div>
+          <div className="title-bar-controls">
+            <button aria-label="Minimize" />
+            <button aria-label="Maximize" />
+            <button aria-label="Close" />
+          </div>
+        </div>
+        <div className="window-body">
+          <p style={{ textAlign: "center" }}>posts</p>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <button>
+              <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
+                글쓰기 (post)
+              </Link>
+            </button>
+          </div>
+          <br/>
+          <hr/>
+
+          {posts.success ? (
+            posts.data.map((post) => {
+              return (
+                <div
+                  className="field-row"
+                  style={{ justifyContent: "center" }}
+                  key={post.id}
+                >
+                  <button>
                     <Link href={`/post/${post.id}`}>{post.title}</Link>
-                  </li>
-                </ul>
-              </div>
-            );
-          })
-        ) : (
-          <p>no post</p>
-        )}
+                  </button>
+                </div>
+              );
+            })
+          ) : (
+            <p>no post</p>
+          )}
+        </div>
       </div>
     </>
   );

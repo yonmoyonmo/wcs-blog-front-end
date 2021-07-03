@@ -15,6 +15,7 @@
     "react-cookie": "^4.0.3",
     "react-dom": "17.0.2",
     "react-three-fiber": "^6.0.13",
-    "three": "^0.130.0"
+    "three": "^0.130.0",
+    "xp.css": "^0.2.4"
   }
 }

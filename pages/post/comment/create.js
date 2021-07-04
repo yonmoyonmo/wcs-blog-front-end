@@ -10,7 +10,7 @@ const commentCreate = () => {
   const { postId } = router.query;
 
   const [text, setText] = useState("");
-  
+
   const [error, setError] = useState("");
 
   const back = `/post/${postId}`;
@@ -33,18 +33,17 @@ const commentCreate = () => {
           Authorization: token,
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-          postId:postId,
-          text: text
+        body: JSON.stringify({
+          postId: postId,
+          text: text,
         }),
       });
       const commentData = await response.json();
-      if(commentData && commentData.success){
+      if (commentData && commentData.success) {
         router.push(back);
-      }else{
+      } else {
         setError("댓글 달기 실패!");
       }
-
     } else {
       setError("댓글 내용이 없읍니다.");
     }
@@ -52,9 +51,10 @@ const commentCreate = () => {
 
   return (
     <div>
-      <p>댓글 다는 부분</p>
-      <form onSubmit={submitHandler}>
+      <p>댓글 달기</p>
+      <form onSubmit={submitHandler} style={{ width: "100%" }}>
         <textarea
+          style={{ width: "100%" }}
           type="text"
           maxLength="140"
           placeholder="댓글 쓰는 곳, 140자 제한임"
@@ -64,7 +64,7 @@ const commentCreate = () => {
           }}
         ></textarea>
         <input type="submit" value="댓글 등록"></input>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );

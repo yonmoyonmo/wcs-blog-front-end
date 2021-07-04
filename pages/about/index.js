@@ -7,13 +7,25 @@ const about = () => {
   const token = cookie.userToken;
   return (
     <>
-      <Head>
-        <title>about</title>
-      </Head>
-      <div className={style.container}>
-        <h1>about</h1>
-        <p>이것저것 설명함</p>
-        <a href="/">to home</a>
+      <div className="window-body" style={{ width: "100%" }}>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <p>이 웹사이트의 존재 이유 : 재미, 원모의 웹 프로그래밍 실험</p>
+        </div>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <p>purpose of this website : fun, expremental</p>
+        </div>
+      </div>
+      <div className="field-row" style={{ justifyContent: "center" }}>
+        <button>
+          <a href="https://wonmocyberschool.tistory.com">
+            click! 원모의 티스토리 블로그
+          </a>
+        </button>
+      </div>
+      <div className="field-row" style={{ justifyContent: "center" }}>
+        <button>
+          <a href="https://github.com/yonmoyonmo">click! 원모의 GITHUB</a>
+        </button>
       </div>
     </>
   );

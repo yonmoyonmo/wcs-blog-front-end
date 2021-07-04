@@ -5,22 +5,33 @@ import { endpointMania } from "../../../util/enpointMania";
 
 const postList = ({ posts }) => {
   const router = useRouter();
-  const { cateId } = router.query;
-
   return (
     <>
-      <Header props={cateId}></Header>
-      <div>
+      <div style={{ width: "100%" }} className="window">
         {posts.success ? (
           posts.data.map((post) => {
             return (
-              <div key={post.id}>
-                <ul>
-                  <li>
-                    <Link href={`/post/${post.id}`}>{post.title}</Link>
-                  </li>
-                </ul>
-              </div>
+              <>
+                <div className="title-bar">
+                  <div className="title-bar-text">{post.title}</div>
+                  <div className="title-bar-controls">
+                    <button aria-label="Minimize" />
+                    <button aria-label="Maximize" />
+                    <button aria-label="Close" />
+                  </div>
+                </div>
+                <div className="window-body">
+                  <div
+                    className="field-row"
+                    style={{ justifyContent: "center" }}
+                    key={post.id}
+                  >
+                    <div key={post.id}>
+                      <Link href={`/post/${post.id}`}>이동</Link>
+                    </div>
+                  </div>
+                </div>
+              </>
             );
           })
         ) : (

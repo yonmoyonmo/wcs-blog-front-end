@@ -125,15 +125,22 @@ const createPost = () => {
   };
 
   return (
-    <>
-      <div>
-        <p>{name} 아래에 글쓰기</p>
+    <div style={{ width: "100%" }} className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">
+          <p>{name} 아래에 글쓰기</p>
+        </div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
       </div>
-      <h1>입력하는 곳</h1>
-      <div>
-        <form onSubmit={submitHandler}>
-          <div>
+      <div className="window-body" style={{ width: "100%" }}>
+        <form onSubmit={submitHandler} style={{ width: "100%" }}>
+          <div className="field-row" style={{ justifyContent: "center" }}>
             <input
+              style={{ width: "80%" }}
               type="text"
               maxLength="30"
               placeholder="제목 쓰는 곳"
@@ -144,8 +151,9 @@ const createPost = () => {
             ></input>
           </div>
 
-          <div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
             <textarea
+              style={{ width: "80%" }}
               type="text"
               value={text}
               placeholder="글 쓰는 부분"
@@ -156,8 +164,9 @@ const createPost = () => {
             ></textarea>
           </div>
 
-          <div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
             <input
+              style={{ width: "80%" }}
               type="text"
               maxLength="100"
               placeholder="태그 쓰는 곳 : , 로 구분하여 입력"
@@ -173,30 +182,38 @@ const createPost = () => {
             ></input>
           </div>
 
-          <button onClick={resetImages}>image reset</button>
           {createObjectURLs.length !== 0 ? (
             createObjectURLs.map((each, key) => {
               console.log(createObjectURLs);
               console.log(images);
               return (
-                <div className={style.imageContainer} key={key}>
-                  <img className={style.image} src={each} layout="fill"></img>
+                <div className="field-row" style={{ justifyContent: "center" }}>
+                  <div className={style.imageContainer} key={key}>
+                    <img className={style.image} src={each} layout="fill"></img>
+                  </div>
                 </div>
               );
             })
           ) : (
-            <p>이미지 없음</p>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>이미지 필수</p>
+            </div>
           )}
-
-          <div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <button onClick={resetImages}>image reset</button>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
             <input type="file" onChange={uploadPreviews} />
           </div>
 
-          <input type="submit" value="글 등록"></input>
+          <br />
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <input type="submit" value="글 등록"></input>
+          </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

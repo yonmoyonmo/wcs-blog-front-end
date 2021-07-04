@@ -13,7 +13,7 @@ const setProfileNickname = () => {
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
 
-  const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
+  const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"\ ]/gi;
 
   const router = useRouter();
 
@@ -67,27 +67,44 @@ const setProfileNickname = () => {
   }
 
   return (
-    <div>
-      닉네임을 잘 짓자
-      <button onClick={nicknameDubCheck}> 중복확인</button>
-      {nickError && <p style={{ color: "red" }}>{nickError}</p>}
-      {nickInfo && <p style={{ color: "blue" }}>{nickInfo}</p>}
-      {submitError && <p style={{ color: "blue" }}>{submitError}</p>}
+    <div style={{ width: "100%" }} className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">
+          <p>닉네임 정하기</p>
+        </div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
+      <div className="window-body" style={{ width: "100%" }}>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <button onClick={nicknameDubCheck}> 중복확인</button>
+        </div>
+        <div className="field-row" style={{ justifyContent: "center" }}></div>
+        {nickError && <p style={{ color: "red" }}>{nickError}</p>}
+        {nickInfo && <p style={{ color: "blue" }}>{nickInfo}</p>}
+        {submitError && <p style={{ color: "blue" }}>{submitError}</p>}
+      </div>
       <form onSubmit={submitNickname}>
-        <input
-          type="text"
-          maxLength="12"
-          placeholder="set a nickname"
-          value={nickname}
-          onChange={(e) => {
-            if(regExp.test(e.target.value)){
-              setNickError("이름에 특수문자 포함 불가능");
-              setNickname(e.target.value.replace(regExp, ""));
-              return;
-            }
-            setNickname(e.target.value);
-          }}
-        ></input>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <input
+            style={{ width: "80%" }}
+            type="text"
+            maxLength="12"
+            placeholder="set a nickname"
+            value={nickname}
+            onChange={(e) => {
+              if (regExp.test(e.target.value)) {
+                setNickError("이름에 특수문자 포함 불가능");
+                setNickname(e.target.value.replace(regExp, ""));
+                return;
+              }
+              setNickname(e.target.value);
+            }}
+          ></input>
+        </div>
         <input type="submit" value="닉네임 등록"></input>
       </form>
     </div>

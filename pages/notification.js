@@ -5,24 +5,55 @@ import styles from "../styles/Layout.module.css";
 const notificationPage = ({ notification }) => {
   return (
     <>
-    <Header props={"Notification"}></Header>
-    <div>
-      {notification.success ? (
-        <div>
-          {notification.data.map((noti) => {
-            return (
-              <div className={styles.card}>
-                <h2>{noti.title}</h2>
-                <p>{noti.text}</p>
-                <p>{noti.createdTime.split('T')[0]}</p>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <p>공지사항 없음</p>
-      )}
-    </div>
+      <br />
+      <div>
+        {notification.success ? (
+          <div>
+            {notification.data.map((noti) => {
+              return (
+                <>
+                  <div style={{ width: "100%" }} className="window">
+                    <div className="title-bar">
+                      <div className="title-bar-text">
+                        <p>{noti.title}</p>
+                      </div>
+                      <div className="title-bar-controls">
+                        <button aria-label="Minimize" />
+                        <button aria-label="Maximize" />
+                        <button aria-label="Close" />
+                      </div>
+                    </div>
+                    <div className="window-body" style={{ width: "100%" }}>
+                      <div
+                        className="field-row"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <p style={{ fontSize: "1.0rem" }}>{noti.title}</p>
+                      </div>
+                      <div
+                        className="field-row"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <p>{noti.text}</p>
+                      </div>
+                      <div
+                        className="field-row"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <p>{noti.createdTime.split("T")[0]}</p>
+                      </div>
+                    </div>
+                    <br />
+                  </div>
+                  <br />
+                </>
+              );
+            })}
+          </div>
+        ) : (
+          <p>공지사항 없음</p>
+        )}
+      </div>
     </>
   );
 };

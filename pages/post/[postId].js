@@ -60,93 +60,138 @@ const post = ({ post }) => {
   };
 
   return (
-    <>
+    <div>
       {post.success ? (
         <>
-          {emailOfThisPost === currentEmail ? (
-            <div>
-              <p>주인만 볼 수 있는 부분</p>
-              <button>
-                <Link href={`/post/update/${post.data.id}`}>게시글 수정</Link>
-              </button>
-              <button onClick={deleteFunction}>게시글 삭제</button>
-            </div>
-          ) : (
-            <></>
-          )}
-          <p>{emailOfThisPost}</p>
-          <p>{post.data.createdTime.split("T")[0]}</p>
-          {post.data.images.map((image) => {
-            return (
-              <div key={image.id} className={style.imageContainer}>
-                <img
-                  src={image.imageURI}
-                  layout="fill"
-                  className={style.image}
-                ></img>
+          <div style={{ width: "100%" }} className="window">
+            <div className="title-bar">
+              <div className="title-bar-text">{post.data.title}</div>
+              <div className="title-bar-controls">
+                <button aria-label="Minimize" />
+                <button aria-label="Maximize" />
+                <button aria-label="Close" />
               </div>
-            );
-          })}
-          {post.success ? (
-            <div>
-              <h1>{post.data.title}</h1>
-              <p>
-                {splitedText.map((each) => {
-                  return (
-                    <>
-                      {each}
-                      <br />
-                    </>
-                  );
-                })}
-              </p>
             </div>
-          ) : (
-            <div>no post</div>
-          )}
-          {post.data.postTagRelations ? (
-            post.data.postTagRelations.map((postTagRelation) => {
+
+            {emailOfThisPost === currentEmail ? (
+              <div className="field-row" style={{ justifyContent: "center" }}>
+                <button>
+                  <Link href={`/post/update/${post.data.id}`}>게시글 수정</Link>
+                </button>
+                <button onClick={deleteFunction}>게시글 삭제</button>
+              </div>
+            ) : (
+              <></>
+            )}
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>글쓴이 : {emailOfThisPost}</p>
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>작성일 : {post.data.createdTime.split("T")[0]}</p>
+            </div>
+            {post.data.images.map((image) => {
               return (
-                <div key={postTagRelation.tag.id}>
-                  <Link href={`/postlist/tag/${postTagRelation.tag.id}`}>
-                    {postTagRelation.tag.tagName}
-                  </Link>
+                <div className="window-body">
+                  <div
+                    className="field-row"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <div key={image.id} className={style.imageContainer}>
+                      <img
+                        src={image.imageURI}
+                        layout="fill"
+                        className={style.image}
+                      ></img>
+                    </div>
+                  </div>
+                  <br />
                 </div>
               );
-            })
-          ) : (
-            <></>
-          )}
-          <div>
+            })}
+            {post.success ? (
+              <>
+                <div className="window-body">
+                  <div
+                    className="field-row"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <p style={{ fontSize: "1.0rem" }}>{post.data.title}</p>
+                  </div>
+                  <div
+                    className="field-row"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <p>
+                      {splitedText.map((each) => {
+                        return (
+                          <p style={{ padding: "1%" }}>
+                            {each}
+                            <br />
+                          </p>
+                        );
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div>no post</div>
+            )}
             <hr />
-            <button>
-              <Link href={`/post/comment/create?postId=${post.data.id}`}>
-                댓글달기
-              </Link>
-            </button>
-          </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>tags</p>
+            </div>
+            {post.data.postTagRelations ? (
+              post.data.postTagRelations.map((postTagRelation) => {
+                return (
+                  <div
+                    className="field-row"
+                    style={{ justifyContent: "center" }}
+                  >
+                    <div key={postTagRelation.tag.id}>
+                      <Link href={`/postlist/tag/${postTagRelation.tag.id}`}>
+                        {postTagRelation.tag.tagName}
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <></>
+            )}
+            <hr />
+            <div className="window-body">
+              <div className="field-row" style={{ justifyContent: "center" }}>
+                <button>
+                  <Link href={`/post/comment/create?postId=${post.data.id}`}>
+                    댓글달기
+                  </Link>
+                </button>
+              </div>
+            </div>
 
-          {post.data.comments ? (
-            post.data.comments.map((comment) => {
-              return (
-                <Comment
-                  comment={comment}
-                  key={comment.id}
-                  currentEmail={currentEmail}
-                  token={token}
-                ></Comment>
-              );
-            })
-          ) : (
-            <></>
-          )}
+            {post.data.comments ? (
+              post.data.comments.map((comment) => {
+                return (
+                  <Comment
+                    comment={comment}
+                    key={comment.id}
+                    currentEmail={currentEmail}
+                    token={token}
+                  ></Comment>
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </div>
         </>
       ) : (
         <div>
           <p>404</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

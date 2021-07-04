@@ -38,7 +38,7 @@ const signup = () => {
         }
         if (data && data.success) {
           Router.push("/login");
-        }else{
+        } else {
           setLoginError("이미 등록된 이메일입니다.");
         }
       });
@@ -46,39 +46,59 @@ const signup = () => {
 
   return (
     <>
-      <div className={style.container}>
-        <div className={style.card}>
+      <div style={{ width: "100%" }} className="window">
+        <div className="title-bar">
+          <div className="title-bar-text">
+            <p>sign up</p>
+          </div>
+          <div className="title-bar-controls">
+            <button aria-label="Minimize" />
+            <button aria-label="Maximize" />
+            <button aria-label="Close" />
+          </div>
+        </div>
+        <div className="window-body" style={{ width: "100%" }}>
           <form onSubmit={handleSubmit}>
-            <p>이메일로 회원가입</p>
-            <input
-              name="name"
-              type="name"
-              value={name}
-              placeholder="name"
-              onChange={(e) => {
-                if(regExp.test(e.target.value)){
-                  setLoginError("이름에 특수문자 포함 불가능");
-                  setName(e.target.value.replace(regExp, ""));
-                  return;
-                }
-                setName(e.target.value)
-              }}
-            />
-            <input
-              name="email"
-              type="email"
-              value={email}
-              placeholder="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              name="password"
-              type="password"
-              value={password}
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <input type="submit" value="submit" />
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input
+                style={{ width: "80%" }}
+                name="name"
+                type="name"
+                value={name}
+                placeholder="name"
+                onChange={(e) => {
+                  if (regExp.test(e.target.value)) {
+                    setLoginError("이름에 특수문자 포함 불가능");
+                    setName(e.target.value.replace(regExp, ""));
+                    return;
+                  }
+                  setName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input
+                style={{ width: "80%" }}
+                name="email"
+                type="email"
+                value={email}
+                placeholder="email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input
+                style={{ width: "80%" }}
+                name="password"
+                type="password"
+                value={password}
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <input type="submit" value="sign up" />
+            </div>
             {loginError && <p style={{ color: "red" }}>{loginError}</p>}
           </form>
         </div>

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
 import { endpointMania, imageEndpoint } from "../../../util/enpointMania";
-import Link from "next/link"
+import Link from "next/link";
 import style from "../../../styles/Layout.module.css";
 
 //닉네임 띄어쓰기 없게 하긔?
@@ -89,33 +89,54 @@ const profileUpdate = ({ profile }) => {
   };
 
   return (
-    <div>
-      update profile
-      <p>{nickname}</p>
-      <form onSubmit={submitProfile}>
-        <textarea
-          type="text"
-          value={description}
-          placeholder="간단 소개"
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
-        ></textarea>
-        <div>
-          <div className={style.imageContainer}>
-            <img
-              className={style.image}
-              src={createObjectURL ? createObjectURL : profileImageURL}
-              layout="fill"
-            ></img>
-          </div>
-          <h4>새 후로파일 사진</h4>
-          <input type="file" onChange={uploadPreview} />
+    <div style={{ width: "100%" }} className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">
+          <p>update profile</p>
         </div>
-        <input type="submit" value="프로필 수정"></input>
-        {submitError && <p style={{ color: "red" }}>{submitError}</p>}
-      </form>
-      <Link href="/user/nickname">닉네임 수정 도전하기</Link>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
+      <div className="window-body" style={{ width: "100%" }}>
+        <p>{nickname}</p>
+        <form onSubmit={submitProfile} style={{ width: "100%" }}>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <textarea
+              style={{ width: "80%" }}
+              type="text"
+              value={description}
+              placeholder="간단 소개"
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            ></textarea>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <div className={style.imageContainer}>
+              <img
+                className={style.image}
+                src={createObjectURL ? createObjectURL : profileImageURL}
+                layout="fill"
+              ></img>
+            </div>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <input type="file" onChange={uploadPreview} />
+            <input type="submit" value="프로필 수정"></input>
+          </div>
+          {submitError && <p style={{ color: "red" }}>{submitError}</p>}
+        </form>
+        <br />
+        <br />
+        <br />
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <Link href="/user/nickname">닉네임 수정 도전하기</Link>
+        </div>
+        <br />
+      </div>
     </div>
   );
 };

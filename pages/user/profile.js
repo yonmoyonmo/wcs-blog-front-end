@@ -34,38 +34,61 @@ const profile = ({ profile }) => {
   return (
     <div>
       {profile.success ? (
-        <>
-          <div key={profile.data.id} className={style.imageContainer}>
-            <img
-              src={
-                profile.data.profileImageURL
-                  ? profile.data.profileImageURL
-                  : defaultProfile
-              }
-              layout="fill"
-              className={style.image}
-            ></img>
+        <div style={{ width: "100%" }} className="window">
+          <div className="title-bar">
+            <div className="title-bar-text">{profile.data.owner.nickname}</div>
+            <div className="title-bar-controls">
+              <button aria-label="Minimize" />
+              <button aria-label="Maximize" />
+              <button aria-label="Close" />
+            </div>
           </div>
-          <p>{profile.data.description}</p>
-          <p>{profile.data.owner.email}</p>
-          <p>{profile.data.owner.username}</p>
-          <p>{profile.data.owner.nickname}</p>
-          {/*닉네임 없으면 만들라고 수정 창으로 보내야 함*/}
-          <button>
-            <Link href="/user/update">프로파일 수정</Link>
-          </button>
+          <br />
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <div key={profile.data.id} className={style.imageContainer}>
+              <img
+                src={
+                  profile.data.profileImageURL
+                    ? profile.data.profileImageURL
+                    : defaultProfile
+                }
+                layout="fill"
+                className={style.image}
+              ></img>
+            </div>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>소개 : {profile.data.description}</p>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>이메일 : {profile.data.owner.email}</p>
+          </div>
 
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>이름 : {profile.data.owner.username}</p>
+          </div>
+
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>닉네임 : {profile.data.owner.nickname}</p>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <button>
+              <Link href="/user/update">프로파일 수정</Link>
+            </button>
+          </div>
           <br></br>
-        </>
+        </div>
       ) : (
         <></>
       )}
+      <br />
+      <br />
       {cookie.userToken ? (
-        <button onClick={logoutFunction}>logout 하는 버튼</button>
+        <button onClick={logoutFunction}>Logout</button>
       ) : (
         <div className="window-body">
           <p style={{ textAlign: "center" }}>로그인 필요</p>
-          <p style={{ textAlign: "center" }}>Login required</p>
+          <p style={{ textAlign: "center" }}>Login</p>
           <div className="field-row" style={{ justifyContent: "center" }}>
             <Link href="/login">LOGIN</Link>
           </div>

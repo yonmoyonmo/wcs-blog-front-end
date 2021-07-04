@@ -32,6 +32,7 @@ const Nav = () => {
           </div>
         </div>
       </div>
+      <br />
     </>
   );
 };

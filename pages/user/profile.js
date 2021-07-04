@@ -90,7 +90,7 @@ const profile = ({ profile }) => {
           <p style={{ textAlign: "center" }}>로그인 필요</p>
           <p style={{ textAlign: "center" }}>Login</p>
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <Link href="/login">LOGIN</Link>
+            <Link href="/signin">LOGIN</Link>
           </div>
         </div>
       )}

@@ -138,7 +138,7 @@ const adminHome = () => {
             </form>
 
             <button>
-              <Link href="/admin/update/cate">카테고리 수정하러 가기</Link>
+              <Link href="/manage/update/cate">카테고리 수정하러 가기</Link>
             </button>
           </div>
 
@@ -162,7 +162,7 @@ const adminHome = () => {
             </form>
 
             <button>
-              <Link href="/admin/update/noti">공지사항 수정하러 가기</Link>
+              <Link href="/manage/update/noti">공지사항 수정하러 가기</Link>
             </button>
           </div>
         </div>

@@ -13,7 +13,7 @@ const login = () => {
   const [cookie, setCookie] = useCookies(["userToken"]);
 
   const oauth2EndPoint = authEndpoint(
-    "/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth/redirect"
+    "/oauth2/authorize/google?redirect_uri=https://wonmocyberschool.com/oauth/redirect"
   );
   const loginEndPoint = authEndpoint("/auth/login");
 

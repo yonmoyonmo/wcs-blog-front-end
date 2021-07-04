@@ -40,7 +40,7 @@ const adminHome = () => {
     } catch (e) {
       window.alert(`logout 실패 : ${e}`);
     }
-    router.push("/admin");
+    router.push("/");
   };
 
   const getAdminToken = async (e) => {

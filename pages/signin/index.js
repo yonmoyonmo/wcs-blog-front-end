@@ -1,7 +1,7 @@
 import style from "../../styles/Layout.module.css";
 import Link from "next/link";
 import React, { useState } from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { authEndpoint } from "../../util/enpointMania";
 import googleLogo from "../../assets/googleLogo.png";
@@ -11,10 +11,14 @@ const login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookie, setCookie] = useCookies(["userToken"]);
+  const router = useRouter();
 
   const oauth2EndPoint = authEndpoint(
     "/oauth2/authorize/google?redirect_uri=https://wonmocyberschool.com/oauth/redirect"
   );
+  // const oauth2EndPoint = authEndpoint(
+  //   "/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth/redirect"
+  // );
   const loginEndPoint = authEndpoint("/auth/login");
 
   function handleSubmit(e) {
@@ -31,7 +35,12 @@ const login = () => {
       }),
     })
       .then((r) => {
-        return r.json();
+        try {
+          return r.json();
+        } catch (e) {
+          console.log(e);
+          setLoginError("실패!");
+        }
       })
       .then((data) => {
         if (data && data.error) {
@@ -42,7 +51,7 @@ const login = () => {
             maxAge: 360000,
             path: "/",
           });
-          Router.push("/");
+          router.push("/");
         } else {
           window.alert("계정 정보가 올바르지 않습니다.");
         }
@@ -85,8 +94,19 @@ const login = () => {
             <br />
             <div className="field-row" style={{ justifyContent: "center" }}>
               <input type="submit" value="login" />
-              <button>
-                <Link href="/signup">sign up</Link>
+            </div>
+            <hr />
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>계정이 없다면 간단히 등록할 수 있음</p>
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/signup");
+                }}
+              >
+                <Link href="/signup">회원가입</Link>
               </button>
             </div>
           </form>
@@ -109,7 +129,14 @@ const login = () => {
             </p>
           </div>
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <Link href={oauth2EndPoint}>Login With Google</Link>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push(oauth2EndPoint);
+              }}
+            >
+              <Link href={oauth2EndPoint}>Login With Google</Link>
+            </button>
           </div>
           <div
             className="field-row"

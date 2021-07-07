@@ -9,7 +9,7 @@ export default function Home({ categories }) {
 
   return (
     <>
-      <Header props={"Home Page"}></Header>
+      <Header props={"원모 싸이버 스쿨 2.0"}></Header>
       <div style={{ width: "100%" }} className="window">
         <div className="title-bar">
           <div className="title-bar-text">category list</div>
@@ -21,9 +21,12 @@ export default function Home({ categories }) {
         </div>
 
         <div className="window-body">
-          <p style={{ textAlign: "center" }}>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+        <p style={{fontSize:"1.0rem"}}>
             categories will take you to another page
           </p>
+            </div>
+          
           {categories.success ? (
             categories.data.map((category) => {
               return (

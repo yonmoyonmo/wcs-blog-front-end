@@ -11,18 +11,17 @@ const oauthRedirect = () => {
 
   useEffect(() => {
     window.location.reload();
+    if (token) {
+      setCookie("userToken", token, {
+        path: "/",
+        maxAge: 360000,
+      });
+    }
+    if (error) {
+      console.log(error);
+    }
     router.push("/");
-  }, []);
-
-  if (token != null) {
-    setCookie("userToken", token, {
-      path: "/",
-      maxAge: 360000,
-    });
-  }
-  if (error) {
-    console.log(error);
-  }
+  }, [token, error]);
   return (
     <>
       <div>

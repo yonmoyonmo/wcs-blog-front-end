@@ -21,28 +21,78 @@ const postList = ({ posts, cateName }) => {
           </div>
         </div>
         <div className="window-body">
-          <p style={{ textAlign: "center" }}>posts</p>
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <button>
+            <p>posts</p>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push(`/post/create?cateId=${cateId}&name=${name}`);
+              }}
+            >
               <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
-                글쓰기 (post)
+                글쓰기
               </Link>
             </button>
           </div>
-          <br/>
-          <hr/>
+          <br />
+          <hr />
 
           {posts.success ? (
             posts.data.map((post) => {
               return (
-                <div
-                  className="field-row"
-                  style={{ justifyContent: "center" }}
-                  key={post.id}
-                >
-                  <button>
-                    <Link href={`/post/${post.id}`}>{post.title}</Link>
-                  </button>
+                <div className="field-row" style={{ justifyContent: "center" }}>
+                  <div
+                    style={{ width: "90%" }}
+                    className="window"
+                    key={post.id}
+                  >
+                    <div className="title-bar">
+                      <div className="title-bar-text">
+                        {post.title +
+                          " [" +
+                          post.createdTime.split("T")[0] +
+                          "]"}
+                      </div>
+                      <div className="title-bar-controls">
+                        <button aria-label="Minimize" />
+                        <button aria-label="Maximize" />
+                        <button aria-label="Close" />
+                      </div>
+                    </div>
+                    <div className="window-body">
+                      <div
+                        className="field-row"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <p>글쓴이 : {post.blogUser.nickname}</p>
+                      </div>
+                      <div
+                        className="field-row"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <img
+                          src={`${post.images[0].imageURI}`}
+                          style={{ width: "80%" }}
+                        ></img>
+                      </div>
+                      <div
+                        className="field-row"
+                        style={{ justifyContent: "center" }}
+                      >
+                        <button
+                          style={{ width: "75%" }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            router.push(`/post/${post.id}`);
+                          }}
+                        >
+                          <Link href={`/post/${post.id}`}>{post.title}</Link>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })
@@ -63,7 +113,10 @@ export async function getServerSideProps(context) {
     const res = await fetch(postListEndpoint, {
       method: "GET",
     });
-    const posts = await res.json();
+    let posts = await res.json();
+    posts.data = posts.data.sort((a, b) => {
+      return b.id - a.id;
+    });
     return {
       props: {
         posts,

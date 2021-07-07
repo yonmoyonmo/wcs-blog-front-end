@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Header from "../../../components/Header";
 import Link from "next/link";
 import { endpointMania } from "../../../util/enpointMania";
 
@@ -26,11 +25,19 @@ const postList = ({ posts }) => {
                     style={{ justifyContent: "center" }}
                     key={post.id}
                   >
-                    <div key={post.id}>
-                      <Link href={`/post/${post.id}`}>이동</Link>
-                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/post/${post.id}`);
+                      }}
+                    >
+                      <div key={post.id}>
+                        <Link href={`/post/${post.id}`}>이동</Link>
+                      </div>
+                    </button>
                   </div>
                 </div>
+                <br />
               </>
             );
           })

@@ -101,7 +101,9 @@ const profileUpdate = ({ profile }) => {
         </div>
       </div>
       <div className="window-body" style={{ width: "100%" }}>
-        <p>{nickname}</p>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <p>닉네임 : {nickname}</p>
+        </div>
         <form onSubmit={submitProfile} style={{ width: "100%" }}>
           <div className="field-row" style={{ justifyContent: "center" }}>
             <textarea
@@ -133,7 +135,9 @@ const profileUpdate = ({ profile }) => {
         <br />
         <br />
         <div className="field-row" style={{ justifyContent: "center" }}>
-          <Link href="/user/nickname">닉네임 수정 도전하기</Link>
+          <a style={{ color: "blue" }} href="/user/nickname">
+            닉네임 수정 도전하기
+          </a>
         </div>
         <br />
       </div>

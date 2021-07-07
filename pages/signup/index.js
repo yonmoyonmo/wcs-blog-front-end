@@ -57,7 +57,19 @@ const signup = () => {
             <button aria-label="Close" />
           </div>
         </div>
-        <div className="window-body" style={{ width: "100%" }}>
+        <div className="window-body">
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>원모 싸이버 간단한 회원가입</p>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>
+              가입 하시게 되면 이메일이 저의 데이타 베이쓰에 저장되는 것에
+              동의하신 것으로 여기겠읍니다.
+            </p>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p>저장된 이메일은 맹세코!! 회원 구별에만 쓰겠읍니다.</p>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="field-row" style={{ justifyContent: "center" }}>
               <input

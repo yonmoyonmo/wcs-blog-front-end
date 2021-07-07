@@ -29,6 +29,7 @@ const updatePost = ({ post }) => {
   const postUpdateEndpoint = endpointMania("/api/post"); // put with token
   const imageUploadEndpoint = imageEndpoint("/wcs/image/post/upload"); //post, form-data
   //----------------------------------------------------------
+  const regExp = /[\{\}\[\]\/?.;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
   useEffect(() => {
     if (post.success) {
       setEmailOfThisPost(post.data.blogUser.email);
@@ -180,78 +181,105 @@ const updatePost = ({ post }) => {
   };
 
   return (
-    <div>
-      <p>{post.data.id}</p>
-      <p>{currentEmail}</p>
-      <p>{emailOfThisPost}</p>
-      <form onSubmit={submitHandler}>
-        <div>
-          <label>제목</label>
-          <input
-            type="text"
-            maxLength="30"
-            placeholder="제목 쓰는 곳"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          ></input>
+    <div style={{ width: "100%" }} className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">
+          <p>게시글 수정하기</p>
         </div>
-
-        <div>
-          <label>내용</label>
-          <textarea
-            type="text"
-            value={text}
-            placeholder="글 쓰는 부분"
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          ></textarea>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
         </div>
-
-        <div>
-          <label>태그</label>
-          <input
-            type="text"
-            maxLength="100"
-            placeholder="태그 쓰는 곳 : , 로 구분하여 입력"
-            value={tagString}
-            onChange={(e) => {
-              setTagString(e.target.value);
-            }}
-          ></input>
+      </div>
+      <div className="window-body">
+        <br />
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          수정할 때에도 바른말 고운말~
         </div>
+        <br />
+        <form onSubmit={submitHandler}>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <input
+              style={{ width: "80%" }}
+              type="text"
+              maxLength="30"
+              placeholder="제목 쓰는 곳"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            ></input>
+          </div>
 
-        <button onClick={resetImages}>image reset</button>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <textarea
+              style={{ width: "80%" }}
+              type="text"
+              value={text}
+              placeholder="글 쓰는 부분"
+              maxLength="3000"
+              rows="30"
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            ></textarea>
+          </div>
 
-        {createObjectURLs.length !== 0 ? (
-          createObjectURLs.map((each, key) => {
-            return (
-              <div className={style.imageContainer} key={key}>
-                <img className={style.image} src={each} layout="fill"></img>
-              </div>
-            );
-          })
-        ) : postImageURLs.length !== 0 ? (
-          postImageURLs.map((each, key) => {
-            return (
-              <div className={style.imageContainer} key={key}>
-                <img className={style.image} src={each} layout="fill"></img>
-              </div>
-            );
-          })
-        ) : (
-          <p>이미지 없음</p>
-        )}
-
-        <div>
-          <input type="file" onChange={uploadPreviews} />
-        </div>
-
-        <input type="submit" value="글 등록"></input>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <input
+              style={{ width: "80%" }}
+              type="text"
+              maxLength="100"
+              placeholder="태그 쓰는 곳 : , 로 구분하여 입력"
+              value={tagString}
+              onChange={(e) => {
+                if (regExp.test(e.target.value)) {
+                  setError("태그에 쉼표 외 특수문자 사용 불가능");
+                  setTagString(e.target.value.replace(regExp, ""));
+                  return;
+                }
+                setTagString(e.target.value);
+              }}
+            ></input>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <button onClick={resetImages}>image reset</button>
+          </div>
+          {createObjectURLs.length !== 0 ? (
+            createObjectURLs.map((each, key) => {
+              return (
+                <div className={style.imageContainer} key={key}>
+                  <img className={style.image} src={each} layout="fill"></img>
+                </div>
+              );
+            })
+          ) : postImageURLs.length !== 0 ? (
+            postImageURLs.map((each, key) => {
+              return (
+                <div className="field-row" style={{ justifyContent: "center" }}>
+                  <div className={style.imageContainer} key={key}>
+                    <img className={style.image} src={each} layout="fill"></img>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <p>이미지 없음</p>
+          )}
+          <br />
+          <div>
+            <input type="file" onChange={uploadPreviews} />
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <input type="submit" value="글 등록"></input>
+          </div>
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+          </div>
+        </form>
+        <br />
+      </div>
     </div>
   );
 };

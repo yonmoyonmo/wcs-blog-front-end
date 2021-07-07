@@ -136,7 +136,20 @@ const createPost = () => {
           <button aria-label="Close" />
         </div>
       </div>
-      <div className="window-body" style={{ width: "100%" }}>
+      <div className="window-body">
+        <br />
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <p>글쓰기 설명 !</p>
+        </div>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <p>
+            원모 싸이버 스쿨 게시글 : 이미지, 제목, 내용 필수! 태그는 안필수!
+          </p>
+        </div>
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <p>바르고 고운 말만 써 주시와요~</p>
+        </div>
+        <br />
         <form onSubmit={submitHandler} style={{ width: "100%" }}>
           <div className="field-row" style={{ justifyContent: "center" }}>
             <input
@@ -158,6 +171,7 @@ const createPost = () => {
               value={text}
               placeholder="글 쓰는 부분"
               maxLength="3000"
+              rows="30"
               onChange={(e) => {
                 setText(e.target.value);
               }}
@@ -196,7 +210,7 @@ const createPost = () => {
             })
           ) : (
             <div className="field-row" style={{ justifyContent: "center" }}>
-              <p>이미지 필수</p>
+              <p>no images, yet</p>
             </div>
           )}
           <div className="field-row" style={{ justifyContent: "center" }}>

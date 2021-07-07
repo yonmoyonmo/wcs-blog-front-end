@@ -78,7 +78,7 @@ const setProfileNickname = () => {
           <button aria-label="Close" />
         </div>
       </div>
-      <div className="window-body" style={{ width: "100%" }}>
+      <div className="window-body">
         <div className="field-row" style={{ justifyContent: "center" }}>
           <button onClick={nicknameDubCheck}> 중복확인</button>
         </div>
@@ -105,7 +105,11 @@ const setProfileNickname = () => {
             }}
           ></input>
         </div>
-        <input type="submit" value="닉네임 등록"></input>
+        <br />
+        <div className="field-row" style={{ justifyContent: "center" }}>
+          <input type="submit" value="닉네임 등록"></input>
+        </div>
+        <br />
       </form>
     </div>
   );

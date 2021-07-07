@@ -74,17 +74,22 @@ const post = ({ post }) => {
             </div>
 
             {emailOfThisPost === currentEmail ? (
-              <div className="field-row" style={{ justifyContent: "center" }}>
-                <button>
-                  <Link href={`/post/update/${post.data.id}`}>게시글 수정</Link>
-                </button>
-                <button onClick={deleteFunction}>게시글 삭제</button>
-              </div>
+              <>
+                <br />
+                <div className="field-row" style={{ justifyContent: "center" }}>
+                  <button>
+                    <Link href={`/post/update/${post.data.id}`}>
+                      게시글 수정
+                    </Link>
+                  </button>
+                  <button onClick={deleteFunction}>게시글 삭제</button>
+                </div>
+              </>
             ) : (
               <></>
             )}
             <div className="field-row" style={{ justifyContent: "center" }}>
-              <p>글쓴이 : {emailOfThisPost}</p>
+              <p>글쓴이 : {post.data.blogUser.nickname}</p>
             </div>
             <div className="field-row" style={{ justifyContent: "center" }}>
               <p>작성일 : {post.data.createdTime.split("T")[0]}</p>
@@ -121,16 +126,14 @@ const post = ({ post }) => {
                     className="field-row"
                     style={{ justifyContent: "center" }}
                   >
-                    <p>
-                      {splitedText.map((each) => {
-                        return (
-                          <p style={{ padding: "1%" }}>
-                            {each}
-                            <br />
-                          </p>
-                        );
-                      })}
-                    </p>
+                    {splitedText.map((each) => {
+                      return (
+                        <>
+                          {each}
+                          <br />
+                        </>
+                      );
+                    })}
                   </div>
                 </div>
               </>
@@ -150,7 +153,9 @@ const post = ({ post }) => {
                   >
                     <div key={postTagRelation.tag.id}>
                       <Link href={`/postlist/tag/${postTagRelation.tag.id}`}>
-                        {postTagRelation.tag.tagName}
+                        <a style={{ color: "blue" }}>
+                          {postTagRelation.tag.tagName}
+                        </a>
                       </Link>
                     </div>
                   </div>
@@ -162,7 +167,12 @@ const post = ({ post }) => {
             <hr />
             <div className="window-body">
               <div className="field-row" style={{ justifyContent: "center" }}>
-                <button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push(`/post/comment/create?postId=${post.data.id}`);
+                  }}
+                >
                   <Link href={`/post/comment/create?postId=${post.data.id}`}>
                     댓글달기
                   </Link>

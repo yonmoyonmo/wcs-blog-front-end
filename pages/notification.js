@@ -11,7 +11,7 @@ const notificationPage = ({ notification }) => {
           <div>
             {notification.data.map((noti) => {
               return (
-                <>
+                <div key={noti.id}>
                   <div style={{ width: "100%" }} className="window">
                     <div className="title-bar">
                       <div className="title-bar-text">
@@ -23,7 +23,7 @@ const notificationPage = ({ notification }) => {
                         <button aria-label="Close" />
                       </div>
                     </div>
-                    <div className="window-body" style={{ width: "100%" }}>
+                    <div className="window-body">
                       <div
                         className="field-row"
                         style={{ justifyContent: "center" }}
@@ -46,7 +46,7 @@ const notificationPage = ({ notification }) => {
                     <br />
                   </div>
                   <br />
-                </>
+                </div>
               );
             })}
           </div>

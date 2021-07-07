@@ -12,24 +12,13 @@ const profile = ({ profile }) => {
   const router = useRouter();
   useEffect(() => {
     if (profile.success && profile.data.owner.nickname === null) {
-      if (confirm("닉네임이 없다? 바아로 하나 만들자? 아님 말고?")) {
+      if (confirm("닉네임이 없으시네요, 지금 바로 하나 만드쉴?")) {
         router.push("/user/nickname");
       } else {
         return;
       }
     }
   }, []);
-
-  const logoutFunction = (e) => {
-    e.preventDefault();
-    try {
-      removeCookie("userToken");
-      window.location.reload();
-    } catch (e) {
-      window.alert(`logout 실패 : ${e}`);
-    }
-    router.push("/");
-  };
 
   return (
     <div>
@@ -72,7 +61,12 @@ const profile = ({ profile }) => {
             <p>닉네임 : {profile.data.owner.nickname}</p>
           </div>
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/user/update");
+              }}
+            >
               <Link href="/user/update">프로파일 수정</Link>
             </button>
           </div>
@@ -84,13 +78,28 @@ const profile = ({ profile }) => {
       <br />
       <br />
       {cookie.userToken ? (
-        <button onClick={logoutFunction}>Logout</button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(cookie);
+            removeCookie("userToken", { path: "/" });
+            window.location.reload();
+          }}
+        >
+          Logout
+        </button>
       ) : (
         <div className="window-body">
           <p style={{ textAlign: "center" }}>로그인 필요</p>
-          <p style={{ textAlign: "center" }}>Login</p>
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <Link href="/signin">LOGIN</Link>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/signin");
+              }}
+            >
+              <Link href="/signin">LOGIN</Link>
+            </button>
           </div>
         </div>
       )}

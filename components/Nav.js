@@ -1,7 +1,8 @@
-import navStyles from "../styles/Nav.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Nav = () => {
+  const router = useRouter();
   return (
     <>
       <div style={{ width: "100%" }} className="window">
@@ -17,16 +18,36 @@ const Nav = () => {
         <div className="window-body">
           <p style={{ textAlign: "center" }}>MENU</p>
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/");
+              }}
+            >
               <Link href="/">HOME</Link>
             </button>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/notification");
+              }}
+            >
               <Link href="/notification">NOTIFICATION</Link>
             </button>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/user/profile");
+              }}
+            >
               <Link href="/user/profile">MY PROFILE</Link>
             </button>
-            <button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/about");
+              }}
+            >
               <Link href="/about">ABOUT</Link>
             </button>
           </div>

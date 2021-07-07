@@ -13,14 +13,14 @@ const commentCreate = () => {
 
   const [error, setError] = useState("");
 
-  const back = `/post/${postId}`;
+  //const back = `/post/${postId}`;
 
   const commentUploadEndpoint = endpointMania("/api/comment"); // post with token
 
   useEffect(() => {
     if (!token) {
-      window.alert("권한 없음");
-      router.push(back);
+      window.alert("권한 없음, 로그인 하셈, my profile 눌러 보셈");
+      router.push("/");
     }
   }, []);
 

@@ -10,7 +10,6 @@ const oauthRedirect = () => {
   const [cookie, setCookie] = useCookies(["userToken"]);
 
   useEffect(() => {
-    window.location.reload();
     if (token) {
       setCookie("userToken", token, {
         path: "/",

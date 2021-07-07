@@ -13,7 +13,7 @@ const commentCreate = () => {
 
   const [error, setError] = useState("");
 
-  //const back = `/post/${postId}`;
+  const back = `/post/${postId}`;
 
   const commentUploadEndpoint = endpointMania("/api/comment"); // post with token
 

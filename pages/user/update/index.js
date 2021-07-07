@@ -41,20 +41,45 @@ const profileUpdate = ({ profile }) => {
   async function submitProfile(e) {
     e.preventDefault();
     setLoading(true);
-    const body = new FormData();
-    body.append("file", image);
-    body.append("userName", nickname);
-    const response = await fetch(updataProfileImageEndpoint, {
-      method: "POST",
-      body: body,
-    });
-    const dataImage = await response.json();
-    if (dataImage && dataImage.imageLocation) {
-      const imageURL = imageEndpoint(
-        `/wcs/image/display${dataImage.imageLocation}`
-      );
-      console.log(imageURL);
-      setProfileImageURL(imageURL);
+    if (image) {
+      const body = new FormData();
+      body.append("file", image);
+      body.append("userName", nickname);
+      const response = await fetch(updataProfileImageEndpoint, {
+        method: "POST",
+        body: body,
+      });
+      const dataImage = await response.json();
+      if (dataImage && dataImage.imageLocation) {
+        const imageURL = imageEndpoint(
+          `/wcs/image/display${dataImage.imageLocation}`
+        );
+        //console.log(imageURL);
+        setProfileImageURL(imageURL);
+
+        const response = await fetch(updateProfileEndpoint, {
+          method: "PUT",
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            description,
+            profileImageURL: imageURL,
+          }),
+        });
+        const data = await response.json();
+        if (data && data.success) {
+          console.log(data.message);
+          router.push("/user/profile");
+        } else {
+          setSubmitError(data.message);
+        }
+      } else {
+        setSubmitError(dataImage.message);
+      }
+    } else {
+      setProfileImageURL("");
 
       const response = await fetch(updateProfileEndpoint, {
         method: "PUT",
@@ -64,7 +89,7 @@ const profileUpdate = ({ profile }) => {
         },
         body: JSON.stringify({
           description,
-          profileImageURL: imageURL,
+          profileImageURL: "",
         }),
       });
       const data = await response.json();
@@ -74,8 +99,6 @@ const profileUpdate = ({ profile }) => {
       } else {
         setSubmitError(data.message);
       }
-    } else {
-      setSubmitError(dataImage.message);
     }
   }
 

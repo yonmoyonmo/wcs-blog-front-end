@@ -47,6 +47,9 @@ const commentCreate = () => {
         router.push(back);
       } else {
         setError("댓글 달기 실패!");
+        if (commentData) {
+          console.log(commentData.message);
+        }
       }
     } else {
       setError("댓글 내용이 없읍니다.");

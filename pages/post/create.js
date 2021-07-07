@@ -100,10 +100,16 @@ const createPost = () => {
         if (postData && postData.success) {
           router.push(back);
         } else {
-          setError(postData.message);
+          setError("게시물 생성 실패");
+          if(postData){
+            console.log(postData.message);
+          }
         }
       } else {
-        setError(imageData.message);
+        setError("이미지 업로드 샐패");
+        if(imageData){
+          console.log(imageData.message);
+        }
       }
     }
   }

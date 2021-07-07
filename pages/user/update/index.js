@@ -97,7 +97,10 @@ const profileUpdate = ({ profile }) => {
         console.log(data.message);
         router.push("/user/profile");
       } else {
-        setSubmitError(data.message);
+        setSubmitError("프로파일 수정 실패");
+        if(data){
+          console.log(data.message);
+        }
       }
     }
   }

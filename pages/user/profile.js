@@ -77,7 +77,7 @@ const profile = ({ profile }) => {
       )}
       <br />
       <br />
-      {cookie.userToken ? (
+      {profile.success ? (
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -112,6 +112,7 @@ const tokenFromCookie = (cookie) => {
     return "";
   } else {
     const parsedCookie = cookie.split("=");
+    console.log(parsedCookie);
     return parsedCookie[1];
   }
 };

@@ -35,7 +35,7 @@ const adminHome = () => {
   const logoutFunction = (e) => {
     e.preventDefault();
     try {
-      removeCookie("adminToken");
+      removeCookie("adminToken", {path:"/"});
       window.location.reload();
     } catch (e) {
       window.alert(`logout 실패 : ${e}`);

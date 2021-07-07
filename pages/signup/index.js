@@ -37,7 +37,7 @@ const signup = () => {
           console.log(data.error);
         }
         if (data && data.success) {
-          Router.push("/login");
+          Router.push("/signin");
         } else {
           setLoginError("이미 등록된 이메일입니다.");
         }

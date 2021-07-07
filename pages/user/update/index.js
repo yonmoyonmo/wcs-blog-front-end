@@ -3,10 +3,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
 import { endpointMania, imageEndpoint } from "../../../util/enpointMania";
-import Link from "next/link";
 import style from "../../../styles/Layout.module.css";
-
-//닉네임 띄어쓰기 없게 하긔?
+import Loading from "../../../components/Loading";
 
 const profileUpdate = ({ profile }) => {
   const [cookie, setCookie] = useCookies(["userToken"]);
@@ -20,6 +18,8 @@ const profileUpdate = ({ profile }) => {
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
   const [submitError, setSubmitError] = useState("");
+
+  const [loading, setLoading] = useState("");
 
   const router = useRouter();
 
@@ -40,7 +40,7 @@ const profileUpdate = ({ profile }) => {
 
   async function submitProfile(e) {
     e.preventDefault();
-
+    setLoading(true);
     const body = new FormData();
     body.append("file", image);
     body.append("userName", nickname);
@@ -89,59 +89,65 @@ const profileUpdate = ({ profile }) => {
   };
 
   return (
-    <div style={{ width: "100%" }} className="window">
-      <div className="title-bar">
-        <div className="title-bar-text">
-          <p>update profile</p>
-        </div>
-        <div className="title-bar-controls">
-          <button aria-label="Minimize" />
-          <button aria-label="Maximize" />
-          <button aria-label="Close" />
-        </div>
-      </div>
-      <div className="window-body" style={{ width: "100%" }}>
-        <div className="field-row" style={{ justifyContent: "center" }}>
-          <p>닉네임 : {nickname}</p>
-        </div>
-        <form onSubmit={submitProfile} style={{ width: "100%" }}>
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <textarea
-              style={{ width: "80%" }}
-              type="text"
-              value={description}
-              placeholder="간단 소개"
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-            ></textarea>
-          </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <div className={style.imageContainer}>
-              <img
-                className={style.image}
-                src={createObjectURL ? createObjectURL : profileImageURL}
-                layout="fill"
-              ></img>
+    <>
+      {loading ? (
+        <Loading></Loading>
+      ) : (
+        <div style={{ width: "100%" }} className="window">
+          <div className="title-bar">
+            <div className="title-bar-text">
+              <p>update profile</p>
+            </div>
+            <div className="title-bar-controls">
+              <button aria-label="Minimize" />
+              <button aria-label="Maximize" />
+              <button aria-label="Close" />
             </div>
           </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <input type="file" onChange={uploadPreview} />
-            <input type="submit" value="프로필 수정"></input>
+          <div className="window-body" style={{ width: "100%" }}>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>닉네임 : {nickname}</p>
+            </div>
+            <form onSubmit={submitProfile} style={{ width: "100%" }}>
+              <div className="field-row" style={{ justifyContent: "center" }}>
+                <textarea
+                  style={{ width: "80%" }}
+                  type="text"
+                  value={description}
+                  placeholder="간단 소개"
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                ></textarea>
+              </div>
+              <div className="field-row" style={{ justifyContent: "center" }}>
+                <div className={style.imageContainer}>
+                  <img
+                    className={style.image}
+                    src={createObjectURL ? createObjectURL : profileImageURL}
+                    layout="fill"
+                  ></img>
+                </div>
+              </div>
+              <div className="field-row" style={{ justifyContent: "center" }}>
+                <input type="file" onChange={uploadPreview} />
+                <input type="submit" value="프로필 수정"></input>
+              </div>
+              {submitError && <p style={{ color: "red" }}>{submitError}</p>}
+            </form>
+            <br />
+            <br />
+            <br />
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <a style={{ color: "blue" }} href="/user/nickname">
+                닉네임 수정 도전하기
+              </a>
+            </div>
+            <br />
           </div>
-          {submitError && <p style={{ color: "red" }}>{submitError}</p>}
-        </form>
-        <br />
-        <br />
-        <br />
-        <div className="field-row" style={{ justifyContent: "center" }}>
-          <a style={{ color: "blue" }} href="/user/nickname">
-            닉네임 수정 도전하기
-          </a>
         </div>
-        <br />
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

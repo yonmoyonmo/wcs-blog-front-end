@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const Loading = () => {
   return (
-    <div style={{ width: "100%" }} className="window" key={key}>
+    <div style={{ width: "100%" }} className="window">
       <div className="title-bar">
         <div className="title-bar-text">wait... please...</div>
         <div className="title-bar-controls">

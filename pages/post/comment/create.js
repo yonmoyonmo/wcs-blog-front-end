@@ -2,12 +2,15 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { endpointMania } from "../../../util/enpointMania";
+import Loading from "../../../components/Loading";
 
 const commentCreate = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
   const { postId } = router.query;
+
+  const [loading, setLoading] = useState(false);
 
   const [text, setText] = useState("");
 
@@ -26,6 +29,7 @@ const commentCreate = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (text) {
       const response = await fetch(commentUploadEndpoint, {
         method: "POST",
@@ -50,23 +54,29 @@ const commentCreate = () => {
   };
 
   return (
-    <div>
-      <p>댓글 달기</p>
-      <form onSubmit={submitHandler} style={{ width: "100%" }}>
-        <textarea
-          style={{ width: "100%" }}
-          type="text"
-          maxLength="140"
-          placeholder="댓글 쓰는 곳, 140자 제한임"
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-        ></textarea>
-        <input type="submit" value="댓글 등록"></input>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
-    </div>
+    <>
+      {loading ? (
+        <Loading></Loading>
+      ) : (
+        <div>
+          <p>댓글 달기</p>
+          <form onSubmit={submitHandler} style={{ width: "100%" }}>
+            <textarea
+              style={{ width: "100%" }}
+              type="text"
+              maxLength="140"
+              placeholder="댓글 쓰는 곳, 140자 제한임"
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+            ></textarea>
+            <input type="submit" value="댓글 등록"></input>
+            {error && <p style={{ color: "red" }}>{error}</p>}
+          </form>
+        </div>
+      )}
+    </>
   );
 };
 

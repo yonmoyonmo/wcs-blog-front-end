@@ -131,7 +131,7 @@ const createPost = () => {
   return (
     <>
       {loading ? (
-        Loading
+        <Loading></Loading>
       ) : (
         <div style={{ width: "100%" }} className="window">
           <div className="title-bar">

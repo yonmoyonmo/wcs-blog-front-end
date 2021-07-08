@@ -114,9 +114,11 @@ export async function getServerSideProps(context) {
       method: "GET",
     });
     let posts = await res.json();
-    posts.data = posts.data.sort((a, b) => {
-      return b.id - a.id;
-    });
+    if (posts) {
+      posts.data = posts.data.sort((a, b) => {
+        return b.id - a.id;
+      });
+    }
     return {
       props: {
         posts,

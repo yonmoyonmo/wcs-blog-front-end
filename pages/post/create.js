@@ -101,13 +101,13 @@ const createPost = () => {
           router.push(back);
         } else {
           setError("게시물 생성 실패");
-          if(postData){
+          if (postData) {
             console.log(postData.message);
           }
         }
       } else {
         setError("이미지 업로드 샐패");
-        if(imageData){
+        if (imageData) {
           console.log(imageData.message);
         }
       }
@@ -125,13 +125,6 @@ const createPost = () => {
         ]);
       }
     }
-  };
-
-  const resetImages = () => {
-    setImages([]);
-    setCreateObjectURLs([]);
-    console.log(createObjectURLs);
-    console.log(images);
   };
 
   return (
@@ -213,8 +206,6 @@ const createPost = () => {
 
               {createObjectURLs.length !== 0 ? (
                 createObjectURLs.map((each, key) => {
-                  console.log(createObjectURLs);
-                  console.log(images);
                   return (
                     <div
                       className="field-row"
@@ -236,7 +227,15 @@ const createPost = () => {
                 </div>
               )}
               <div className="field-row" style={{ justifyContent: "center" }}>
-                <button onClick={resetImages}>image reset</button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setImages([]);
+                    setCreateObjectURLs([]);
+                  }}
+                >
+                  image reset
+                </button>
               </div>
               <div className="field-row" style={{ justifyContent: "center" }}>
                 <input type="file" onChange={uploadPreviews} />

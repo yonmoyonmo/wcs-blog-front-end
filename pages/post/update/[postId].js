@@ -104,12 +104,10 @@ const updatePost = ({ post }) => {
     }
   };
 
-  const resetImages = () => {
-    setImages([]);
-    setCreateObjectURLs([]);
-    console.log(createObjectURLs);
-    console.log(images);
-  };
+  // const resetImages = () => {
+  //   setImages([]);
+  //   setCreateObjectURLs([]);
+  // };
   //---------------------------------------------------------------
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -131,9 +129,6 @@ const updatePost = ({ post }) => {
       if (imageData && imageData.success) {
         const imageURLs = makeImageUrls(imageData.imageLocations);
         const tags = makeTagArray(tagString);
-
-        console.log(imageURLs);
-        console.log(tags);
 
         const response3 = await fetch(postUpdateEndpoint, {
           method: "PUT",
@@ -252,17 +247,31 @@ const updatePost = ({ post }) => {
                 ></input>
               </div>
               <div className="field-row" style={{ justifyContent: "center" }}>
-                <button onClick={resetImages}>image reset</button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setImages([]);
+                    setCreateObjectURLs([]);
+                  }}
+                >
+                  image reset
+                </button>
               </div>
+
               {createObjectURLs.length !== 0 ? (
                 createObjectURLs.map((each, key) => {
                   return (
-                    <div className={style.imageContainer} key={key}>
-                      <img
-                        className={style.image}
-                        src={each}
-                        layout="fill"
-                      ></img>
+                    <div
+                      className="field-row"
+                      style={{ justifyContent: "center" }}
+                    >
+                      <div className={style.imageContainer} key={key}>
+                        <img
+                          className={style.image}
+                          src={each}
+                          layout="fill"
+                        ></img>
+                      </div>
                     </div>
                   );
                 })
@@ -286,6 +295,7 @@ const updatePost = ({ post }) => {
               ) : (
                 <p>이미지 없음</p>
               )}
+
               <br />
               <div>
                 <input type="file" onChange={uploadPreviews} />

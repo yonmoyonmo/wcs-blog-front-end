@@ -21,12 +21,12 @@ export default function Home({ categories }) {
         </div>
 
         <div className="window-body">
-        <div className="field-row" style={{ justifyContent: "center" }}>
-        <p style={{fontSize:"1.0rem"}}>
-            categories will take you to another page
-          </p>
-            </div>
-          
+          <div className="field-row" style={{ justifyContent: "center" }}>
+            <p style={{ fontSize: "1.0rem" }}>
+              categories will take you to another page
+            </p>
+          </div>
+
           {categories.success ? (
             categories.data.map((category) => {
               return (
@@ -50,13 +50,21 @@ export async function getServerSideProps() {
     const res = await fetch(endpointMania("/admin/public/category/list"), {
       method: "GET",
     });
-    const categories = await res.json();
-    return {
-      props: {
-        categories,
-      },
-    };
+    try {
+      const categories = await res.json();
+      return {
+        props: {
+          categories,
+        },
+      };
+    } catch (e) {
+      console.log("home page getServerSideProps catch 1");
+      console.log(e);
+      const categories = { success: false };
+      return { props: { categories } };
+    }
   } catch (e) {
+    console.log("home page getServerSideProps catch 2");
     console.log(e);
     const categories = { success: false };
     return { props: { categories } };

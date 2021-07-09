@@ -54,7 +54,6 @@ const profileUpdate = ({ profile }) => {
         const imageURL = imageEndpoint(
           `/wcs/image/display${dataImage.imageLocation}`
         );
-        //console.log(imageURL);
         setProfileImageURL(imageURL);
 
         const response = await fetch(updateProfileEndpoint, {
@@ -98,7 +97,7 @@ const profileUpdate = ({ profile }) => {
         router.push("/user/profile");
       } else {
         setSubmitError("프로파일 수정 실패");
-        if(data){
+        if (data) {
           console.log(data.message);
         }
       }
@@ -181,7 +180,8 @@ const tokenFromCookie = (cookie) => {
   if (!cookie) {
     return "";
   } else {
-    const parsedCookie = cookie.split("=");
+    const parsedCookie = cookie.split("userToken=");
+    console.log(parsedCookie);
     return parsedCookie[1];
   }
 };

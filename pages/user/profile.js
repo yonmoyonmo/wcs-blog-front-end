@@ -111,7 +111,7 @@ const tokenFromCookie = (cookie) => {
   if (!cookie) {
     return "";
   } else {
-    const parsedCookie = cookie.split("=");
+    const parsedCookie = cookie.split("userToken=");
     console.log(parsedCookie);
     return parsedCookie[1];
   }

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import Link from "next/link";
 import { endpointMania } from "../../util/enpointMania";
+import style from "../../styles/Layout.module.css";
 
 const postList = ({ posts, cateName }) => {
   const router = useRouter();
@@ -10,95 +11,104 @@ const postList = ({ posts, cateName }) => {
   return (
     <>
       <Header props={"카테고리 : " + name}></Header>
+      <div>
+        <div style={{ width: "100%" }} className="window">
+          <div className="title-bar">
+            <div className="title-bar-text">post list</div>
+            <div className="title-bar-controls">
+              <button aria-label="Minimize" />
+              <button aria-label="Maximize" />
+              <button aria-label="Close" />
+            </div>
+          </div>
+          <div className="window-body">
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <p>posts</p>
+            </div>
+            <div className="field-row" style={{ justifyContent: "center" }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push(`/post/create?cateId=${cateId}&name=${name}`);
+                }}
+              >
+                <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
+                  글쓰기
+                </Link>
+              </button>
+            </div>
+            <br />
+            <hr />
 
-      <div style={{ width: "100%" }} className="window">
-        <div className="title-bar">
-          <div className="title-bar-text">post list</div>
-          <div className="title-bar-controls">
-            <button aria-label="Minimize" />
-            <button aria-label="Maximize" />
-            <button aria-label="Close" />
-          </div>
-        </div>
-        <div className="window-body">
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <p>posts</p>
-          </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                router.push(`/post/create?cateId=${cateId}&name=${name}`);
-              }}
-            >
-              <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
-                글쓰기
-              </Link>
-            </button>
-          </div>
-          <br />
-          <hr />
-
-          {posts.success ? (
-            posts.data.map((post) => {
-              return (
-                <div className="field-row" style={{ justifyContent: "center" }}>
+            {posts.success ? (
+              posts.data.map((post) => {
+                return (
                   <div
-                    style={{ width: "90%" }}
-                    className="window"
-                    key={post.id}
+                    className="field-row"
+                    style={{ justifyContent: "center" }}
                   >
-                    <div className="title-bar">
-                      <div className="title-bar-text">
-                        {post.title +
-                          " [" +
-                          post.createdTime.split("T")[0] +
-                          "]"}
+                    <div
+                      style={{ width: "90%" }}
+                      className="window"
+                      key={post.id}
+                    >
+                      <div className="title-bar">
+                        <div className="title-bar-text">
+                          {post.title +
+                            " [" +
+                            post.createdTime.split("T")[0] +
+                            "]"}
+                        </div>
+                        <div className="title-bar-controls">
+                          <button aria-label="Minimize" />
+                          <button aria-label="Maximize" />
+                          <button aria-label="Close" />
+                        </div>
                       </div>
-                      <div className="title-bar-controls">
-                        <button aria-label="Minimize" />
-                        <button aria-label="Maximize" />
-                        <button aria-label="Close" />
-                      </div>
-                    </div>
-                    <div className="window-body">
-                      <div
-                        className="field-row"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <p>글쓴이 : {post.blogUser.nickname}</p>
-                      </div>
-                      <div
-                        className="field-row"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <img
-                          src={`${post.images[0].imageURI}`}
-                          style={{ width: "80%" }}
-                        ></img>
-                      </div>
-                      <div
-                        className="field-row"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <button
-                          style={{ width: "75%" }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            router.push(`/post/${post.id}`);
-                          }}
+                      <div className="window-body">
+                        <div
+                          className="field-row"
+                          style={{ justifyContent: "center" }}
                         >
-                          <Link href={`/post/${post.id}`}>{post.title}</Link>
-                        </button>
+                          <p>글쓴이 : {post.blogUser.nickname}</p>
+                        </div>
+                        <div
+                          className="field-row"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <div
+                            key={post.images[0].id}
+                            className={style.imageContainer}
+                          >
+                            <img
+                              src={`${post.images[0].imageURI}`}
+                              style={{ width: "80%" }}
+                            ></img>
+                          </div>
+                        </div>
+                        <div
+                          className="field-row"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <button
+                            style={{ width: "75%" }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              router.push(`/post/${post.id}`);
+                            }}
+                          >
+                            <Link href={`/post/${post.id}`}>{post.title}</Link>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          ) : (
-            <p>no post</p>
-          )}
+                );
+              })
+            ) : (
+              <p>no post</p>
+            )}
+          </div>
         </div>
       </div>
     </>

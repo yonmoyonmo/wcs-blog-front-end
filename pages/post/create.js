@@ -62,10 +62,10 @@ const createPost = () => {
 
   async function submitHandler(e) {
     e.preventDefault();
-    setLoading(true);
     if (title === "" || text === "" || images.length === 0) {
       setError("제목과 내용과 이미지 중 하나가 아무튼 없음");
     } else {
+      setLoading(true);
       const bodyFormData = new FormData();
       for (let i = 0; i < images.length; i++) {
         bodyFormData.append(`files`, images[i]);

@@ -29,8 +29,8 @@ const commentCreate = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
     if (text) {
+      setLoading(true);
       const response = await fetch(commentUploadEndpoint, {
         method: "POST",
         headers: {

@@ -22,8 +22,8 @@ export default function Home({ categories }) {
 
         <div className="window-body">
           <div className="field-row" style={{ justifyContent: "center" }}>
-            <p style={{ fontSize: "1.0rem" }}>
-              categories will take you to another page
+            <p>
+              categories
             </p>
           </div>
 

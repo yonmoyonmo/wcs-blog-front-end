@@ -91,4 +91,7 @@
     width: 100%;
     flex-direction: column;
   }
+  .imageContainer {
+    width: 70%;
+  }
 }

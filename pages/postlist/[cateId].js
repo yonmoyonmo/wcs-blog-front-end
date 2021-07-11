@@ -81,8 +81,8 @@ const postList = ({ posts, cateName }) => {
                             className={style.imageContainer}
                           >
                             <img
+                              className={style.image}
                               src={`${post.images[0].imageURI}`}
-                              style={{ width: "80%" }}
                             ></img>
                           </div>
                         </div>

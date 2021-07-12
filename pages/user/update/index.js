@@ -40,8 +40,8 @@ const profileUpdate = ({ profile }) => {
 
   async function submitProfile(e) {
     e.preventDefault();
-    setLoading(true);
     if (image) {
+      setLoading(true);
       const body = new FormData();
       body.append("file", image);
       body.append("userName", nickname);
@@ -69,17 +69,17 @@ const profileUpdate = ({ profile }) => {
         });
         const data = await response.json();
         if (data && data.success) {
-          console.log(data.message);
+          console.log("시발");
           router.push("/user/profile");
         } else {
-          setSubmitError(data.message);
+          setSubmitError("profile update error");
         }
       } else {
-        setSubmitError(dataImage.message);
+        setSubmitError("image update error : profile");
       }
     } else {
-      setProfileImageURL("");
-
+      setLoading(true);
+      const notChangedImage = profile.data.profileImageURL;
       const response = await fetch(updateProfileEndpoint, {
         method: "PUT",
         headers: {
@@ -87,8 +87,8 @@ const profileUpdate = ({ profile }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          description,
-          profileImageURL: "",
+          description : description,
+          profileImageURL: notChangedImage,
         }),
       });
       const data = await response.json();
@@ -116,7 +116,10 @@ const profileUpdate = ({ profile }) => {
   return (
     <>
       {loading ? (
-        <Loading></Loading>
+        <>
+          <Loading></Loading>
+          {submitError && <p style={{ color: "red" }}>{submitError}</p>}
+        </>
       ) : (
         <div style={{ width: "100%" }} className="window">
           <div className="title-bar">

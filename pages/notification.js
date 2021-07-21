@@ -9,46 +9,48 @@ const notificationPage = ({ notification }) => {
       <div>
         {notification.success ? (
           <div>
-            {notification.data.map((noti) => {
-              return (
-                <div key={noti.id}>
-                  <div style={{ width: "100%" }} className="window">
-                    <div className="title-bar">
-                      <div className="title-bar-text">
-                        <p>{noti.title}</p>
+            <div className={styles.grid}>
+              {notification.data.map((noti) => {
+                return (
+                  <div style={{ margin: "1rem" }} key={noti.id}>
+                    <div style={{ width: "300px" }} className="window">
+                      <div className="title-bar">
+                        <div className="title-bar-text">
+                          <p>{noti.title}</p>
+                        </div>
+                        <div className="title-bar-controls">
+                          <button aria-label="Minimize" />
+                          <button aria-label="Maximize" />
+                          <button aria-label="Close" />
+                        </div>
                       </div>
-                      <div className="title-bar-controls">
-                        <button aria-label="Minimize" />
-                        <button aria-label="Maximize" />
-                        <button aria-label="Close" />
+                      <div className="window-body">
+                        <div
+                          className="field-row"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <p style={{ fontSize: "1.0rem" }}>{noti.title}</p>
+                        </div>
+                        <div
+                          className="field-row"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <p>{noti.text}</p>
+                        </div>
+                        <div
+                          className="field-row"
+                          style={{ justifyContent: "center" }}
+                        >
+                          <p>{noti.createdTime.split("T")[0]}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="window-body">
-                      <div
-                        className="field-row"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <p style={{ fontSize: "1.0rem" }}>{noti.title}</p>
-                      </div>
-                      <div
-                        className="field-row"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <p>{noti.text}</p>
-                      </div>
-                      <div
-                        className="field-row"
-                        style={{ justifyContent: "center" }}
-                      >
-                        <p>{noti.createdTime.split("T")[0]}</p>
-                      </div>
+                      <br />
                     </div>
                     <br />
                   </div>
-                  <br />
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         ) : (
           <p>공지사항 없음</p>

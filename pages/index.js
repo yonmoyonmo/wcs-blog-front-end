@@ -15,11 +15,11 @@ export default function Home({ categories }) {
         {categories.success ? (
           categories.data.map((category) => {
             return (
-              <div style={{ margin: "1rem" }}>
+              <div>
                 <div className="window-body">
                   <div className="window">
-                    <div className="title-bar">
-                      <div className="title-bar-text">{category.title.substr(0,10)}</div>
+                    <div className="title-bar" style={{ width: "300px" }}>
+                      <div className="title-bar-text">{category.title}</div>
                       <div className="title-bar-controls">
                         <button aria-label="Minimize" />
                         <button aria-label="Maximize" />

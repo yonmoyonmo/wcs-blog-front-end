@@ -23,7 +23,7 @@
 
   @media (max-width: 600px) {
     .nav ul li a {
-      margin: 8px 12px;
+      margin: 8px 10px;
       font-size: 0.8rem;
     }
   }

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { endpointMania } from "../../../util/enpointMania";
 import Loading from "../../../components/Loading";
+import style from "../../../styles/Layout.module.css";
 
 const commentCreate = () => {
   const router = useRouter();
@@ -58,14 +59,14 @@ const commentCreate = () => {
 
   return (
     <>
+      <br />
       {loading ? (
         <Loading></Loading>
       ) : (
-        <div>
+        <div className={style.card}>
           <p>댓글 달기</p>
           <form onSubmit={submitHandler} style={{ width: "100%" }}>
             <textarea
-              style={{ width: "100%" }}
               type="text"
               maxLength="140"
               placeholder="댓글 쓰는 곳, 140자 제한임"

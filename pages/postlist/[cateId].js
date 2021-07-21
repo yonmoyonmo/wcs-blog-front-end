@@ -14,8 +14,7 @@ const postList = ({ posts, cateName }) => {
       <div>
         <div>
           <div>
-            <div>
-              <p>posts</p>
+            <div style={{ textAlign: "center" }}>
               <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
                 글쓰기
               </Link>
@@ -27,7 +26,7 @@ const postList = ({ posts, cateName }) => {
                 posts.data.map((post) => {
                   return (
                     <Link href={`/post/${post.id}`}>
-                      <div style={{ margin: "1rem" }}>
+                      <div style={{ margin: "0.8rem" }}>
                         <div className="window">
                           <div className="title-bar">
                             <div className="title-bar-text">
@@ -41,15 +40,14 @@ const postList = ({ posts, cateName }) => {
                           </div>
                           <div className={style.card}>
                             <div key={post.id}>
-                              
                               <div>
                                 <div>
                                   <h2>{post.title}</h2>
                                   <p>글쓴이 : {post.blogUser.nickname}</p>
                                 </div>
-                                <div style={{margin:"1rem"}}>
-                                {"[" + post.createdTime.split("T")[0] + "]"}
-                              </div>
+                                <div style={{ margin: "1rem" }}>
+                                  {"[" + post.createdTime.split("T")[0] + "]"}
+                                </div>
                                 <div
                                   style={{
                                     overflow: "hidden",

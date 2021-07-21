@@ -42,16 +42,19 @@ const Comment = ({ comment, currentEmail, token, key }) => {
 
   return (
     <div key={key}>
-      <div>{nick}</div>
-      <div>
-        <p>{comment.text}</p>
-      </div>
-      <div>
-        <p>{"[" + comment.createdTime.split("T")[0] + "]"}</p>
-      </div>
+      <p>
+        {nick +
+          " : " +
+          comment.text +
+          " : " +
+          "[" +
+          comment.createdTime.split("T")[0] +
+          "]"}
+      </p>
+
       {comment.blogUser.email === currentEmail ? (
         <div>
-          <button onClick={deleteComment}>삭제</button>
+          <button onClick={deleteComment}>자신의 댓글 삭제</button>
         </div>
       ) : (
         <></>

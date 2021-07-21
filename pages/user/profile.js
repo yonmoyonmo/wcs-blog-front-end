@@ -21,19 +21,38 @@ const profile = ({ profile }) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       {profile.success ? (
-        <div style={{ width: "100%" }} className="window">
-          <div className="title-bar">
-            <div className="title-bar-text">{profile.data.owner.nickname}</div>
-            <div className="title-bar-controls">
-              <button aria-label="Minimize" />
-              <button aria-label="Maximize" />
-              <button aria-label="Close" />
-            </div>
+        <button
+          style={{ margin: "1rem" }}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log(cookie);
+            removeCookie("userToken", { path: "/" });
+            window.location.reload();
+          }}
+        >
+          Logout
+        </button>
+      ) : (
+        <div className="window-body">
+          <p style={{ textAlign: "center" }}>로그인 필요</p>
+          <div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                router.push("/signin");
+              }}
+            >
+              <Link href="/signin">LOGIN</Link>
+            </button>
           </div>
+        </div>
+      )}
+      {profile.success ? (
+        <div className={style.card}>
           <br />
-          <div className="field-row" style={{ justifyContent: "center" }}>
+          <div style={{ width: "300px" }}>
             <div key={profile.data.id} className={style.imageContainer}>
               <img
                 src={
@@ -46,21 +65,21 @@ const profile = ({ profile }) => {
               ></img>
             </div>
           </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
+          <div style={{ margin: "1rem" }}>
             <p>소개 : {profile.data.description}</p>
           </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
+          <div style={{ margin: "1rem" }}>
             <p>이메일 : {profile.data.owner.email}</p>
           </div>
 
-          <div className="field-row" style={{ justifyContent: "center" }}>
+          <div style={{ margin: "1rem" }}>
             <p>이름 : {profile.data.owner.username}</p>
           </div>
 
-          <div className="field-row" style={{ justifyContent: "center" }}>
+          <div style={{ margin: "1rem" }}>
             <p>닉네임 : {profile.data.owner.nickname}</p>
           </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
+          <div>
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -75,34 +94,9 @@ const profile = ({ profile }) => {
       ) : (
         <></>
       )}
+
       <br />
       <br />
-      {profile.success ? (
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            console.log(cookie);
-            removeCookie("userToken", { path: "/" });
-            window.location.reload();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <div className="window-body">
-          <p style={{ textAlign: "center" }}>로그인 필요</p>
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                router.push("/signin");
-              }}
-            >
-              <Link href="/signin">LOGIN</Link>
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

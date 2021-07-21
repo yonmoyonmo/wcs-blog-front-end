@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import CategoryList from "../components/CategoryList";
 import { useCookies } from "react-cookie";
 import { endpointMania } from "../util/enpointMania";
+import style from "../styles/Layout.module.css";
 
 export default function Home({ categories }) {
   const [cookie, setCookie] = useCookies(["userToken"]);
@@ -9,37 +10,34 @@ export default function Home({ categories }) {
 
   return (
     <>
-      <Header props={"원모 싸이버 스쿨 2.0"}></Header>
-      <div style={{ width: "100%" }} className="window">
-        <div className="title-bar">
-          <div className="title-bar-text">category list</div>
-          <div className="title-bar-controls">
-            <button aria-label="Minimize" />
-            <button aria-label="Maximize" />
-            <button aria-label="Close" />
-          </div>
-        </div>
-
-        <div className="window-body">
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <p>
-              categories
-            </p>
-          </div>
-
-          {categories.success ? (
-            categories.data.map((category) => {
-              return (
-                <CategoryList
-                  category={category}
-                  key={category.id}
-                ></CategoryList>
-              );
-            })
-          ) : (
-            <li>no categories</li>
-          )}
-        </div>
+      <Header props={"WonmoCyberSchool_2.1"}></Header>
+      <div className={style.grid}>
+        {categories.success ? (
+          categories.data.map((category) => {
+            return (
+              <div style={{ margin: "1rem" }}>
+                <div className="window-body">
+                  <div className="window">
+                    <div className="title-bar">
+                      <div className="title-bar-text">{category.title.substr(0,10)}</div>
+                      <div className="title-bar-controls">
+                        <button aria-label="Minimize" />
+                        <button aria-label="Maximize" />
+                        <button aria-label="Close" />
+                      </div>
+                    </div>
+                    <CategoryList
+                      category={category}
+                      key={category.id}
+                    ></CategoryList>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <li>no categories</li>
+        )}
       </div>
     </>
   );

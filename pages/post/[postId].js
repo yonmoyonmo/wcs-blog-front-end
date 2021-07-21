@@ -63,44 +63,37 @@ const post = ({ post }) => {
     <div>
       {post.success ? (
         <>
-          <div style={{ width: "100%" }} className="window">
-            <div className="title-bar">
-              <div className="title-bar-text">{post.data.title}</div>
-              <div className="title-bar-controls">
-                <button aria-label="Minimize" />
-                <button aria-label="Maximize" />
-                <button aria-label="Close" />
-              </div>
+          <div>
+            <div>
+              <h2>{post.data.title}</h2>
             </div>
-
-            {emailOfThisPost === currentEmail ? (
-              <>
-                <br />
-                <div className="field-row" style={{ justifyContent: "center" }}>
-                  <button>
-                    <Link href={`/post/update/${post.data.id}`}>
-                      게시글 수정
-                    </Link>
-                  </button>
-                  <button onClick={deleteFunction}>게시글 삭제</button>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-            <div className="field-row" style={{ justifyContent: "center" }}>
+            <div>
+              {emailOfThisPost === currentEmail ? (
+                <>
+                  <br />
+                  <div>
+                    <button>
+                      <Link href={`/post/update/${post.data.id}`}>
+                        게시글 수정
+                      </Link>
+                    </button>
+                    <button onClick={deleteFunction}>게시글 삭제</button>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
+            <div>
               <p>글쓴이 : {post.data.blogUser.nickname}</p>
             </div>
-            <div className="field-row" style={{ justifyContent: "center" }}>
+            <div>
               <p>작성일 : {post.data.createdTime.split("T")[0]}</p>
             </div>
             {post.data.images.map((image) => {
               return (
-                <div className="window-body">
-                  <div
-                    className="field-row"
-                    style={{ justifyContent: "center" }}
-                  >
+                <div>
+                  <div>
                     <div key={image.id} className={style.imageContainer}>
                       <img
                         src={image.imageURI}
@@ -115,17 +108,11 @@ const post = ({ post }) => {
             })}
             {post.success ? (
               <>
-                <div className="window-body">
-                  <div
-                    className="field-row"
-                    style={{ justifyContent: "center" }}
-                  >
+                <div>
+                  <div>
                     <p style={{ fontSize: "1.0rem" }}>{post.data.title}</p>
                   </div>
-                  <div
-                    className="field-row"
-                    style={{ justifyContent: "center" }}
-                  >
+                  <div>
                     {splitedText.map((each) => {
                       return (
                         <>
@@ -141,16 +128,13 @@ const post = ({ post }) => {
               <div>no post</div>
             )}
             <hr />
-            <div className="field-row" style={{ justifyContent: "center" }}>
+            <div>
               <p>tags</p>
             </div>
             {post.data.postTagRelations ? (
               post.data.postTagRelations.map((postTagRelation) => {
                 return (
-                  <div
-                    className="field-row"
-                    style={{ justifyContent: "center" }}
-                  >
+                  <div>
                     <div key={postTagRelation.tag.id}>
                       <Link href={`/postlist/tag/${postTagRelation.tag.id}`}>
                         <a style={{ color: "blue" }}>
@@ -165,8 +149,8 @@ const post = ({ post }) => {
               <></>
             )}
             <hr />
-            <div className="window-body">
-              <div className="field-row" style={{ justifyContent: "center" }}>
+            <div>
+              <div>
                 <button
                   onClick={(e) => {
                     e.preventDefault();

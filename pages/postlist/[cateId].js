@@ -10,104 +10,78 @@ const postList = ({ posts, cateName }) => {
 
   return (
     <>
-      <Header props={"카테고리 : " + name}></Header>
+      <Header props={name}></Header>
       <div>
-        <div style={{ width: "100%" }} className="window">
-          <div className="title-bar">
-            <div className="title-bar-text">post list</div>
-            <div className="title-bar-controls">
-              <button aria-label="Minimize" />
-              <button aria-label="Maximize" />
-              <button aria-label="Close" />
-            </div>
-          </div>
-          <div className="window-body">
-            <div className="field-row" style={{ justifyContent: "center" }}>
+        <div>
+          <div>
+            <div>
               <p>posts</p>
+              <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
+                글쓰기
+              </Link>
             </div>
-            <div className="field-row" style={{ justifyContent: "center" }}>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  router.push(`/post/create?cateId=${cateId}&name=${name}`);
-                }}
-              >
-                <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
-                  글쓰기
-                </Link>
-              </button>
-            </div>
-            <br />
             <hr />
 
-            {posts.success ? (
-              posts.data.map((post) => {
-                return (
-                  <div
-                    className="field-row"
-                    style={{ justifyContent: "center" }}
-                  >
-                    <div
-                      style={{ width: "90%" }}
-                      className="window"
-                      key={post.id}
-                    >
-                      <div className="title-bar">
-                        <div className="title-bar-text">
-                          {post.title +
-                            " [" +
-                            post.createdTime.split("T")[0] +
-                            "]"}
-                        </div>
-                        <div className="title-bar-controls">
-                          <button aria-label="Minimize" />
-                          <button aria-label="Maximize" />
-                          <button aria-label="Close" />
-                        </div>
-                      </div>
-                      <div className="window-body">
-                        <div
-                          className="field-row"
-                          style={{ justifyContent: "center" }}
-                        >
-                          <p>글쓴이 : {post.blogUser.nickname}</p>
-                        </div>
-                        <div
-                          className="field-row"
-                          style={{ justifyContent: "center" }}
-                        >
-                          <div
-                            key={post.images[0].id}
-                            className={style.imageContainer}
-                          >
-                            <img
-                              className={style.image}
-                              src={`${post.images[0].imageURI}`}
-                            ></img>
+            <div className={style.grid}>
+              {posts.success ? (
+                posts.data.map((post) => {
+                  return (
+                    <Link href={`/post/${post.id}`}>
+                      <div style={{ margin: "1rem" }}>
+                        <div className="window">
+                          <div className="title-bar">
+                            <div className="title-bar-text">
+                              {post.title.substr(0, 10)}
+                            </div>
+                            <div className="title-bar-controls">
+                              <button aria-label="Minimize" />
+                              <button aria-label="Maximize" />
+                              <button aria-label="Close" />
+                            </div>
+                          </div>
+                          <div className={style.card}>
+                            <div key={post.id}>
+                              
+                              <div>
+                                <div>
+                                  <h2>{post.title}</h2>
+                                  <p>글쓴이 : {post.blogUser.nickname}</p>
+                                </div>
+                                <div style={{margin:"1rem"}}>
+                                {"[" + post.createdTime.split("T")[0] + "]"}
+                              </div>
+                                <div
+                                  style={{
+                                    overflow: "hidden",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "230px",
+                                    height: "230px",
+                                  }}
+                                >
+                                  <div
+                                    key={post.images[0].id}
+                                    className={style.imageContainer}
+                                  >
+                                    <img
+                                      className={style.image}
+                                      src={`${post.images[0].imageURI}`}
+                                    ></img>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div
-                          className="field-row"
-                          style={{ justifyContent: "center" }}
-                        >
-                          <button
-                            style={{ width: "75%" }}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              router.push(`/post/${post.id}`);
-                            }}
-                          >
-                            <Link href={`/post/${post.id}`}>{post.title}</Link>
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <p>no post</p>
-            )}
+                    </Link>
+                  );
+                })
+              ) : (
+                <p>no post</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

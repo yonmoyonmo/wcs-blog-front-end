@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import style from "../styles/Layout.module.css";
 
 const CategoryList = ({ category }) => {
   const router = useRouter();
@@ -7,19 +8,12 @@ const CategoryList = ({ category }) => {
   const cateName = category.title;
 
   return (
-    <div className="field-row" style={{ justifyContent: "center" }}>
-      <button
-        style={{ width: "100%" }}
-        onClick={(e) => {
-          e.preventDefault();
-          router.push(`/postlist/${cateId}?name=${cateName}`);
-        }}
-      >
-        <Link href={`/postlist/${cateId}?name=${cateName}`}>
-          {category.title}
-        </Link>
-      </button>
-    </div>
+    <Link href={`/postlist/${cateId}?name=${cateName}`}>
+      <div style={{ textAlign: "center" }}>
+        <button>{category.title}</button>
+        <p>{category.description}</p>
+      </div>
+    </Link>
   );
 };
 

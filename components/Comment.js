@@ -41,24 +41,20 @@ const Comment = ({ comment, currentEmail, token, key }) => {
   };
 
   return (
-    <div style={{ width: "100%" }} className="window" key={key}>
-      <div className="title-bar">
-        <div className="title-bar-text">{nick}</div>
-        <div className="title-bar-controls">
-          <button aria-label="Minimize" />
-          <button aria-label="Maximize" />
-          <button aria-label="Close" />
-        </div>
-      </div>
-      <div className="field-row" style={{ justifyContent: "center" }}>
-        <p>{comment.text}</p>
-      </div>
-      <div className="field-row" style={{ justifyContent: "center" }}>
-        <p>{"[" + comment.createdTime.split("T")[0] + "]"}</p>
-      </div>
+    <div key={key}>
+      <p>
+        {nick +
+          " : " +
+          comment.text +
+          " : " +
+          "[" +
+          comment.createdTime.split("T")[0] +
+          "]"}
+      </p>
+
       {comment.blogUser.email === currentEmail ? (
-        <div className="field-row" style={{ justifyContent: "center" }}>
-          <button onClick={deleteComment}>삭제</button>
+        <div>
+          <button onClick={deleteComment}>자신의 댓글 삭제</button>
         </div>
       ) : (
         <></>

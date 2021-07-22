@@ -1,50 +1,35 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { endpointMania } from "../../../util/enpointMania";
+import style from "../../../styles/Layout.module.css";
 
 const postList = ({ posts }) => {
   const router = useRouter();
   return (
     <>
-      <div style={{ width: "100%" }} className="window">
-        {posts.success ? (
-          posts.data.map((post) => {
-            return (
-              <>
-                <div className="title-bar">
-                  <div className="title-bar-text">{post.title}</div>
-                  <div className="title-bar-controls">
-                    <button aria-label="Minimize" />
-                    <button aria-label="Maximize" />
-                    <button aria-label="Close" />
-                  </div>
-                </div>
-                <div className="window-body">
-                  <div
-                    className="field-row"
-                    style={{ justifyContent: "center" }}
-                    key={post.id}
-                  >
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        router.push(`/post/${post.id}`);
-                      }}
-                    >
-                      <div key={post.id}>
-                        <Link href={`/post/${post.id}`}>이동</Link>
-                      </div>
+    <h2>{posts.data[0].postTagRelations[0].tag.tagName}</h2>
+    <div className={style.grid}>
+      {posts.success ? (
+        posts.data.map((post) => {
+          return (
+            <>
+              <Link href={`/post/${post.id}`}>
+                <div className={style.card}>
+                  <div key={post.id}>
+                    <p>{post.title}</p>
+                    <button>
+                      이동
                     </button>
                   </div>
                 </div>
-                <br />
-              </>
-            );
-          })
-        ) : (
-          <p>no post</p>
-        )}
-      </div>
+              </Link>
+            </>
+          );
+        })
+      ) : (
+        <p>no post</p>
+      )}
+    </div>
     </>
   );
 };

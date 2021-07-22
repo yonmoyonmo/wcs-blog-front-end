@@ -87,7 +87,7 @@ const profileUpdate = ({ profile }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          description : description,
+          description: description,
           profileImageURL: notChangedImage,
         }),
       });
@@ -121,23 +121,14 @@ const profileUpdate = ({ profile }) => {
           {submitError && <p style={{ color: "red" }}>{submitError}</p>}
         </>
       ) : (
-        <div style={{ width: "100%" }} className="window">
-          <div className="title-bar">
-            <div className="title-bar-text">
-              <p>update profile</p>
-            </div>
-            <div className="title-bar-controls">
-              <button aria-label="Minimize" />
-              <button aria-label="Maximize" />
-              <button aria-label="Close" />
-            </div>
-          </div>
-          <div className="window-body" style={{ width: "100%" }}>
-            <div className="field-row" style={{ justifyContent: "center" }}>
+        <div className={style.card}>
+          <div>
+            <div>
               <p>닉네임 : {nickname}</p>
+              <br />
             </div>
             <form onSubmit={submitProfile} style={{ width: "100%" }}>
-              <div className="field-row" style={{ justifyContent: "center" }}>
+              <div>
                 <textarea
                   style={{ width: "80%" }}
                   type="text"
@@ -148,7 +139,8 @@ const profileUpdate = ({ profile }) => {
                   }}
                 ></textarea>
               </div>
-              <div className="field-row" style={{ justifyContent: "center" }}>
+              <br />
+              <div style={{ width: "300px" }}>
                 <div className={style.imageContainer}>
                   <img
                     className={style.image}
@@ -157,8 +149,11 @@ const profileUpdate = ({ profile }) => {
                   ></img>
                 </div>
               </div>
-              <div className="field-row" style={{ justifyContent: "center" }}>
+              <div>
                 <input type="file" onChange={uploadPreview} />
+              </div>
+              <br />
+              <div>
                 <input type="submit" value="프로필 수정"></input>
               </div>
               {submitError && <p style={{ color: "red" }}>{submitError}</p>}
@@ -166,7 +161,7 @@ const profileUpdate = ({ profile }) => {
             <br />
             <br />
             <br />
-            <div className="field-row" style={{ justifyContent: "center" }}>
+            <div>
               <a style={{ color: "blue" }} href="/user/nickname">
                 닉네임 수정 도전하기
               </a>

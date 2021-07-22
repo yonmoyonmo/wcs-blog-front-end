@@ -38,11 +38,18 @@ const postList = ({ posts, cateName }) => {
                               <button aria-label="Close" />
                             </div>
                           </div>
-                          <div className={style.card}>
+                          <div
+                            style={{
+                              textAlign: "center",
+                              padding: "1rem",
+                            }}
+                          >
                             <div key={post.id}>
                               <div>
                                 <div>
-                                  <h2>{post.title}</h2>
+                                  <p style={{ fontWeight: "1000" }}>
+                                    {post.title}
+                                  </p>
                                   <p>글쓴이 : {post.blogUser.nickname}</p>
                                 </div>
                                 <div style={{ margin: "1rem" }}>
@@ -56,6 +63,7 @@ const postList = ({ posts, cateName }) => {
                                     justifyContent: "center",
                                     width: "230px",
                                     height: "230px",
+                                    margin: "auto",
                                   }}
                                 >
                                   <div

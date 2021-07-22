@@ -26,7 +26,7 @@ const postList = ({ posts, cateName }) => {
                 posts.data.map((post) => {
                   return (
                     <Link href={`/post/${post.id}?catename=${name}&cateid=${cateId}`}>
-                      <div style={{ margin: "0.8rem" }}>
+                      <div style={{ margin: "0.8rem" , cursor:"pointer"}}>
                         <div className="window">
                           <div className="title-bar">
                             <div className="title-bar-text">

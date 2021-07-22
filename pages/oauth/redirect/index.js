@@ -11,7 +11,6 @@ const oauthRedirect = () => {
 
   useEffect(() => {
     if (token) {
-      console.log(token);
       setCookie("userToken", token, {
         path: "/",
         maxAge: 360000,

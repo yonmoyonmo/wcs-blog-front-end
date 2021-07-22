@@ -2,6 +2,7 @@ import Link from "next/link";
 import { endpointMania } from "../util/enpointMania";
 import { useEffect } from "react";
 import React, { useState } from "react";
+import style from "../styles/Comment.module.css";
 
 const Comment = ({ comment, currentEmail, token, key }) => {
   const commentDeleteEndpoint = endpointMania("/api/comment");
@@ -41,20 +42,15 @@ const Comment = ({ comment, currentEmail, token, key }) => {
   };
 
   return (
-    <div key={key}>
-      <p>
-        {nick +
-          " : " +
-          comment.text +
-          " : " +
-          "[" +
-          comment.createdTime.split("T")[0] +
-          "]"}
-      </p>
-
+    <div className={style.comments} key={key}>
+      <div className={style.commentContainer}>{nick}</div>
+      <div className={style.commentContainer}>{comment.text}</div>
+      <div className={style.commentContainer}>
+        {"[" + comment.createdTime.split("T")[0] + "]"}
+      </div>
       {comment.blogUser.email === currentEmail ? (
-        <div>
-          <button onClick={deleteComment}>자신의 댓글 삭제</button>
+        <div className={style.commentDeleteButton}>
+          <button onClick={deleteComment}>삭제</button>
         </div>
       ) : (
         <></>

@@ -11,8 +11,9 @@ import Comment from "../../components/Comment";
 const post = ({ post }) => {
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
-
   const router = useRouter();
+
+  const { catename, cateid } = router.query;
 
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
@@ -167,7 +168,6 @@ const post = ({ post }) => {
               <div>
                 <div>
                   <button
-                    style={{ margin: "1rem" }}
                     onClick={(e) => {
                       e.preventDefault();
                       router.push(
@@ -179,9 +179,17 @@ const post = ({ post }) => {
                       댓글달기
                     </Link>
                   </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      router.push(`/postlist/${cateid}?name=${catename}`);
+                    }}
+                  >
+                    목록으로
+                  </button>
                 </div>
               </div>
-              <div className={style.card}>
+              <div>
                 {post.data.comments ? (
                   post.data.comments.map((comment) => {
                     return (

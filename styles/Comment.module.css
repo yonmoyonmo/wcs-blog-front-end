@@ -1,0 +1,21 @@
+.commentContainer {
+  display: inline-block;
+  margin: 0.5rem;
+  height: 1.4rem;
+  width: 100%;
+}
+
+.comments {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid gray;
+  border-top: 1px solid rgb(96, 30, 150);
+}
+.commentDeleteButton{
+    overflow: hidden;
+    text-align: center;
+}

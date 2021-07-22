@@ -10,6 +10,7 @@ const CategoryList = ({ category }) => {
   return (
     <Link href={`/postlist/${cateId}?name=${cateName}`}>
       <div style={{ textAlign: "center" }}>
+        <br/>
         <button>{category.title}</button>
         <p>{category.description}</p>
       </div>

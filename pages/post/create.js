@@ -10,7 +10,7 @@ const createPost = () => {
   const token = cookie.userToken;
   const router = useRouter();
   const { cateId, name } = router.query;
-  const back = `/postlist/${cateId}?name=${name}`;
+  const back = `/postlist/${cateId}?name=${name}&page=0`;
 
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");

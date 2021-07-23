@@ -76,7 +76,7 @@ const post = ({ post }) => {
                     <hr />
                     <div>
                       <button>
-                        <Link href={`/post/update/${post.data.id}`}>
+                        <Link href={`/post/update/${post.data.id}?catename=${catename}&cateid=${cateid}`}>
                           게시글 수정
                         </Link>
                       </button>
@@ -151,7 +151,7 @@ const post = ({ post }) => {
                       <div>
                         <div key={postTagRelation.tag.id}>
                           <Link
-                            href={`/postlist/tag/${postTagRelation.tag.id}`}
+                            href={`/postlist/tag/${postTagRelation.tag.id}?catename=${catename}&cateid=${cateid}`}
                           >
                             <a style={{ color: "blue" }}>
                               {postTagRelation.tag.tagName}
@@ -175,14 +175,14 @@ const post = ({ post }) => {
                       );
                     }}
                   >
-                    <Link href={`/post/comment/create?postId=${post.data.id}`}>
+                    <Link href={`/post/comment/create?postId=${post.data.id}&catename=${catename}&cateid=${cateid}`}>
                       댓글달기
                     </Link>
                   </button>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push(`/postlist/${cateid}?name=${catename}`);
+                      router.push(`/postlist/${cateid}?name=${catename}&page=0`);
                     }}
                   >
                     목록으로

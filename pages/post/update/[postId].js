@@ -13,7 +13,9 @@ const updatePost = ({ post }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const { postId } = router.query;
+  const { postId, catename, cateid } = router.query;
+
+  const back = `/post/${[postId]}?catename=${catename}&cateid=${cateid}`;
 
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
@@ -146,7 +148,7 @@ const updatePost = ({ post }) => {
         });
         const postUpdateData = await response3.json();
         if (postUpdateData && postUpdateData.success) {
-          router.push("/");
+          router.push(back);
         } else {
           setError(postUpdateData.message);
         }
@@ -172,7 +174,7 @@ const updatePost = ({ post }) => {
       });
       const data2 = await response2.json();
       if (data2 && data2.success) {
-        router.push("/");
+        router.push(back);
       } else {
         setError(data2.message);
       }

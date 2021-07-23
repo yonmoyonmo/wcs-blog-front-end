@@ -8,13 +8,15 @@ const CategoryList = ({ category }) => {
   const cateName = category.title;
 
   return (
-    <Link href={`/postlist/${cateId}?name=${cateName}`}>
-      <div style={{ textAlign: "center" }}>
-        <br/>
-        <button>{category.title}</button>
-        <p>{category.description}</p>
-      </div>
-    </Link>
+    <>
+      <Link href={`/postlist/${cateId}?name=${cateName}&page=0`}>
+        <div style={{ textAlign: "center" }}>
+          <br />
+          <button>{category.title}</button>
+          <p>{category.description}</p>
+        </div>
+      </Link>
+    </>
   );
 };
 

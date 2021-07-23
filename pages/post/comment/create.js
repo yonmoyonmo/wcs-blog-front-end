@@ -9,7 +9,7 @@ const commentCreate = () => {
   const router = useRouter();
   const [cookie, setCookie] = useCookies(["userToken"]);
   const token = cookie.userToken;
-  const { postId } = router.query;
+  const { postId, catename, cateid } = router.query;
 
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +17,7 @@ const commentCreate = () => {
 
   const [error, setError] = useState("");
 
-  const back = `/post/${postId}`;
+  const back = `/post/${postId}?catename=${catename}&cateid=${cateid}`;
 
   const commentUploadEndpoint = endpointMania("/api/comment"); // post with token
 

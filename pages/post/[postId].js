@@ -76,7 +76,9 @@ const post = ({ post }) => {
                     <hr />
                     <div>
                       <button>
-                        <Link href={`/post/update/${post.data.id}?catename=${catename}&cateid=${cateid}`}>
+                        <Link
+                          href={`/post/update/${post.data.id}?catename=${catename}&cateid=${cateid}`}
+                        >
                           게시글 수정
                         </Link>
                       </button>
@@ -171,18 +173,18 @@ const post = ({ post }) => {
                     onClick={(e) => {
                       e.preventDefault();
                       router.push(
-                        `/post/comment/create?postId=${post.data.id}`
+                        `/post/comment/create?postId=${post.data.id}&catename=${catename}&cateid=${cateid}`
                       );
                     }}
                   >
-                    <Link href={`/post/comment/create?postId=${post.data.id}&catename=${catename}&cateid=${cateid}`}>
-                      댓글달기
-                    </Link>
+                    댓글달기
                   </button>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      router.push(`/postlist/${cateid}?name=${catename}&page=0`);
+                      router.push(
+                        `/postlist/${cateid}?name=${catename}&page=0`
+                      );
                     }}
                   >
                     목록으로

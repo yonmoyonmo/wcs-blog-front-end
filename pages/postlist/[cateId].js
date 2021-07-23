@@ -55,7 +55,7 @@ const postList = ({ posts }) => {
         <div>
           <div>
             <div style={{ textAlign: "center" }}>
-              <Link href={`/post/create?cateId=${cateId}&name=${name}`}>
+              <Link href={`/post/create?cateId=${cateId}&name=${name}&page=${page}`}>
                 글쓰기
               </Link>
             </div>
@@ -67,7 +67,7 @@ const postList = ({ posts }) => {
                   return (
                     <>
                       <Link
-                        href={`/post/${post.id}?catename=${name}&cateid=${cateId}`}
+                        href={`/post/${post.id}?catename=${name}&cateid=${cateId}&page=${page}`}
                       >
                         <div style={{ margin: "0.8rem", cursor: "pointer" }}>
                           <div className="window">
@@ -149,6 +149,9 @@ const postList = ({ posts }) => {
         {posts.data.last ? (
           <>
             <p>마지막 페이지입니다.</p>
+            <button value={page} name="prev" onClick={pagginationHandler}>
+              이전 페이지
+            </button>
             <button
               onClick={(e) => {
                 e.preventDefault();

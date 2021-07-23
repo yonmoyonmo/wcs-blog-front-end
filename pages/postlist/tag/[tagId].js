@@ -5,7 +5,7 @@ import style from "../../../styles/Layout.module.css";
 
 const postList = ({ posts }) => {
   const router = useRouter();
-  const {catename, cateid} = router.query;
+  const {catename, cateid, page} = router.query;
   return (
     <>
     <h2>{posts.data[0].postTagRelations[0].tag.tagName}</h2>
@@ -14,7 +14,7 @@ const postList = ({ posts }) => {
         posts.data.map((post) => {
           return (
             <>
-              <Link href={`/post/${post.id}?catename=${catename}&cateid=${cateid}`}>
+              <Link href={`/post/${post.id}?catename=${catename}&cateid=${cateid}&page=${page}`}>
                 <div className={style.card}>
                   <div key={post.id}>
                     <p>{post.title}</p>

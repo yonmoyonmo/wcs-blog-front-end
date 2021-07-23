@@ -13,7 +13,7 @@ const post = ({ post }) => {
   const token = cookie.userToken;
   const router = useRouter();
 
-  const { catename, cateid } = router.query;
+  const { catename, cateid, page } = router.query;
 
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
@@ -77,7 +77,7 @@ const post = ({ post }) => {
                     <div>
                       <button>
                         <Link
-                          href={`/post/update/${post.data.id}?catename=${catename}&cateid=${cateid}`}
+                          href={`/post/update/${post.data.id}?catename=${catename}&cateid=${cateid}&page=${page}`}
                         >
                           게시글 수정
                         </Link>
@@ -153,7 +153,7 @@ const post = ({ post }) => {
                       <div>
                         <div key={postTagRelation.tag.id}>
                           <Link
-                            href={`/postlist/tag/${postTagRelation.tag.id}?catename=${catename}&cateid=${cateid}`}
+                            href={`/postlist/tag/${postTagRelation.tag.id}?catename=${catename}&cateid=${cateid}&page=${page}`}
                           >
                             <a style={{ color: "blue" }}>
                               {postTagRelation.tag.tagName}
@@ -173,7 +173,7 @@ const post = ({ post }) => {
                     onClick={(e) => {
                       e.preventDefault();
                       router.push(
-                        `/post/comment/create?postId=${post.data.id}&catename=${catename}&cateid=${cateid}`
+                        `/post/comment/create?postId=${post.data.id}&catename=${catename}&cateid=${cateid}&page=${page}`
                       );
                     }}
                   >
@@ -183,7 +183,7 @@ const post = ({ post }) => {
                     onClick={(e) => {
                       e.preventDefault();
                       router.push(
-                        `/postlist/${cateid}?name=${catename}&page=0`
+                        `/postlist/${cateid}?name=${catename}&page=${page}`
                       );
                     }}
                   >

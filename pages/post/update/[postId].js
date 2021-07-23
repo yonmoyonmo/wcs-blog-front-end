@@ -13,9 +13,9 @@ const updatePost = ({ post }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const { postId, catename, cateid } = router.query;
+  const { postId, catename, cateid, page } = router.query;
 
-  const back = `/post/${[postId]}?catename=${catename}&cateid=${cateid}`;
+  const back = `/post/${[postId]}?catename=${catename}&cateid=${cateid}&page=${page}`;
 
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");

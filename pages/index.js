@@ -15,7 +15,7 @@ export default function Home({ categories }) {
         {categories.success ? (
           categories.data.map((category) => {
             return (
-              <div>
+              <div key={category.id}>
                 <div className="window-body">
                   <div className="window">
                     <div className="title-bar" style={{ width: "300px" }}>

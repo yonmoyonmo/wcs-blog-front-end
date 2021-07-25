@@ -65,7 +65,14 @@ export async function getServerSideProps() {
     const res = await fetch(endpointMania("/admin/public/notification/list"), {
       method: "GET",
     });
-    const notification = await res.json();
+    let notification = await res.json();
+
+    if (notification.data !== null) {
+      notification.data = notification.data.sort((a, b) => {
+        return b.id - a.id;
+      });
+    }
+
     return {
       props: {
         notification,

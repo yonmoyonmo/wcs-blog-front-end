@@ -92,7 +92,12 @@ const post = ({ post }) => {
               </div>
               <div style={{ textAlign: "center" }}>
                 <p style={{ display: "inline-block", margin: "1rem" }}>
-                  글쓴이 : {post.data.blogUser.nickname}
+                  글쓴이 :{" "}
+                  <Link
+                    href={`/user/otheruser?nickname=${post.data.blogUser.nickname}`}
+                  >
+                    {post.data.blogUser.nickname}
+                  </Link>
                 </p>
                 <p style={{ display: "inline-block", margin: "1rem" }}>
                   작성일 : {post.data.createdTime.split("T")[0]}

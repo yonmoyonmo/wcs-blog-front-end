@@ -22,8 +22,8 @@ const postList = ({ posts }) => {
     return () => {
       router.events.off("routeChangeStart", startLoading);
       router.events.off("routeChangeComplete", stopLoading);
+      setPageLimit(posts.data.totalPages);
     };
-    setPageLimit(posts.data.totalPages);
   }, [posts]);
 
   const pagginationHandler = (e) => {

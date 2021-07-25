@@ -16,7 +16,6 @@ const Layout = ({ children }) => {
             </div>
           </div>
           <br/>
-          <br/>
     </>
   );
 };

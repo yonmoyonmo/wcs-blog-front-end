@@ -11,7 +11,7 @@ const Header = ({ props }) => {
       </div>
       <Canvas camera={{ position: [0, 0, 35] }}>
         <ambientLight intensity={1} />
-        <pointLight position={[40, 40, 40]} />
+        <pointLight position={[0, 0, 0]} />
         <Suspense fallback={null}>
           <Box position={[0, 0, 0]} />
         </Suspense>

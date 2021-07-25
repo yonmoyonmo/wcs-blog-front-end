@@ -5,7 +5,15 @@ import navStyle from "../styles/Nav.module.css";
 const Nav = () => {
   const router = useRouter();
   return (
-    <div >
+    <div className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">MENU</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
       <div className={navStyle.nav}>
         <ul>
           <li>

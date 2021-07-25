@@ -1,7 +1,7 @@
 .nav {
     height: 70px;
     padding: auto;
-    background: #0244be;
+    background: #004280;
     color: #fff;
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@
   
   .nav ul li a {
     margin: 8px 13px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   @media (max-width: 600px) {

@@ -10,7 +10,7 @@ export default function Home({ categories }) {
 
   return (
     <>
-      <Header props={"WonmoCyberSchool_2.1"}></Header>
+      <Header props={"wonmo cyber school 2.1"}></Header>
       <div className={style.grid}>
         {categories.success ? (
           categories.data.map((category) => {

@@ -43,7 +43,9 @@ const Comment = ({ comment, currentEmail, token, key }) => {
 
   return (
     <div className={style.comments} key={key}>
-      <div className={style.commentContainer}>{nick}</div>
+      <div className={style.commentContainer}>
+        <Link href={`/user/otheruser?nickname=${nick}`}>{nick}</Link>
+      </div>
       <div className={style.commentContainer}>{comment.text}</div>
       <div className={style.commentContainer}>
         {"[" + comment.createdTime.split("T")[0] + "]"}

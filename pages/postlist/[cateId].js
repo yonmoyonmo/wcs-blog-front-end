@@ -55,7 +55,9 @@ const postList = ({ posts }) => {
         <div>
           <div>
             <div style={{ textAlign: "center" }}>
-              <Link href={`/post/create?cateId=${cateId}&name=${name}&page=${page}`}>
+              <Link
+                href={`/post/create?cateId=${cateId}&name=${name}&page=${page}`}
+              >
                 글쓰기
               </Link>
             </div>
@@ -145,34 +147,40 @@ const postList = ({ posts }) => {
       <br />
       <br />
       <br />
-      <div style={{ textAlign: "center" }}>
-        {posts.data.last ? (
-          <>
-            <p>마지막 페이지입니다.</p>
-            <button value={page} name="prev" onClick={pagginationHandler}>
-              이전 페이지
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                router.push(`/postlist/${cateId}?name=${name}&page=0`);
-              }}
-            >
-              첫 페이지로...
-            </button>
-          </>
-        ) : (
-          <>
-            {posts.data.number == 0 ? <p>첫 페이지입니다.</p> : <></>}
-            <button value={page} name="prev" onClick={pagginationHandler}>
-              이전 페이지
-            </button>
-            <button value={page} name="next" onClick={pagginationHandler}>
-              다음 페이지
-            </button>
-          </>
-        )}
-      </div>
+      {posts.success ? (
+        <>
+          <div style={{ textAlign: "center" }}>
+            {posts.data.last ? (
+              <>
+                <p>마지막 페이지입니다.</p>
+                <button value={page} name="prev" onClick={pagginationHandler}>
+                  이전 페이지
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.push(`/postlist/${cateId}?name=${name}&page=0`);
+                  }}
+                >
+                  첫 페이지로...
+                </button>
+              </>
+            ) : (
+              <>
+                {posts.data.number == 0 ? <p>첫 페이지입니다.</p> : <></>}
+                <button value={page} name="prev" onClick={pagginationHandler}>
+                  이전 페이지
+                </button>
+                <button value={page} name="next" onClick={pagginationHandler}>
+                  다음 페이지
+                </button>
+              </>
+            )}
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
       <br />
       <br />
       <br />

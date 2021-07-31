@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <div className="window">
       <div className="title-bar">
-        <div className="title-bar-text">MENU</div>
+        <div className="title-bar-text">Wonmo Cyber School 2</div>
         <div className="title-bar-controls">
           <button aria-label="Minimize" />
           <button aria-label="Maximize" />

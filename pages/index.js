@@ -3,6 +3,7 @@ import CategoryList from "../components/CategoryList";
 import { useCookies } from "react-cookie";
 import { endpointMania } from "../util/enpointMania";
 import style from "../styles/Layout.module.css";
+import Link from "next/link";
 
 export default function Home({ categories }) {
   const [cookie, setCookie] = useCookies(["userToken"]);
@@ -10,8 +11,29 @@ export default function Home({ categories }) {
 
   return (
     <>
-      <Header props={"wonmo cyber school 2.1"}></Header>
+      <Header props={"✌️🤓👍"}></Header>
       <div className={style.grid}>
+        <div>
+          <div className="window-body">
+            <div className="window">
+              <div className="title-bar" style={{ width: "300px" }}>
+                <div className="title-bar-text">wonmo cyber sool-mukbang</div>
+                <div className="title-bar-controls">
+                  <button aria-label="Minimize" />
+                  <button aria-label="Maximize" />
+                  <button aria-label="Close" />
+                </div>
+              </div>
+              <Link href={`/wcs-sool-mukbang`}>
+                <div style={{ textAlign: "center" }}>
+                  <br />
+                  <button>술먹방 만들기</button>
+                  <p>술먹방을 만들어 봅시다.</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
         {categories.success ? (
           categories.data.map((category) => {
             return (

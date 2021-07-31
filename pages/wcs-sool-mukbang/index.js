@@ -42,7 +42,7 @@ const wcsSoolMukbang = ({ roomlist }) => {
   };
 
   const createRomm = (
-    <div className="window" style={{ width: "300px" }}>
+    <div className="window" style={{ width: "100%" }}>
       <div className="title-bar">
         <div className="title-bar-text">
           <p>술먹방만들긔</p>
@@ -60,10 +60,10 @@ const wcsSoolMukbang = ({ roomlist }) => {
         <form onSubmit={submitRoom}>
           <div className="field-row" style={{ justifyContent: "center" }}>
             <input
-              style={{ width: "250px", margin: "1rem" }}
+              style={{ width: "300px", margin: "1rem" }}
               type="text"
-              maxLength="12"
-              placeholder="set a nickname"
+              maxLength="20"
+              placeholder="방제목을 입력하세요"
               value={roomName}
               onChange={(e) => {
                 if (regExp.test(e.target.value)) {
@@ -78,14 +78,6 @@ const wcsSoolMukbang = ({ roomlist }) => {
           <div className="field-row" style={{ justifyContent: "center" }}>
             <input type="submit" value="원모 싸이버 술먹방 생성하기"></input>
           </div>
-          <div className="field-row" style={{ justifyContent: "center" }}>
-            <p>
-              생성된 방은 주기적으로 제가 삭제합니다... 귀찮아서 이정도로만
-              하겠습니다...
-            </p>
-            <p>빵빵한 인터넷 없으면 연결이 잘 안됩니다. 기다리다보면 언젠간 연결됩니다만 몇 명씩은 빠져있을 수도 있습니다. 현재 누군가 새로고침 하면 멈춰있는 화면이 생기는 문제가 있는데 재밌어서 그냥 두겠습니다. 행복한 싸이버 되세요~~
-            </p>
-          </div>
         </form>
       </div>
     </div>
@@ -94,24 +86,36 @@ const wcsSoolMukbang = ({ roomlist }) => {
   const content = (
     <div style={{ textAlign: "center" }}>
       <h4 style={{ color: "red" }}>ON AIR</h4>
+      <p>아래 링크를 통해 술먹방에 참여할 수 있습니다.</p>
+      <p>술먹방을 끝내고 싶으시면 그냥 브라우저를 종료하시면 됩니다.</p>
+      <p>
+        브라우저 간 P2P 연결방식이므로 브라우저를 종료하면 비디오, 오디오
+        데이터를 송수신이 종료됩니다.
+      </p>
       {roomlist.success ? (
         <div style={{ margin: "1rem" }}>
           {roomlist.data.map((room) => {
             return (
-              <div key={room.id} className={style.card} style={{ fontSize: "1.5rem" }}>
+              <div
+                key={room.id}
+                className={style.card}
+                style={{ fontSize: "1.5rem" }}
+              >
                 <Link href={room.roomLink}>{room.roomName}</Link>
               </div>
             );
           })}
         </div>
       ) : (
-        <div>술먹방 중인 칭구들 없음</div>
+        <div>
+          <h4>술먹방 중인 칭구들 없음</h4>
+        </div>
       )}
     </div>
   );
 
   return (
-    <div>
+    <div style={{ justifyContent: "center", padding: "2rem", width: "100%" }}>
       <br />
       <br />
       {createRomm}

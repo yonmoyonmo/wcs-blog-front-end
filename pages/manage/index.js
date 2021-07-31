@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import React, { useState } from "react";
+import style from "../../styles/Layout.module.css";
 
-const adminHome = () => {
+const adminHome = ({roomlist}) => {
   const [cookie, setCookie, removeCookie] = useCookies(["adminToken"]);
   const router = useRouter();
 
@@ -25,6 +26,8 @@ const adminHome = () => {
   const tokenEndpoint = endpointMania("/admin/wonmo/login");
   const cateEndpoint = endpointMania("/admin/category");
   const notiEndpoint = endpointMania("/admin/notification");
+
+  const [roomId, setRoomId] = useState();
 
   useEffect(() => {
     if (cookie.adminToken) {
@@ -109,6 +112,58 @@ const adminHome = () => {
     }
   };
 
+  const deleteRoom = async (id)=>{
+    if(roomId != id){
+      console.log("?_?")
+      return;
+    }
+    const roomDeleteEndpoint = endpointMania("/api/public/chat-room");
+    try{
+      const response = await fetch(roomDeleteEndpoint, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+        }),
+      });
+      const deleteResult = await response.json();
+      if (deleteResult && deleteResult.success) {
+        window.location.reload();
+      } else {
+        setMessage("조땜");
+      }
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+  const content = (
+    <div style={{ textAlign: "center" }}>
+      <h4 style={{ color: "blue" }}>싸이버 술먹방 관리</h4>
+      {roomlist.success ? (
+        <div style={{ margin: "1rem" }}>
+          {roomlist.data.map((room) => {
+            return (
+              <div className={style.card} style={{ fontSize: "1.2rem" }}>
+                <Link href={room.roomLink}>{room.roomName}</Link>
+                <button onClick={e=>{
+                  e.preventDefault();
+                  setRoomId(room.id);
+                  deleteRoom(roomId);
+                }}>delete</button>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div>술먹방 중인 칭구들 없음</div>
+      )}
+    </div>
+  );
+
   return (
     <>
       {token ? (
@@ -165,6 +220,9 @@ const adminHome = () => {
               <Link href="/manage/update/noti">공지사항 수정하러 가기</Link>
             </button>
           </div>
+          <div>
+          {content}
+          </div>
         </div>
       ) : (
         <div>
@@ -192,3 +250,29 @@ const adminHome = () => {
   );
 };
 export default adminHome;
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(endpointMania("/api/public/roomlist"), {
+      method: "GET",
+    });
+    try {
+      const roomlist = await res.json();
+      return {
+        props: {
+          roomlist,
+        },
+      };
+    } catch (e) {
+      console.log("room list page getServerSideProps catch 1");
+      console.log(e);
+      const roomlist = { success: false };
+      return { props: { roomlist } };
+    }
+  } catch (e) {
+    console.log("room list getServerSideProps catch 2");
+    console.log(e);
+    const roomlist = { success: false };
+    return { props: { roomlist } };
+  }
+}

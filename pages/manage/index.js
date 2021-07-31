@@ -133,7 +133,7 @@ const adminHome = ({roomlist}) => {
       if (deleteResult && deleteResult.success) {
         window.location.reload();
       } else {
-        setMessage("조땜");
+        console.log("술먹방 삭제 실패")
       }
     }catch(e){
       console.log(e);

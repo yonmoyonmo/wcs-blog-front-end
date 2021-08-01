@@ -60,7 +60,7 @@ const wcsSoolMukbang = ({ roomlist }) => {
         <form onSubmit={submitRoom}>
           <div className="field-row" style={{ justifyContent: "center" }}>
             <input
-              style={{ width: "300px", margin: "1rem" }}
+              style={{ width: "250px", margin: "1rem" }}
               type="text"
               maxLength="20"
               placeholder="방제목을 입력하세요"

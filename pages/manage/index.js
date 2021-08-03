@@ -6,7 +6,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import style from "../../styles/Layout.module.css";
 
-const adminHome = ({roomlist}) => {
+const adminHome = ({ roomlist }) => {
   const [cookie, setCookie, removeCookie] = useCookies(["adminToken"]);
   const router = useRouter();
 
@@ -27,7 +27,7 @@ const adminHome = ({roomlist}) => {
   const cateEndpoint = endpointMania("/admin/category");
   const notiEndpoint = endpointMania("/admin/notification");
 
-  const [roomId, setRoomId] = useState();
+  const [roomId, setRoomId] = useState(0);
 
   useEffect(() => {
     if (cookie.adminToken) {
@@ -38,7 +38,7 @@ const adminHome = ({roomlist}) => {
   const logoutFunction = (e) => {
     e.preventDefault();
     try {
-      removeCookie("adminToken", {path:"/"});
+      removeCookie("adminToken", { path: "/" });
       window.location.reload();
     } catch (e) {
       window.alert(`logout 실패 : ${e}`);
@@ -112,13 +112,13 @@ const adminHome = ({roomlist}) => {
     }
   };
 
-  const deleteRoom = async (id)=>{
-    if(roomId != id){
-      console.log("?_?")
+  const deleteRoom = async (id) => {
+    if (roomId != id) {
+      console.log("?_?");
       return;
     }
     const roomDeleteEndpoint = endpointMania("/api/public/chat-room");
-    try{
+    try {
       const response = await fetch(roomDeleteEndpoint, {
         method: "DELETE",
         headers: {
@@ -133,12 +133,12 @@ const adminHome = ({roomlist}) => {
       if (deleteResult && deleteResult.success) {
         window.location.reload();
       } else {
-        console.log("술먹방 삭제 실패")
+        console.log("술먹방 삭제 실패");
       }
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   const content = (
     <div style={{ textAlign: "center" }}>
@@ -149,11 +149,17 @@ const adminHome = ({roomlist}) => {
             return (
               <div className={style.card} style={{ fontSize: "1.2rem" }}>
                 <Link href={room.roomLink}>{room.roomName}</Link>
-                <button onClick={e=>{
-                  e.preventDefault();
-                  setRoomId(room.id);
-                  deleteRoom(roomId);
-                }}>delete</button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setRoomId(room.id);
+                    if (roomId!==0) {
+                      deleteRoom(roomId);
+                    }
+                  }}
+                >
+                  delete
+                </button>
               </div>
             );
           })}
@@ -220,9 +226,7 @@ const adminHome = ({roomlist}) => {
               <Link href="/manage/update/noti">공지사항 수정하러 가기</Link>
             </button>
           </div>
-          <div>
-          {content}
-          </div>
+          <div>{content}</div>
         </div>
       ) : (
         <div>

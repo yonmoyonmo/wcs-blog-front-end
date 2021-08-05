@@ -35,8 +35,8 @@ const profile = ({ profile }) => {
           Logout
         </button>
       ) : (
-        <div className="window-body">
-          <p style={{ textAlign: "center" }}>로그인 필요</p>
+        <div style={{textAlign:"center", padding:"1rem", margin:"1rem"}}>
+          <p style={{ textAlign: "center" }}>로그인 필요합니다</p>
           <div>
             <button
               onClick={(e) => {

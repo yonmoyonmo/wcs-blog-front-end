@@ -11,7 +11,7 @@ const about = () => {
       <p style={{ fontSize: "1rem" }}>
         이 웹사이트는 후로그래머 여원모의 싸이버 실험실입니다.
       </p>
-      <p style={{ fontSize: "1rem" }}>행복하세요~!</p>
+      <p>Wonmo Cyber School is not a school. It's wonmo's cyber testing ground.</p>
       <div className={style.card}>
         <a
           style={{ fontSize: "1rem" }}

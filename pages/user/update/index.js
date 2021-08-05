@@ -149,7 +149,7 @@ const profileUpdate = ({ profile }) => {
                   ></img>
                 </div>
               </div>
-              <div>
+              <div style={{margin:"1rem"}}>
                 <input type="file" onChange={uploadPreview} />
               </div>
               <br />

@@ -150,12 +150,12 @@ const post = ({ post }) => {
               ) : (
                 <div>no post</div>
               )}
+              <p>[ tags ]</p>
               <div className={style.card}>
-                <p>tags</p>
                 {post.data.postTagRelations ? (
                   post.data.postTagRelations.map((postTagRelation) => {
                     return (
-                      <div>
+                      <div style={{display:"inline-block", padding:"0.2rem"}}>
                         <div key={postTagRelation.tag.id}>
                           <Link
                             href={`/postlist/tag/${postTagRelation.tag.id}?catename=${catename}&cateid=${cateid}&page=${page}`}

@@ -1,5 +1,5 @@
 .container {
-  background: #ffffff;
+  background: #ddf2ff;
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
@@ -53,8 +53,7 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #00032ee5;
-  border-color: #2400f3;
+  border-color: #0018f3;
 }
 
 .card h2 {

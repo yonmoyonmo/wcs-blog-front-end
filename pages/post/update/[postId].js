@@ -275,13 +275,11 @@ const updatePost = ({ post }) => {
                 ) : (
                   <p>이미지 없음</p>
                 )}
-                <div>
+                <div style={{margin:"1rem"}}>
                   <input
                     style={{
                       width: "100%",
-                      borderBottom: "1px solid black",
-                      fontSize: "1rem",
-                      lineHeight: "1.4em",
+                      borderBottom: "1px solid black"
                     }}
                     type="text"
                     maxLength="100"

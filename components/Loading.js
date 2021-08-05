@@ -3,8 +3,8 @@ import React, { useState } from "react";
 
 const Loading = () => {
   return (
-    <div>
-      <h1>wait....</h1>
+    <div style={{margin:"1rem"}}>
+      <h3>wait...</h3>
     </div>
   );
 };

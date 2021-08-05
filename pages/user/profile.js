@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { endpointMania } from "../../util/enpointMania";
-import defaultProfile from "../../assets/sample.png";
+import defaultProfile from "../../assets/IMG_20200223_160143.jpg";
 import style from "../../styles/Layout.module.css";
 
 const profile = ({ profile }) => {
@@ -12,7 +12,7 @@ const profile = ({ profile }) => {
   const router = useRouter();
   useEffect(() => {
     if (profile.success && profile.data.owner.nickname === null) {
-      if (confirm("닉네임이 없으시네요, 지금 바로 하나 만드쉴?")) {
+      if (confirm("닉네임이 없으시네요? 지금 바로 하나 만들어 보시죠?")) {
         router.push("/user/nickname");
       } else {
         return;
@@ -35,7 +35,7 @@ const profile = ({ profile }) => {
           Logout
         </button>
       ) : (
-        <div style={{textAlign:"center", padding:"1rem", margin:"1rem"}}>
+        <div style={{ textAlign: "center", padding: "1rem", margin: "1rem" }}>
           <p style={{ textAlign: "center" }}>로그인 필요합니다</p>
           <div>
             <button
@@ -65,19 +65,20 @@ const profile = ({ profile }) => {
               ></img>
             </div>
           </div>
+
           <div style={{ margin: "1rem" }}>
-            <p>소개 : {profile.data.description}</p>
-          </div>
-          <div style={{ margin: "1rem" }}>
-            <p>이메일 : {profile.data.owner.email}</p>
+            <p>{profile.data.owner.email}</p>
           </div>
 
           <div style={{ margin: "1rem" }}>
-            <p>이름 : {profile.data.owner.username}</p>
+            <p>{profile.data.owner.username}</p>
           </div>
 
           <div style={{ margin: "1rem" }}>
             <p>닉네임 : {profile.data.owner.nickname}</p>
+          </div>
+          <div style={{ margin: "1rem" }}>
+            <p>{profile.data.description}</p>
           </div>
           <div>
             <button

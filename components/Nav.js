@@ -17,16 +17,16 @@ const Nav = () => {
       <div className={navStyle.nav}>
         <ul>
           <li>
-            <Link href="/">HOME</Link>
+            <Link href="/">home</Link>
           </li>
           <li>
-            <Link href="/notification">NOTIFICATION</Link>
+            <Link href="/notification">notification</Link>
           </li>
           <li>
-            <Link href="/user/profile">MY_PROFILE</Link>
+            <Link href="/user/profile">yourProfile</Link>
           </li>
           <li>
-            <Link href="/about">ABOUT</Link>
+            <Link href="/about">about</Link>
           </li>
         </ul>
       </div>

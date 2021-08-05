@@ -7,7 +7,7 @@ const Header = ({ props }) => {
   return (
     <>
       <div className={headerStyles.title}>
-        <p className={headerStyles.descrition}>{props}</p>
+        <p style={{fontSize:"2rem"}}>{props}</p>
       </div>
       <Canvas camera={{ position: [0, 0, 35] }}>
         <ambientLight intensity={1} />

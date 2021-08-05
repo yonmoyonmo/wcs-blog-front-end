@@ -99,7 +99,7 @@ const wcsSoolMukbang = ({ roomlist }) => {
               <div
                 key={room.id}
                 className={style.card}
-                style={{ fontSize: "1.5rem" }}
+                style={{ fontSize: "1rem" }}
               >
                 <Link href={room.roomLink}>{room.roomName}</Link>
               </div>

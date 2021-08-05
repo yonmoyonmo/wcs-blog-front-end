@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { endpointMania } from "../../util/enpointMania";
-import defaultProfile from "../../assets/sample.png";
+import defaultProfile from "../../assets/IMG_20200223_160143.jpg";
 import style from "../../styles/Layout.module.css";
 
 const otherUserProfile = ({ profile }) => {
@@ -30,11 +30,12 @@ const otherUserProfile = ({ profile }) => {
               ></img>
             </div>
           </div>
+
           <div style={{ margin: "1rem" }}>
-            <p>소개 : {profile.data.userProfile.description}</p>
+            <p>{profile.data.userProfile.owner.nickname}</p>
           </div>
           <div style={{ margin: "1rem" }}>
-            <p>닉네임 : {profile.data.userProfile.owner.nickname}</p>
+            <p>{profile.data.userProfile.description}</p>
           </div>
           <br />
         </div>

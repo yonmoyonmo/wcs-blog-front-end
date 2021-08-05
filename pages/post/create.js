@@ -137,7 +137,7 @@ const createPost = () => {
           <div>
             <div>
               <div>
-                <p style={{ color: "red" }}>이미지, 제목, 내용 필수</p>
+                <p style={{ color: "blue" }}>이미지, 제목, 내용 필수</p>
               </div>
             </div>
             <br />
@@ -199,8 +199,8 @@ const createPost = () => {
                       );
                     })
                   ) : (
-                    <div>
-                      <p>no images, yet</p>
+                    <div style={{margin:"1rem"}}>
+                      <p>이미지를 추가해 주세요</p>
                     </div>
                   )}
                 </div>
@@ -208,13 +208,11 @@ const createPost = () => {
                   <input
                     style={{
                       width: "100%",
-                      borderBottom: "1px solid black",
-                      fontSize: "1rem",
-                      lineHeight: "1.4em",
+                      borderBottom: "1px solid black"
                     }}
                     type="text"
                     maxLength="100"
-                    placeholder="태그 쓰는 곳 : , 로 구분하여 입력"
+                    placeholder="태그 쓰는 곳 : ' , '(쉼표)로 구분하여 입력"
                     value={tagString}
                     onChange={(e) => {
                       if (regExp.test(e.target.value)) {

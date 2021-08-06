@@ -1,5 +1,5 @@
 .container {
-  background: #ddf2ff;
+  background: hsl(41, 67%, 92%);
   min-height: 100vh;
   padding: 0 0.5rem;
   display: flex;
@@ -116,7 +116,7 @@
 
 
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .grid {
     width: 100%;
     flex-direction: column;

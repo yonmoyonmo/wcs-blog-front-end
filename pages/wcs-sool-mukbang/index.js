@@ -16,7 +16,9 @@ const wcsSoolMukbang = ({ roomlist }) => {
 
   const submitRoom = async (e) => {
     e.preventDefault();
-
+    if(roomName==""){
+      return null;
+    }
     const link = `https://wonmocyberschool.com/vchat/${roomName}`;
     try {
       const response = await fetch(roomPostEndpoint, {

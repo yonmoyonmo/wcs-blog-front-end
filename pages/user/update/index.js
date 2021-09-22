@@ -114,63 +114,79 @@ const profileUpdate = ({ profile }) => {
   };
 
   return (
-    <>
-      {loading ? (
-        <>
-          <Loading></Loading>
-          {submitError && <p style={{ color: "red" }}>{submitError}</p>}
-        </>
-      ) : (
-        <div className={style.card}>
+    <div className="window" style={{ width: "100%" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">프로필 수정</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
+      <div className="window-body">
+        {loading ? (
+          <>
+            <Loading></Loading>
+            {submitError && <p style={{ color: "red" }}>{submitError}</p>}
+          </>
+        ) : (
           <div>
             <div>
-              <p>닉네임 : {nickname}</p>
-              <br />
-            </div>
-            <form onSubmit={submitProfile} style={{ width: "100%" }}>
               <div>
-                <textarea
-                  style={{ width: "80%" }}
-                  type="text"
-                  value={description}
-                  placeholder="간단 소개"
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
-                ></textarea>
+                <p>닉네임 : {nickname}</p>
+                <br />
               </div>
-              <br />
-              <div style={{ width: "300px" }}>
-                <div className={style.imageContainer}>
-                  <img
-                    className={style.image}
-                    src={createObjectURL ? createObjectURL : profileImageURL}
-                    layout="fill"
-                  ></img>
+              <form onSubmit={submitProfile} style={{ width: "100%" }}>
+                <div>
+                  <textarea
+                    style={{
+                      width: "100%",
+                      fontSize: "1rem",
+                      lineHeight: "1.4em",
+                      marginBottom: "1rem",
+                    }}
+                    type="text"
+                    value={description}
+                    placeholder="간단 소개"
+                    maxLength="1000"
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                  ></textarea>
                 </div>
-              </div>
-              <div style={{margin:"1rem"}}>
-                <input type="file" onChange={uploadPreview} />
-              </div>
+                <br />
+                <div style={{ width: "300px" }}>
+                  <div className={style.imageContainer}>
+                    <img
+                      className={style.image}
+                      src={createObjectURL ? createObjectURL : profileImageURL}
+                      layout="fill"
+                    ></img>
+                  </div>
+                </div>
+                <div style={{ margin: "1rem" }}>
+                  <input type="file" onChange={uploadPreview} />
+                </div>
+                <br />
+                <div>
+                  <input type="submit" value="프로필 수정"></input>
+                </div>
+                {submitError && <p style={{ color: "red" }}>{submitError}</p>}
+              </form>
+              <br />
+              <br />
               <br />
               <div>
-                <input type="submit" value="프로필 수정"></input>
+                <a style={{ color: "blue" }} href="/user/nickname">
+                  닉네임 수정 도전하기
+                </a>
               </div>
-              {submitError && <p style={{ color: "red" }}>{submitError}</p>}
-            </form>
-            <br />
-            <br />
-            <br />
-            <div>
-              <a style={{ color: "blue" }} href="/user/nickname">
-                닉네임 수정 도전하기
-              </a>
+              <br />
             </div>
-            <br />
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 

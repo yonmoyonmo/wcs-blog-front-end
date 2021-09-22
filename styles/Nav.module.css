@@ -1,8 +1,7 @@
 .nav {
     height: 70px;
     padding: auto;
-    background: #004280;
-    color: #fff;
+    color: rgb(0, 0, 0);
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -21,7 +20,7 @@
     font-size: 0.9rem;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .nav ul li a {
       margin: 8px 10px;
       font-size: 0.8rem;

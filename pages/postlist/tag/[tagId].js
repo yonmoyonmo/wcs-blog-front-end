@@ -5,33 +5,44 @@ import style from "../../../styles/Layout.module.css";
 
 const postList = ({ posts }) => {
   const router = useRouter();
-  const {catename, cateid, page} = router.query;
+  const { catename, cateid, page } = router.query;
   return (
-    <>
-    <h2>{posts.data[0].postTagRelations[0].tag.tagName}</h2>
-    <div className={style.grid}>
-      {posts.success ? (
-        posts.data.map((post) => {
-          return (
-            <>
-              <Link href={`/post/${post.id}?catename=${catename}&cateid=${cateid}&page=${page}`}>
-                <div className={style.card}>
-                  <div key={post.id}>
-                    <p>{post.title}</p>
-                    <button>
-                      이동
-                    </button>
+    <div className="window" style={{ width: "70vw" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">
+          {posts.data[0].postTagRelations[0].tag.tagName}
+        </div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
+      <div
+        className="window-body"
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}
+      >
+        {posts.success ? (
+          posts.data.map((post) => {
+            return (
+              <>
+                <Link
+                  href={`/post/${post.id}?catename=${catename}&cateid=${cateid}&page=${page}`}
+                >
+                  <div>
+                    <div key={post.id} style={{height:"70px"}}>
+                      <button>{post.title}</button>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </>
-          );
-        })
-      ) : (
-        <p>no post</p>
-      )}
+                </Link>
+              </>
+            );
+          })
+        ) : (
+          <p>no post</p>
+        )}
+      </div>
     </div>
-    </>
   );
 };
 

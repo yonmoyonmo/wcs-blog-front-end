@@ -8,12 +8,19 @@ const otherUserProfile = ({ profile }) => {
   const router = useRouter();
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <br />
-      <br />
+    <div className="window" style={{ width: "100%" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">
+          {profile.data.userProfile.owner.nickname}
+        </div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
       {profile.success ? (
-        <div className={style.card}>
-          <br />
+        <div className="window-body">
           <div style={{ width: "300px" }}>
             <div
               key={profile.data.userProfile.id}
@@ -42,8 +49,6 @@ const otherUserProfile = ({ profile }) => {
       ) : (
         <>오잉? 실패했네? ㅋㄷㅋㄷ</>
       )}
-      <br />
-      <br />
     </div>
   );
 };

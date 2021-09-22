@@ -58,29 +58,43 @@ const commentCreate = () => {
   };
 
   return (
-    <>
-      <br />
-      {loading ? (
-        <Loading></Loading>
-      ) : (
-        <div className={style.card}>
-          <p>댓글 달기</p>
-          <form onSubmit={submitHandler} style={{ width: "100%" }}>
-            <textarea
-              type="text"
-              maxLength="140"
-              placeholder="댓글 쓰는 곳, 140자 제한임"
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-            ></textarea>
-            <input type="submit" value="댓글 등록"></input>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-          </form>
+    <div className="window" style={{ width: "50vw" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">댓글 달기</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
         </div>
-      )}
-    </>
+      </div>
+      <div className="window-body">
+        {loading ? (
+          <Loading></Loading>
+        ) : (
+          <div>
+            <form onSubmit={submitHandler} style={{ width: "100%" }}>
+              <textarea
+                style={{
+                  width: "100%",
+                  fontSize: "1rem",
+                  lineHeight: "1.4em",
+                  marginBottom: "1rem",
+                }}
+                type="text"
+                maxLength="140"
+                placeholder="댓글 쓰는 곳, 140자 제한임"
+                value={text}
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              ></textarea>
+              <input type="submit" value="댓글 등록"></input>
+              {error && <p style={{ color: "red" }}>{error}</p>}
+            </form>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

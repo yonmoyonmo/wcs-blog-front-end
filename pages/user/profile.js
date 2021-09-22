@@ -21,37 +21,46 @@ const profile = ({ profile }) => {
   }, []);
 
   return (
-    <div style={{ textAlign: "center" }}>
-      {profile.success ? (
-        <button
-          style={{ margin: "1rem" }}
-          onClick={(e) => {
-            e.preventDefault();
-            console.log(cookie);
-            removeCookie("userToken", { path: "/" });
-            window.location.reload();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <div style={{ textAlign: "center", padding: "1rem", margin: "1rem" }}>
-          <p style={{ textAlign: "center" }}>로그인 필요합니다</p>
-          <div>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                router.push("/signin");
-              }}
-            >
-              <Link href="/signin">LOGIN</Link>
-            </button>
-          </div>
+    <div className="window" style={{ width: "100%" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">profile</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
         </div>
-      )}
+      </div>
+      <div style={{ textAlign: "center" }}>
+        {profile.success ? (
+          <button
+            style={{ margin: "1rem" }}
+            onClick={(e) => {
+              e.preventDefault();
+              console.log(cookie);
+              removeCookie("userToken", { path: "/" });
+              window.location.reload();
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <div style={{ textAlign: "center", padding: "1rem", margin: "1rem" }}>
+            <p style={{ textAlign: "center" }}>로그인 필요합니다</p>
+            <div>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push("/signin");
+                }}
+              >
+                <Link href="/signin">LOGIN</Link>
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
       {profile.success ? (
-        <div className={style.card}>
-          <br />
+        <div className="window-body" style={{ textAlign: "center" }}>
           <div style={{ width: "300px" }}>
             <div key={profile.data.id} className={style.imageContainer}>
               <img
@@ -90,14 +99,10 @@ const profile = ({ profile }) => {
               <Link href="/user/update">프로파일 수정</Link>
             </button>
           </div>
-          <br></br>
         </div>
       ) : (
         <></>
       )}
-
-      <br />
-      <br />
     </div>
   );
 };

@@ -128,122 +128,136 @@ const createPost = () => {
   };
 
   return (
-    <>
-      <br />
-      {loading ? (
-        <Loading></Loading>
-      ) : (
-        <div className={style.card}>
+    <div className="window" style={{ width: "70vw" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">글쓰기</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
+      <div className="window-body">
+        {loading ? (
+          <Loading></Loading>
+        ) : (
           <div>
             <div>
               <div>
-                <p style={{ color: "blue" }}>이미지, 제목, 내용 필수</p>
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ color: "red" }}>이미지, 제목, 내용 필수</p>
+                </div>
+              </div>
+              <br />
+              <div style={{ margin: "10px" }}>
+                <form onSubmit={submitHandler} style={{ width: "100%" }}>
+                  <div>
+                    <input
+                      style={{
+                        width: "100%",
+                        fontSize: "1rem",
+                        lineHeight: "1.4em",
+                        marginBottom: "1rem",
+                      }}
+                      type="text"
+                      maxLength="30"
+                      placeholder="제목 쓰는 곳"
+                      value={title}
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
+                    ></input>
+                  </div>
+                  <div>
+                    <textarea
+                      style={{
+                        width: "100%",
+                        fontSize: "1rem",
+                        lineHeight: "1.4em",
+                        marginBottom: "1rem",
+                      }}
+                      rows="10"
+                      type="text"
+                      value={text}
+                      placeholder="글 쓰는 부분"
+                      maxLength="3000"
+                      onChange={(e) => {
+                        setText(e.target.value);
+                      }}
+                    ></textarea>
+                  </div>
+                  <div>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setImages([]);
+                        setCreateObjectURLs([]);
+                      }}
+                    >
+                      image reset
+                    </button>
+                  </div>
+                  <div style={{ width: "60vw" }}>
+                    {createObjectURLs.length !== 0 ? (
+                      createObjectURLs.map((each, key) => {
+                        return (
+                          <div>
+                            <div className={style.imageContainer} key={key}>
+                              <img
+                                className={style.image}
+                                src={each}
+                                layout="fill"
+                              ></img>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div style={{ margin: "1rem" }}>
+                        <p>이미지를 추가해 주세요</p>
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      style={{
+                        width: "100%",
+                      }}
+                      type="text"
+                      maxLength="100"
+                      placeholder="태그 쓰는 곳 : ' , '(쉼표)로 구분하여 입력"
+                      value={tagString}
+                      onChange={(e) => {
+                        if (regExp.test(e.target.value)) {
+                          setError("태그에 쉼표 외 특수문자 사용 불가능");
+                          setTagString(e.target.value.replace(regExp, ""));
+                          return;
+                        }
+                        setTagString(e.target.value);
+                      }}
+                    ></input>
+                  </div>
+                  <br />
+                  <div>
+                    <input type="file" onChange={uploadPreviews} />
+                  </div>
+
+                  <br />
+                  <div>
+                    <input
+                      style={{ fontSize: "1.5rem", width: "100px" }}
+                      type="submit"
+                      value="글 등록"
+                    ></input>
+                  </div>
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                </form>
               </div>
             </div>
-            <br />
-            <div style={{ margin: "10px" }}>
-              <form onSubmit={submitHandler} style={{ width: "100%" }}>
-                <div>
-                  <input
-                    style={{
-                      width: "100%",
-                      borderBottom: "1px solid black",
-                      fontSize: "1rem",
-                      lineHeight: "1.4em",
-                    }}
-                    type="text"
-                    maxLength="30"
-                    placeholder="제목 쓰는 곳"
-                    value={title}
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
-                  ></input>
-                </div>
-                <br />
-                <div>
-                  <textarea
-                    type="text"
-                    value={text}
-                    placeholder="글 쓰는 부분"
-                    maxLength="3000"
-                    onChange={(e) => {
-                      setText(e.target.value);
-                    }}
-                  ></textarea>
-                </div>
-                <div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setImages([]);
-                      setCreateObjectURLs([]);
-                    }}
-                  >
-                    image reset
-                  </button>
-                </div>
-                <div style={{ width: "300px" }}>
-                  {createObjectURLs.length !== 0 ? (
-                    createObjectURLs.map((each, key) => {
-                      return (
-                        <div>
-                          <div className={style.imageContainer} key={key}>
-                            <img
-                              className={style.image}
-                              src={each}
-                              layout="fill"
-                            ></img>
-                          </div>
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <div style={{margin:"1rem"}}>
-                      <p>이미지를 추가해 주세요</p>
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <input
-                    style={{
-                      width: "100%",
-                      borderBottom: "1px solid black"
-                    }}
-                    type="text"
-                    maxLength="100"
-                    placeholder="태그 쓰는 곳 : ' , '(쉼표)로 구분하여 입력"
-                    value={tagString}
-                    onChange={(e) => {
-                      if (regExp.test(e.target.value)) {
-                        setError("태그에 쉼표 외 특수문자 사용 불가능");
-                        setTagString(e.target.value.replace(regExp, ""));
-                        return;
-                      }
-                      setTagString(e.target.value);
-                    }}
-                  ></input>
-                </div>
-                <br />
-                <div>
-                  <input type="file" onChange={uploadPreviews} />
-                </div>
-
-                <br />
-                <div>
-                  <input
-                    style={{ fontSize: "1.5rem", width: "100px" }}
-                    type="submit"
-                    value="글 등록"
-                  ></input>
-                </div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-              </form>
-            </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 

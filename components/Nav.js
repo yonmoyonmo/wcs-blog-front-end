@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import navStyle from "../styles/Nav.module.css";
+
 
 const Nav = () => {
   const router = useRouter();
   return (
-    <div className="window">
+    <div className="window" style={{margin:"1rem"}}>
       <div className="title-bar">
         <div className="title-bar-text">Wonmo Cyber School 2</div>
         <div className="title-bar-controls">
@@ -14,21 +14,19 @@ const Nav = () => {
           <button aria-label="Close" />
         </div>
       </div>
-      <div className={navStyle.nav}>
-        <ul>
-          <li>
+      <div className="window-body" style={{ textAlign: "center", padding:"1rem"}}>
+          <button>
             <Link href="/">home</Link>
-          </li>
-          <li>
+          </button>
+          <button>
             <Link href="/notification">notification</Link>
-          </li>
-          <li>
-            <Link href="/user/profile">yourProfile</Link>
-          </li>
-          <li>
+          </button>
+          <button>
+            <Link href="/user/profile">your_profile</Link>
+          </button>
+          <button>
             <Link href="/about">about</Link>
-          </li>
-        </ul>
+          </button>
       </div>
     </div>
   );

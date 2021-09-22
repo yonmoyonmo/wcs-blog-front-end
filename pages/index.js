@@ -11,7 +11,6 @@ export default function Home({ categories }) {
 
   return (
     <>
-      <Header props={"✌️🤓👍 "}></Header>
       <div className={style.grid}>
         <div>
           <div className="window-body">

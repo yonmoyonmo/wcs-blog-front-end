@@ -15,7 +15,9 @@ const updatePost = ({ post }) => {
 
   const { postId, catename, cateid, page } = router.query;
 
-  const back = `/post/${[postId]}?catename=${catename}&cateid=${cateid}&page=${page}`;
+  const back = `/post/${[
+    postId,
+  ]}?catename=${catename}&cateid=${cateid}&page=${page}`;
 
   const [emailOfThisPost, setEmailOfThisPost] = useState("");
   const [currentEmail, setCurrentEmail] = useState("");
@@ -182,15 +184,19 @@ const updatePost = ({ post }) => {
   };
 
   return (
-    <>
-      <br />
+    <div className="window" style={{ width: "70vw" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">게시글 수정하기</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
       {loading ? (
         <Loading />
       ) : (
-        <div className={style.card}>
-          <div>
-            <p>게시글 수정하기</p>
-          </div>
+        <div className="window-body">
           <div>
             <div>
               <form onSubmit={submitHandler} style={{ margin: "10px" }}>
@@ -198,9 +204,9 @@ const updatePost = ({ post }) => {
                   <input
                     style={{
                       width: "100%",
-                      borderBottom: "1px solid black",
                       fontSize: "1rem",
                       lineHeight: "1.4em",
+                      marginBottom: "1rem",
                     }}
                     type="text"
                     maxLength="30"
@@ -214,7 +220,12 @@ const updatePost = ({ post }) => {
                 <br />
                 <div>
                   <textarea
-                    style={{ width: "80%" }}
+                    style={{
+                      width: "100%",
+                      fontSize: "1rem",
+                      lineHeight: "1.4em",
+                      marginBottom: "1rem",
+                    }}
                     type="text"
                     value={text}
                     placeholder="글 쓰는 부분"
@@ -275,11 +286,11 @@ const updatePost = ({ post }) => {
                 ) : (
                   <p>이미지 없음</p>
                 )}
-                <div style={{margin:"1rem"}}>
+                <div style={{ margin: "1rem" }}>
                   <input
                     style={{
                       width: "100%",
-                      borderBottom: "1px solid black"
+                      borderBottom: "1px solid black",
                     }}
                     type="text"
                     maxLength="100"
@@ -313,7 +324,7 @@ const updatePost = ({ post }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

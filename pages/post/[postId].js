@@ -61,19 +61,23 @@ const post = ({ post }) => {
   };
 
   return (
-    <>
-      <br />
-      <div className={style.card}>
+    <div className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">{post.data.title}</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
+      </div>
+
+      <div className="window-body">
         {post.success ? (
           <>
             <div>
-              <div>
-                <h2>{post.data.title}</h2>
-              </div>
               <div style={{ width: "100%", textAlign: "center" }}>
                 {emailOfThisPost === currentEmail ? (
                   <>
-                    <hr />
                     <div>
                       <button>
                         <Link
@@ -84,7 +88,6 @@ const post = ({ post }) => {
                       </button>
                       <button onClick={deleteFunction}>게시글 삭제</button>
                     </div>
-                    <hr />
                   </>
                 ) : (
                   <></>
@@ -104,37 +107,28 @@ const post = ({ post }) => {
                 </p>
               </div>
 
-              <div className="window">
-                <div className="title-bar">
-                  <div className="title-bar-text">{post.data.title}</div>
-                  <div className="title-bar-controls">
-                    <button aria-label="Minimize" />
-                    <button aria-label="Maximize" />
-                    <button aria-label="Close" />
-                  </div>
-                </div>
-                <div style={{ padding: "1rem" }}>
-                  {post.data.images.map((image) => {
-                    return (
+              <div style={{ padding: "1rem" }}>
+                {post.data.images.map((image) => {
+                  return (
+                    <div>
                       <div>
-                        <div>
-                          <div key={image.id} className={style.imageContainer}>
-                            <img
-                              src={image.imageURI}
-                              layout="fill"
-                              className={style.image}
-                            ></img>
-                          </div>
+                        <div key={image.id} className={style.imageContainer}>
+                          <img
+                            src={image.imageURI}
+                            layout="fill"
+                            className={style.image}
+                          ></img>
                         </div>
-                        <br />
                       </div>
-                    );
-                  })}
-                </div>
+                      <br />
+                    </div>
+                  );
+                })}
               </div>
+              
               {post.success ? (
                 <div>
-                  <div className={style.card}>
+                  <div style={{margin:"2rem"}}>
                     <p>
                       {splitedText.map((each) => {
                         return (
@@ -150,12 +144,16 @@ const post = ({ post }) => {
               ) : (
                 <div>no post</div>
               )}
-              <p>[ tags ]</p>
-              <div className={style.card}>
+              <ul><li>tags</li></ul>
+              <div>
+                <ul>
                 {post.data.postTagRelations ? (
                   post.data.postTagRelations.map((postTagRelation) => {
                     return (
-                      <div style={{display:"inline-block", padding:"0.2rem"}}>
+                      <li>
+                      <div
+                        style={{ display: "inline-block", padding: "0.2rem" }}
+                      >
                         <div key={postTagRelation.tag.id}>
                           <Link
                             href={`/postlist/tag/${postTagRelation.tag.id}?catename=${catename}&cateid=${cateid}&page=${page}`}
@@ -166,11 +164,13 @@ const post = ({ post }) => {
                           </Link>
                         </div>
                       </div>
+                      </li>
                     );
                   })
                 ) : (
                   <></>
                 )}
+                </ul>
               </div>
               <div>
                 <div>
@@ -220,8 +220,7 @@ const post = ({ post }) => {
           </div>
         )}
       </div>
-      <br />
-    </>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ const wcsSoolMukbang = ({ roomlist }) => {
 
   const submitRoom = async (e) => {
     e.preventDefault();
-    if(roomName==""){
+    if (roomName == "") {
       return null;
     }
     const link = `https://wonmocyberschool.com/vchat/${roomName}`;
@@ -86,40 +86,46 @@ const wcsSoolMukbang = ({ roomlist }) => {
   );
 
   const content = (
-    <div style={{ textAlign: "center" }}>
-      <h4 style={{ color: "red" }}>ON AIR</h4>
-      <p>아래 링크를 통해 술먹방에 참여할 수 있습니다.</p>
-      <p>술먹방을 끝내고 싶으시면 그냥 브라우저를 종료하시면 됩니다.</p>
-      <p>
-        브라우저 간 P2P 연결방식이므로 브라우저를 종료하면 비디오, 오디오
-        데이터를 송수신이 종료됩니다.
-      </p>
-      {roomlist.success ? (
-        <div style={{ margin: "1rem" }}>
-          {roomlist.data.map((room) => {
-            return (
-              <div
-                key={room.id}
-                className={style.card}
-                style={{ fontSize: "1rem" }}
-              >
-                <Link href={room.roomLink}>{room.roomName}</Link>
-              </div>
-            );
-          })}
+    <div className="window" style={{ width: "100%", marginTop: "1rem" }}>
+      <div className="title-bar">
+        <div className="title-bar-text">진행 중인 술먹방</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
         </div>
-      ) : (
-        <div>
-          <h4>술먹방 중인 칭구들 없음</h4>
-        </div>
-      )}
+      </div>
+      <div className="window-body">
+        <h4 style={{ color: "red" }}>ON AIR</h4>
+        <p>아래 링크를 통해 술먹방에 참여할 수 있습니다.</p>
+        <p>술먹방을 끝내고 싶으시면 그냥 브라우저를 종료하시면 됩니다.</p>
+        <p>
+          브라우저 간 P2P 연결방식이므로 브라우저를 종료하면 비디오, 오디오
+          데이터를 송수신이 종료됩니다.
+        </p>
+        {roomlist.success ? (
+          <div style={{ margin: "1rem" }}>
+            {roomlist.data.map((room) => {
+              return (
+                <div key={room.id} style={{ fontSize: "1rem" }}>
+                  <Link href={room.roomLink}>
+                    <button>{room.roomName}</button>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div>
+            <h4>술먹방 중인 칭구들 없음</h4>
+          </div>
+        )}
+      </div>
     </div>
   );
 
   return (
     <div style={{ justifyContent: "center", padding: "2rem", width: "100%" }}>
-      <br />
-      <br />
       {createRomm}
       {content}
     </div>

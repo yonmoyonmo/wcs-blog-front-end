@@ -52,89 +52,76 @@ const postList = ({ posts }) => {
   else {
     content = (
       <div>
-        <div>
-          <div>
-            <div style={{ textAlign: "center" }}>
-              <Link
-                href={`/post/create?cateId=${cateId}&name=${name}&page=${page}`}
-              >
-                글쓰기
-              </Link>
-            </div>
-            <hr />
-
-            <div className={style.grid}>
-              {posts.success ? (
-                posts.data.content.map((post) => {
-                  return (
-                    <>
-                      <Link
-                        href={`/post/${post.id}?catename=${name}&cateid=${cateId}&page=${page}`}
-                      >
-                        <div style={{ margin: "0.8rem", cursor: "pointer" }}>
-                          <div className="window">
-                            <div className="title-bar">
-                              <div className="title-bar-text">
-                                {post.title.substr(0, 10)}
+        <div className={style.grid}>
+          {posts.success ? (
+            posts.data.content.map((post) => {
+              return (
+                <>
+                  <Link
+                    href={`/post/${post.id}?catename=${name}&cateid=${cateId}&page=${page}`}
+                  >
+                    <div style={{ margin: "0.8rem", cursor: "pointer" }}>
+                      <div className="window">
+                        <div className="title-bar">
+                          <div className="title-bar-text">
+                            {post.title.substr(0, 10)}
+                          </div>
+                          <div className="title-bar-controls">
+                            <button aria-label="Minimize" />
+                            <button aria-label="Maximize" />
+                            <button aria-label="Close" />
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            textAlign: "center",
+                            padding: "1rem",
+                          }}
+                        >
+                          <div key={post.id}>
+                            <div>
+                              <div>
+                                <p style={{ fontWeight: "1000" }}>
+                                  {post.title}
+                                </p>
+                                <p>글쓴이 : {post.blogUser.nickname}</p>
                               </div>
-                              <div className="title-bar-controls">
-                                <button aria-label="Minimize" />
-                                <button aria-label="Maximize" />
-                                <button aria-label="Close" />
+                              <div style={{ margin: "1rem" }}>
+                                {"[" + post.createdTime.split("T")[0] + "]"}
                               </div>
-                            </div>
-                            <div
-                              style={{
-                                textAlign: "center",
-                                padding: "1rem",
-                              }}
-                            >
-                              <div key={post.id}>
-                                <div>
-                                  <div>
-                                    <p style={{ fontWeight: "1000" }}>
-                                      {post.title}
-                                    </p>
-                                    <p>글쓴이 : {post.blogUser.nickname}</p>
-                                  </div>
-                                  <div style={{ margin: "1rem" }}>
-                                    {"[" + post.createdTime.split("T")[0] + "]"}
-                                  </div>
-                                  <div
-                                    style={{
-                                      overflow: "hidden",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                      width: "230px",
-                                      height: "230px",
-                                      margin: "auto",
-                                    }}
-                                  >
-                                    <div
-                                      key={post.images[0].id}
-                                      className={style.imageContainer}
-                                    >
-                                      <img
-                                        className={style.image}
-                                        src={`${post.images[0].imageURI}`}
-                                      ></img>
-                                    </div>
-                                  </div>
+                              <div
+                                style={{
+                                  overflow: "hidden",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  width: "230px",
+                                  height: "230px",
+                                  margin: "auto",
+                                }}
+                              >
+                                <div
+                                  key={post.images[0].id}
+                                  className={style.imageContainer}
+                                >
+                                  <img
+                                    className={style.image}
+                                    src={`${post.images[0].imageURI}`}
+                                  ></img>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </Link>
-                    </>
-                  );
-                })
-              ) : (
-                <p>no post</p>
-              )}
-            </div>
-          </div>
+                      </div>
+                    </div>
+                  </Link>
+                </>
+              );
+            })
+          ) : (
+            <p>no post</p>
+          )}
         </div>
       </div>
     );
@@ -143,46 +130,67 @@ const postList = ({ posts }) => {
   return (
     <>
       <Header props={name}></Header>
-      {content}
-      <br />
-      <br />
-      <br />
-      {posts.success ? (
-        <>
+      <div className="window" style={{ width: "100%" }}>
+        <div className="title-bar">
+          <div className="title-bar-text">menu</div>
+        </div>
+        <div className="window-body" style={{ justifyContent: "center" }}>
           <div style={{ textAlign: "center" }}>
-            {posts.data.last ? (
-              <>
-                <p>마지막 페이지입니다.</p>
-                <button value={page} name="prev" onClick={pagginationHandler}>
-                  이전 페이지
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    router.push(`/postlist/${cateId}?name=${name}&page=0`);
-                  }}
-                >
-                  첫 페이지로...
-                </button>
-              </>
-            ) : (
-              <>
-                {posts.data.number == 0 ? <p>첫 페이지입니다.</p> : <></>}
-                <button value={page} name="prev" onClick={pagginationHandler}>
-                  이전 페이지
-                </button>
-                <button value={page} name="next" onClick={pagginationHandler}>
-                  다음 페이지
-                </button>
-              </>
-            )}
+            <Link
+              href={`/post/create?cateId=${cateId}&name=${name}&page=${page}`}
+            >
+              <button>글쓰기</button>
+            </Link>
           </div>
-        </>
-      ) : (
-        <></>
-      )}
-      <br />
-      <br />
+          {posts.success ? (
+            <>
+              <div style={{ textAlign: "center" }}>
+                {posts.data.last ? (
+                  <div>
+                    <p>마지막 페이지입니다.</p>
+                    <button
+                      value={page}
+                      name="prev"
+                      onClick={pagginationHandler}
+                    >
+                      이전 페이지
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push(`/postlist/${cateId}?name=${name}&page=0`);
+                      }}
+                    >
+                      첫 페이지로...
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    {posts.data.number == 0 ? <p>첫 페이지입니다.</p> : <></>}
+                    <button
+                      value={page}
+                      name="prev"
+                      onClick={pagginationHandler}
+                    >
+                      이전 페이지
+                    </button>
+                    <button
+                      value={page}
+                      name="next"
+                      onClick={pagginationHandler}
+                    >
+                      다음 페이지
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+      {content}
       <br />
     </>
   );

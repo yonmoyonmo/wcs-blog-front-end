@@ -7,7 +7,7 @@
 
 .comments {
   display: grid;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr auto;
   align-items: center;
   text-align: center;
   justify-content: center;

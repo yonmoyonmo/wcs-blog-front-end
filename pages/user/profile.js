@@ -109,8 +109,8 @@ const profile = ({ profile }) => {
   );
 };
 
-const tokenFromCookie = (cookie) => {
-  if (!cookie) {
+const tokenFromCookie = (str) => {
+  if (!str) {
     return "";
   } else {
     str = str.split(", ");

@@ -109,20 +109,25 @@ const profile = ({ profile }) => {
   );
 };
 
-// const tokenFromCookie = (cookie) => {
-//   if (!cookie) {
-//     return "";
-//   } else {
-//     const parsedCookie = cookie.split("userToken=");
-//     console.log(parsedCookie);
-//     return parsedCookie[1];
-//   }
-// };
+const tokenFromCookie = (cookie) => {
+  if (!cookie) {
+    return "";
+  } else {
+    str = str.split(", ");
+    let result = {};
+    for (var i = 0; i < str.length; i++) {
+      var cur = str[i].split("=");
+      result[cur[0]] = cur[1];
+    }
+    console.log("debug 1 : " + result);
+    return result.userToken;
+  }
+};
 
 export async function getServerSideProps(context) {
-  const token = context.req ? context.req.headers.cookie.userToken : "";
-  //const token = tokenFromCookie(cookie);
-  console.log("debug : " + token);
+  const cookie = context.req ? context.req.headers.cookie : "";
+  const token = tokenFromCookie(cookie);
+  console.log("debug 2 : " + token);
   const userProfileEndpoint = endpointMania("/api/user/profile");
 
   if (token === "") {

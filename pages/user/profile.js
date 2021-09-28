@@ -118,8 +118,9 @@ const tokenFromCookie = (str) => {
     for (var i = 0; i < str.length; i++) {
       var cur = str[i].split("=");
       result[cur[0]] = cur[1];
+      console.log("debug 0 : " + cur.toString());
     }
-    console.log("debug 1 : " + result);
+    console.log("debug 1 : " + result.toString());
     return result.userToken;
   }
 };

@@ -113,14 +113,16 @@ const tokenFromCookie = (str) => {
   if (!str) {
     return "";
   } else {
+    console.log("cookie string : " + str);
     str = str.split(", ");
+    console.log("splited cookie string : " + str);
     let result = {};
     for (var i = 0; i < str.length; i++) {
       var cur = str[i].split("=");
       result[cur[0]] = cur[1];
-      console.log("debug 0 : " + cur.toString());
+      console.log("cur : " + cur.toString());
     }
-    console.log("debug 1 : " + result.toString());
+    console.log("result.userToken : " + result.userToken);
     return result.userToken;
   }
 };
@@ -128,7 +130,7 @@ const tokenFromCookie = (str) => {
 export async function getServerSideProps(context) {
   const cookie = context.req ? context.req.headers.cookie : "";
   const token = tokenFromCookie(cookie);
-  console.log("debug 2 : " + token);
+  console.log("token : " + token);
   const userProfileEndpoint = endpointMania("/api/user/profile");
 
   if (token === "") {

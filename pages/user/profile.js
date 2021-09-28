@@ -114,7 +114,7 @@ const tokenFromCookie = (str) => {
     return "";
   } else {
     console.log("cookie string : " + str);
-    str = str.split(", ");
+    str = str.split("; ");
     console.log("splited cookie string : " + str);
     let result = {};
     for (var i = 0; i < str.length; i++) {

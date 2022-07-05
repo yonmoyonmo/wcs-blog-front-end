@@ -33,7 +33,10 @@ const about = () => {
         </div>
 
         <div>
-          <a style={{ fontSize: "1rem" }} href="https://homepage.wonmonae.com">
+          <a
+            style={{ fontSize: "1rem" }}
+            href="https://wonmonae.wonmocyberschool.com"
+          >
             <button>원모 싸이버 스쿨 산하 해적단</button>
           </a>
         </div>

@@ -23,7 +23,8 @@ const about = () => {
         <p>
           Wonmo Cyber School is not a school. It's wonmo's cyber testing ground.
         </p>
-        <div>
+
+        <div style={{ margin: "1rem" }}>
           <a
             style={{ fontSize: "1rem" }}
             href="https://wonmocyberschool.tistory.com"
@@ -31,16 +32,25 @@ const about = () => {
             <button>원모의 티스토리 블로그</button>
           </a>
         </div>
+        <div style={{ margin: "1rem" }}>
+          <a
+            style={{ fontSize: "1rem" }}
+            href="https://blog.wonmocyberschool.com"
+          >
+            <button>원모의 또 다른 블로그</button>
+          </a>
+        </div>
 
-        <div>
+        <div style={{ margin: "1rem" }}>
           <a
             style={{ fontSize: "1rem" }}
             href="https://wonmonae.wonmocyberschool.com"
           >
-            <button>원모 싸이버 스쿨 산하 해적단</button>
+            <button>원모네 앱가게</button>
           </a>
         </div>
-        <div>
+
+        <div style={{ margin: "1rem" }}>
           <a style={{ fontSize: "1rem" }} href="https://github.com/yonmoyonmo">
             <button>원모의 깃허브</button>
           </a>
